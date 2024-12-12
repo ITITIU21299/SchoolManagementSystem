@@ -1,0 +1,16 @@
+DAO\StaffDAO.class
+Servlet\SubmitFeedbackServlet$1.class
+DAO\StudentDAO.class
+Servlet\StudentProfile.class
+Class\Exam.class
+Class\Fee.class
+Servlet\Login.class
+Class\Student.class
+Util\DBUtil.class
+com\mycompany\schoolmanagement\JakartaRestConfiguration.class
+Servlet\StudentPages.class
+Servlet\SubmitFeedbackServlet.class
+Servlet\StaffPages.class
+Class\User.class
+DAO\UserDAO.class
+com\mycompany\schoolmanagement\resources\JakartaEE10Resource.class
