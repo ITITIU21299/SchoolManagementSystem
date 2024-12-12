@@ -33,7 +33,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="studentpages.html"><i class="bi bi-house-door"></i> Dashboard</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/StudentPages"><i class="bi bi-house-door"></i> Dashboard</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="studentfee.jsp"><i class="bi bi-cash-coin"></i> Fee Information</a>
@@ -42,10 +42,10 @@
                             <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-calendar-check"></i> Exam Schedule</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="studentroomschedule.html"><i class="bi bi-calendar3"></i> Room Schedule</a>
+                            <a class="nav-link" href="studentroomschedule.jsp"><i class="bi bi-calendar3"></i> Room Schedule</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="studentfeedback.html"><i class="bi bi-chat-right-text"></i> Feedback</a>
+                            <a class="nav-link" href="studentfeedback.jsp"><i class="bi bi-chat-right-text"></i> Feedback</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="studentprofile.jsp"><i class="bi bi-person-circle"></i> Profile</a>
