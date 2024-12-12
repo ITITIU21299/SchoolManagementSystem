@@ -50,7 +50,7 @@ public class StudentPages extends HttpServlet {
         
         StudentDAO studentDAO = new StudentDAO();
         Student student = studentDAO.getStudentByUsername(username);
-        request.setAttribute("student", student);
+        session.setAttribute("student", student);
         
         List<Exam> exams  = studentDAO.getExamsByStudentId(student.getStudentId());
         session.setAttribute("exams", exams);
@@ -59,10 +59,7 @@ public class StudentPages extends HttpServlet {
         session.setAttribute("fees", fees);
         
         float marks = studentDAO.getMarksByStudentId(student.getStudentId());
-        System.out.println(marks);
         session.setAttribute("marks", marks);
-        
-        
         
         RequestDispatcher dispatcher = request.getRequestDispatcher("studentpages.jsp");
         dispatcher.forward(request, response);

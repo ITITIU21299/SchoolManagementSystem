@@ -20,12 +20,12 @@
         <link href="styles.css" rel="stylesheet">
     </head>
     <body>
-        <% Student student = (Student) request.getAttribute("student"); %>
-        <% StudentDAO studentDAO = (StudentDAO) request.getAttribute("studentDAO"); %>        
+        <% Student student = (Student) session.getAttribute("student"); %>
+        <%// StudentDAO studentDAO = (StudentDAO) request.getAttribute("studentDAO"); %>        
         <% List<Exam> exams = (List<Exam>) session.getAttribute("exams"); %>                
         <% float marks = (float) session.getAttribute("marks"); %>
-        <% session.setAttribute("student", student); %>
-        <% session.setAttribute("studentDAO", studentDAO);%>
+        <%// session.setAttribute("student", student); %>
+        <%// session.setAttribute("studentDAO", studentDAO);%>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">School Management System</a>
