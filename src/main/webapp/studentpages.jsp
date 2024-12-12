@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Class.*" %>
 <%@page import="DAO.*" %>
-
+<%@page import="java.util.*" %>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -22,6 +22,7 @@
     <body>
         <% Student student = (Student) request.getAttribute("student"); %>
         <% StudentDAO studentDAO = (StudentDAO) request.getAttribute("studentDAO"); %>        
+        <% List<Exam> exams = (List<Exam>) session.getAttribute("exams"); %>                
         <% session.setAttribute("student", student); %>
         <% session.setAttribute("studentDAO", studentDAO);%>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -94,7 +95,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Upcoming Exams</h5>
-                            <p class="card-text display-4">2</p>
+                            <p class="card-text display-4"><%= exams.size() %></p>
                         </div>
                     </div>
                 </div>

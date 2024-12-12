@@ -11,6 +11,7 @@ package Class;
 public class Student {
 
     private static String studentId;
+    private static String name;
     private static String email;
     private static String dateOfBirth;
     private static String gender;
@@ -18,12 +19,8 @@ public class Student {
     private static String academicYear;
     private static String username;
 
-    private static String id;
-    private static String name;
+    public Student() {
 
-    public Student(String id, String name) {
-        this.id = id;
-        this.name = name;
     }
 
     public Student(String studentId, String name, String email, String dateOfBirth, String gender, String classId, String academicYear) {
@@ -36,18 +33,6 @@ public class Student {
         this.academicYear = academicYear;
     }
 
-    public static String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Student() {
-
-    }
-
     public String getStudentId() {
         return studentId;
     }
@@ -56,9 +41,10 @@ public class Student {
         this.studentId = studentId;
     }
 
-//    public String getNamee() {
-//        return namee;
-//    }
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
