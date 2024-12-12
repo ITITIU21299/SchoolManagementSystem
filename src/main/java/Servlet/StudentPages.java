@@ -58,6 +58,12 @@ public class StudentPages extends HttpServlet {
         List<Fee> fees = studentDAO.getFeesByStudentId(student.getStudentId());
         session.setAttribute("fees", fees);
         
+        float marks = studentDAO.getMarksByStudentId(student.getStudentId());
+        System.out.println(marks);
+        session.setAttribute("marks", marks);
+        
+        
+        
         RequestDispatcher dispatcher = request.getRequestDispatcher("studentpages.jsp");
         dispatcher.forward(request, response);
      }

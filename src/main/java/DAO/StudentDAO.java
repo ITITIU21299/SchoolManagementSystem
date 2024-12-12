@@ -63,19 +63,19 @@ public class StudentDAO {
             preparedStatement.setString(1, id);
 
             try (ResultSet rs = preparedStatement.executeQuery()) {
-                while(rs.next()) {
+                while (rs.next()) {
                     Exam e = new Exam(rs.getString("subject_name"), rs.getString("schedule_date"), rs.getString("start_time"), rs.getString("end_time"), rs.getString("room_number"));
                     exams.add(e);
                 }
                 return exams;
-                
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
-    
+
     public List<Fee> getFeesByStudentId(String id) {
         List<Fee> fees = new ArrayList<>();
         String query = "SELECT * FROM StudentFees WHERE student_id = ?";
@@ -85,20 +85,20 @@ public class StudentDAO {
             preparedStatement.setString(1, id);
 
             try (ResultSet rs = preparedStatement.executeQuery()) {
-                while(rs.next()) {
-                    Fee f = new Fee( rs.getInt("semester"), rs.getInt("fee_year"), rs.getString("amount"), rs.getString("payment_date"), rs.getString("payment_status"));
+                while (rs.next()) {
+                    Fee f = new Fee(rs.getInt("semester"), rs.getInt("fee_year"), rs.getString("amount"), rs.getString("payment_date"), rs.getString("payment_status"));
                     fees.add(f);
                     out.println(f.getSemester());
                 }
                 return fees;
-                
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
-    }      
-    
+    }
+
     public Student getStudentByUsernameProfile(String username) {
         Student student = null;
         String sql = "SELECT * FROM Students WHERE username = ?";
@@ -136,7 +136,7 @@ public class StudentDAO {
             stmt.setString(3, student.getGender());
             stmt.setString(4, student.getEmail());
             stmt.setString(5, student.getStudentId());
-            
+
             int rowsUpdated = stmt.executeUpdate();
             return rowsUpdated > 0;
 
@@ -145,5 +145,24 @@ public class StudentDAO {
             return false;
         }
 
+    }
+
+    public float getMarksByStudentId(String id) {
+        String query = "SELECT SUM(marks_obtained) as marks, COUNT(exam_id) as No FROM Grades WHERE student_id = ?";
+
+        try (Connection connection = DBUtil.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, id);
+
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                while (rs.next()) {   
+                    return ((float) rs.getInt("marks") / rs.getInt("No"));
+                }
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }
