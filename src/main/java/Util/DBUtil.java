@@ -18,7 +18,6 @@
         }
 
         public static Connection getConnection() throws SQLException {
-            System.out.println(URL);
             return DriverManager.getConnection(URL, USER, PASSWORD);
         }
     }

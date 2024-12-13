@@ -12,17 +12,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import Class.User;
-import Util.DBUtil;
+import Class.*;
+import Util.*;
 
 public class UserDAO {
-    public User getUserByUsernameAndPassword(String username, String password) {
-        String query = "SELECT * FROM Users WHERE username = ? AND password = ?";
+    public User getUserByUsername(String username) {
+        String query = "SELECT * FROM Users WHERE username = ?";
         try (Connection connection = DBUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
             
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
@@ -39,25 +38,35 @@ public class UserDAO {
         return null;
     }
     
-    public boolean changePassword(String username, String currentPassword, String newPassword) {
-        String verifyPasswordQuery = "SELECT password FROM Users WHERE username = ?";
-        String updatePasswordQuery = "UPDATE Users SET password = ? WHERE username = ?";
-        
-        try (Connection connection = DBUtil.getConnection();
-             PreparedStatement verifyStmt = connection.prepareStatement(verifyPasswordQuery);
-             PreparedStatement updateStmt = connection.prepareStatement(updatePasswordQuery)) {
+public boolean changePassword(String username, String currentPassword, String newPassword) {
+    String verifyPasswordQuery = "SELECT password FROM Users WHERE username = ?";
+    String updatePasswordQuery = "UPDATE Users SET password = ? WHERE username = ?";
+    
+    try (Connection connection = DBUtil.getConnection();
+         PreparedStatement verifyStmt = connection.prepareStatement(verifyPasswordQuery);
+         PreparedStatement updateStmt = connection.prepareStatement(updatePasswordQuery)) {
 
-            verifyStmt.setString(1, username);
-            ResultSet rs = verifyStmt.executeQuery();
-            if (rs.next() && rs.getString("password").equals(currentPassword)) {
-                updateStmt.setString(1, newPassword);
+        verifyStmt.setString(1, username);
+        ResultSet rs = verifyStmt.executeQuery();
+
+        if (rs.next()) {
+            String storedHashedPassword = rs.getString("password");
+
+            if (PasswordUtil.verifyPassword(currentPassword, storedHashedPassword)) {
+
+                String hashedNewPassword = PasswordUtil.hashPassword(newPassword);
+
+                updateStmt.setString(1, hashedNewPassword);
                 updateStmt.setString(2, username);
                 int rowsUpdated = updateStmt.executeUpdate();
+
                 return rowsUpdated > 0;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return false;
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+    return false;
+}
+
 }
