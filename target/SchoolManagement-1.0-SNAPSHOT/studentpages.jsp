@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Class.*" %>
 <%@page import="DAO.*" %>
-
+<%@page import="java.util.*" %>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -20,10 +20,12 @@
         <link href="styles.css" rel="stylesheet">
     </head>
     <body>
-        <% Student student = (Student) request.getAttribute("student"); %>
-        <% StudentDAO studentDAO = (StudentDAO) request.getAttribute("studentDAO"); %>        
-        <% session.setAttribute("student", student); %>
-        <% session.setAttribute("studentDAO", studentDAO);%>
+        <% Student student = (Student) session.getAttribute("student"); %>
+        <%// StudentDAO studentDAO = (StudentDAO) request.getAttribute("studentDAO"); %>        
+        <% List<Exam> exams = (List<Exam>) session.getAttribute("exams"); %>                
+        <% float marks = (float) session.getAttribute("marks"); %>
+        <%// session.setAttribute("student", student); %>
+        <%// session.setAttribute("studentDAO", studentDAO);%>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">School Management System</a>
@@ -78,7 +80,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Current GPA</h5>
-                            <p class="card-text display-4">3.75</p>
+                            <p class="card-text display-4"><%= (float) marks / 25 %></p>
                         </div>
                     </div>
                 </div>
@@ -94,7 +96,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Upcoming Exams</h5>
-                            <p class="card-text display-4">2</p>
+                            <p class="card-text display-4"><%= exams.size() %></p>
                         </div>
                     </div>
                 </div>

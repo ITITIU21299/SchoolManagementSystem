@@ -49,8 +49,8 @@
                             </a>
                             <ul class="dropdown-menu p-2 " aria-labelledby="staffDropdown">
                                 <div class="form-check form-switch">
-                                  <input class="form-check-input" type="checkbox" role="switch" id="darkMode">
-                                  <label class="form-check-label" for="flexSwitchCheckDefault ">Dark Mode</label>
+                                    <input class="form-check-input" type="checkbox" role="switch" id="darkMode">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault ">Dark Mode</label>
                                 </div>
                             </ul>
                         </li>
@@ -131,18 +131,18 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Account Settings</h5>
-                            <form>
+                            <form action="ChangePassWord" method="post">
                                 <div class="mb-3">
                                     <label for="currentPassword" class="form-label">Current Password</label>
-                                    <input type="password" class="form-control" id="currentPassword" required>
+                                    <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="newPassword" class="form-label">New Password</label>
-                                    <input type="password" class="form-control" id="newPassword" required>
+                                    <input type="password" class="form-control" id="newPassword" name="newPassword" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="confirmPassword" class="form-label">Confirm New Password</label>
-                                    <input type="password" class="form-control" id="confirmPassword" required>
+                                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Change Password</button>
                             </form>
@@ -204,6 +204,23 @@
         </footer>
         <script src="JavaScript/theme.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            function showMessage(message, type) {
+                if (message) {
+                    alert((type === 'success' ? 'Success: ' : 'Error: ') + message);
+                }
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const successMessage = urlParams.get('success');
+            const errorMessage = urlParams.get('error');
+
+            if (successMessage) {
+                showMessage(successMessage, 'success');
+            } else if (errorMessage) {
+                showMessage(errorMessage, 'error');
+            }
+        </script>
     </body>
 </html>
 

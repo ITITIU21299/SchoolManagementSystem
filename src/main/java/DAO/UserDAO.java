@@ -38,4 +38,26 @@ public class UserDAO {
         }
         return null;
     }
+    
+    public boolean changePassword(String username, String currentPassword, String newPassword) {
+        String verifyPasswordQuery = "SELECT password FROM Users WHERE username = ?";
+        String updatePasswordQuery = "UPDATE Users SET password = ? WHERE username = ?";
+        
+        try (Connection connection = DBUtil.getConnection();
+             PreparedStatement verifyStmt = connection.prepareStatement(verifyPasswordQuery);
+             PreparedStatement updateStmt = connection.prepareStatement(updatePasswordQuery)) {
+
+            verifyStmt.setString(1, username);
+            ResultSet rs = verifyStmt.executeQuery();
+            if (rs.next() && rs.getString("password").equals(currentPassword)) {
+                updateStmt.setString(1, newPassword);
+                updateStmt.setString(2, username);
+                int rowsUpdated = updateStmt.executeUpdate();
+                return rowsUpdated > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

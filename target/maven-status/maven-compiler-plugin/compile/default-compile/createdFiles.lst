@@ -1,6 +1,7 @@
 DAO\StaffDAO.class
 Servlet\SubmitFeedbackServlet$1.class
 DAO\StudentDAO.class
+Servlet\ChangePassWord.class
 Servlet\StudentProfile.class
 Class\Exam.class
 Class\Fee.class
