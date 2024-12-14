@@ -15,7 +15,7 @@
         <link href="styles.css" rel="stylesheet">
     </head>
     <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">School Management System</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,13 +48,7 @@
                             <a class="nav-link" href="#"><i class="bi bi-book"></i> Exams</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="studentexamschedule.jsp"><i class="bi bi-calendar-check"></i> Exam Schedule</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="studentroomschedule.html"><i class="bi bi-calendar3"></i> Room Schedule</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="studentfeedback.jsp"><i class="bi bi-chat-right-text"></i> Feedback</a>
+                            <a class="nav-link" href=""><i class="bi bi-calendar3"></i> Room</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="staffprofile.jsp"><i class="bi bi-person-circle"></i> Profile</a>
