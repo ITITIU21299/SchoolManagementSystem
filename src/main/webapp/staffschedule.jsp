@@ -16,7 +16,7 @@
         <link href="styles.css" rel="stylesheet">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">School Management System</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,16 +25,15 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/StaffPages"><i class="bi bi-house-door"></i> Dashboard</a>
+                            <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/StaffPages"><i class="bi bi-house-door"></i> Dashboard</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="staffDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-people"></i> Staff
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="staffDropdown">
-                                <li><a class="dropdown-item" href="#">Manage Staff</a></li>
-                                <li><a class="dropdown-item" href="#">Assign Classes</a></li>
-                                <li><a class="dropdown-item" href="salary.html">Salary Information</a></li>
+                                <li><a class="dropdown-item" href="staffsalary.jsp"><i class="bi bi-cash"></i> Salary Information</a></li>
+                                <li><a class="dropdown-item" href="staffschedule.jsp"><i class="bi bi-calendar3"></i> Schedule</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -42,13 +41,9 @@
                                 <i class="bi bi-mortarboard"></i> Students
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="studentDropdown">
-                                <li><a class="dropdown-item" href="#">Manage Students</a></li>
-                                <li><a class="dropdown-item" href="#">Assign Sections</a></li>
-                                <li><a class="dropdown-item" href="#">Fee Management</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-calendar2-check-fill"></i> Manage Attendance</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-card-checklist"></i> Assign Sections</a></li>
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="schedule.html"><i class="bi bi-calendar3"></i> Schedule</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"><i class="bi bi-book"></i> Exams</a>
@@ -56,13 +51,34 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#"><i class="bi bi-building"></i> Rooms</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="bi bi-journal-text"></i> Library</a>
-                        </li>
                     </ul>
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="bi bi-gear"></i> Settings</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="staffDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-gear"></i> Setting
+                            </a>
+                            <ul class="dropdown-menu p-1" aria-labelledby="staffDropdown">
+                                <table style="width: 100%; border-spacing: 5px;">
+                                    <tr>
+                                        <td style="width: 30px; text-align: center;">
+                                            <div class="form-check form-switch" style="margin-left: 7px">
+                                                <input class="form-check-input" type="checkbox" role="switch" id="darkMode">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label class="form-check-label" for="darkMode">Dark Mode</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 30px; text-align: center;">
+                                            <i class="bi bi-person-circle" style="font-size: 1.4rem;"></i>
+                                        </td>
+                                        <td>
+                                            <a class="dropdown-item" href="staffprofile.jsp">Profile</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="index.jsp"><i class="bi bi-box-arrow-right"></i> Logout</a>

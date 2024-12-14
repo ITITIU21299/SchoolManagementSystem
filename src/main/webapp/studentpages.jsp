@@ -49,9 +49,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="studentfeedback.jsp"><i class="bi bi-chat-right-text"></i> Feedback</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="studentprofile.jsp"><i class="bi bi-person-circle"></i> Profile</a>
-                        </li>
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
@@ -63,6 +60,9 @@
                                     <input class="form-check-input" type="checkbox" role="switch" id="darkMode">
                                     <label class="form-check-label" for="flexSwitchCheckDefault ">Dark Mode</label>
                                 </div>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="studentprofile.jsp"><i class="bi bi-person-circle"></i> Profile</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -156,7 +156,7 @@
                 </div>
             </div>
         </footer>
-            
+
         <script src="JavaScript/theme.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>

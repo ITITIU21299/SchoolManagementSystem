@@ -15,7 +15,7 @@
         <link href="styles.css" rel="stylesheet">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">School Management System</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,22 +24,31 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/StudentPages"><i class="bi bi-house-door"></i> Dashboard</a>
+                            <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/StaffPages"><i class="bi bi-house-door"></i> Dashboard</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="staffDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-people"></i> Staff
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="staffDropdown">
+                                <li><a class="dropdown-item" href="staffsalary.jsp"><i class="bi bi-cash"></i> Salary Information</a></li>
+                                <li><a class="dropdown-item" href="staffschedule.jsp"><i class="bi bi-calendar3"></i> Schedule</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="studentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-mortarboard"></i> Students
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="studentDropdown">
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-calendar2-check-fill"></i> Manage Attendance</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-card-checklist"></i> Assign Sections</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="studentfee.jsp"><i class="bi bi-cash-coin"></i> Fee Information</a>
+                            <a class="nav-link" href="#"><i class="bi bi-book"></i> Exams</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="studentexamschedule.jsp"><i class="bi bi-calendar-check"></i> Exam Schedule</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="studentroomschedule.html"><i class="bi bi-calendar3"></i> Room Schedule</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="studentfeedback.jsp"><i class="bi bi-chat-right-text"></i> Feedback</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="studentprofile.jsp"><i class="bi bi-person-circle"></i> Profile</a>
+                            <a class="nav-link" href="#"><i class="bi bi-building"></i> Rooms</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -47,11 +56,27 @@
                             <a class="nav-link dropdown-toggle" href="#" id="staffDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-gear"></i> Setting
                             </a>
-                            <ul class="dropdown-menu p-2 " aria-labelledby="staffDropdown">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="darkMode">
-                                    <label class="form-check-label" for="flexSwitchCheckDefault ">Dark Mode</label>
-                                </div>
+                            <ul class="dropdown-menu p-1" aria-labelledby="staffDropdown">
+                                <table style="width: 100%; border-spacing: 5px;">
+                                    <tr>
+                                        <td style="width: 30px; text-align: center;">
+                                            <div class="form-check form-switch" style="margin-left: 7px">
+                                                <input class="form-check-input" type="checkbox" role="switch" id="darkMode">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label class="form-check-label" for="darkMode">Dark Mode</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 30px; text-align: center;">
+                                            <i class="bi bi-person-circle" style="font-size: 1.4rem;"></i>
+                                        </td>
+                                        <td>
+                                            <a class="dropdown-item" href="staffprofile.jsp">Profile</a>
+                                        </td>
+                                    </tr>
+                                </table>
                             </ul>
                         </li>
                         <li class="nav-item">
