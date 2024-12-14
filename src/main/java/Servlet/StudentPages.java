@@ -39,12 +39,12 @@ public class StudentPages extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect(request.getContextPath() + "/index.html");
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
             return;
         }
         String username = (String) session.getAttribute("username");
         if (username == null){
-            response.sendRedirect(request.getContextPath()+"/index.html");
+            response.sendRedirect(request.getContextPath()+"/index.jsp");
             return;
         }
         
@@ -60,6 +60,9 @@ public class StudentPages extends HttpServlet {
         
         float marks = studentDAO.getMarksByStudentId(student.getStudentId());
         session.setAttribute("marks", marks);
+        
+        List<Schedule> schedules = studentDAO.getRoomScheduleByStudentId(student.getStudentId());
+        session.setAttribute("schedules", schedules);
         
         RequestDispatcher dispatcher = request.getRequestDispatcher("studentpages.jsp");
         dispatcher.forward(request, response);

@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -154,7 +156,7 @@ public class StudentDAO {
             preparedStatement.setString(1, id);
 
             try (ResultSet rs = preparedStatement.executeQuery()) {
-                while (rs.next()) {   
+                while (rs.next()) {
                     return ((float) rs.getInt("marks") / rs.getInt("No"));
                 }
 
@@ -163,5 +165,38 @@ public class StudentDAO {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public List<Schedule> getRoomScheduleByStudentId(String id) {
+        List<Schedule> schedules = new ArrayList<>();
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime start, end;
+        String query = "SELECT room_id, subject_name, schedule_date, start_time, end_time \n"
+                + "FROM RoomSchedule rs \n"
+                + "JOIN StudentsSections ss, Sections se, Subjects su \n"
+                + "WHERE rs.section_id = ss.section_id \n"
+                + "AND ss.section_id = se.section_id \n"
+                + "AND se.subject_id = su.subject_id \n"
+                + "AND ss.student_id = ? \n"
+                + "ORDER BY schedule_date, start_time; ";
+
+        try (Connection connection = DBUtil.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, id);
+
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                while (rs.next()) {
+                    start = rs.getTime("start_time").toLocalTime();
+                    end = rs.getTime("end_time").toLocalTime();
+
+                    Schedule schedule = new Schedule(rs.getString("room_id"), rs.getString("subject_name"), rs.getString("schedule_date"), start.format(timeFormatter), end.format(timeFormatter));
+                    schedules.add(schedule);
+                }
+                return schedules;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
