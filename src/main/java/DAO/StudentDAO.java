@@ -68,7 +68,6 @@ public class StudentDAO {
                     exams.add(e);
                 }
                 return exams;
-
             }
         } catch (SQLException e) {
             e.printStackTrace();

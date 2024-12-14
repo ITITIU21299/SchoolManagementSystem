@@ -1,9 +1,3 @@
-<%-- 
-    Document   : studentfee.jsp
-    Created on : Dec 11, 2024, 5:30:10 PM
-    Author     : admin
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Class.*" %>
 <%@page import="DAO.*" %>
@@ -57,8 +51,8 @@
                             </a>
                             <ul class="dropdown-menu p-2 " aria-labelledby="staffDropdown">
                                 <div class="form-check form-switch">
-                                  <input class="form-check-input" type="checkbox" role="switch" id="darkMode">
-                                  <label class="form-check-label" for="flexSwitchCheckDefault ">Dark Mode</label>
+                                    <input class="form-check-input" type="checkbox" role="switch" id="darkMode">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault ">Dark Mode</label>
                                 </div>
                             </ul>
                         </li>
@@ -74,11 +68,11 @@
             <h1>Fee Information</h1>
             <div class="card mt-4">
                 <div class="card-body">
-                    <h5 class="card-title">Current Semester Fees</h5>
+                    <h5 class="card-title">Fee Details</h5>
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Fee Type</th>
+                                <th>Fee Period</th>
                                 <th>Amount</th>
                                 <th>Due Date</th>
                                 <th>Status</th>
@@ -104,9 +98,6 @@
                 </div>
             </div>
         </div>
-                <script src="JavaScript/theme.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="main.js"></script>
         <footer class="bg-primary text-white py-2 mt-auto fixed-bottom">
             <div class="container">
                 <div class="row">
@@ -134,6 +125,8 @@
                 </div>
             </div>
         </footer>
+        <script src="JavaScript/theme.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
 

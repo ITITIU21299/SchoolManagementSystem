@@ -2,10 +2,12 @@ DAO\StaffDAO.class
 Servlet\SubmitFeedbackServlet$1.class
 DAO\StudentDAO.class
 Servlet\ChangePassWord.class
+Class\Staff.class
 Servlet\StudentProfile.class
 Util\HashAllPassword.class
 Class\Exam.class
 Class\Fee.class
+Class\Salary.class
 Servlet\Login.class
 Class\Student.class
 Util\DBUtil.class

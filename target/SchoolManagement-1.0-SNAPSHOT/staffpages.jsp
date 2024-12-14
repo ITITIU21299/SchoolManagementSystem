@@ -1,11 +1,6 @@
-<%-- 
-    Document   : staffpages
-    Created on : Dec 8, 2024, 11:28:56 AM
-    Author     : nguye
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -34,7 +29,7 @@
                             <ul class="dropdown-menu" aria-labelledby="staffDropdown">
                                 <li><a class="dropdown-item" href="#">Manage Staff</a></li>
                                 <li><a class="dropdown-item" href="#">Assign Classes</a></li>
-                                <li><a class="dropdown-item" href="salary.html">Salary Information</a></li>
+                                <li><a class="dropdown-item" href="staffsalary.jsp">Salary Information</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -85,7 +80,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Number of student you are teaching</h5>
                             <p class="card-text display-4">
-                                <%= request.getAttribute("totalStudents") %>
+                                <%= session.getAttribute("totalStudents")%>
                             </p>
                         </div>
                     </div>
