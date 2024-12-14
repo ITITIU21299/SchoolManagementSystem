@@ -1,3 +1,4 @@
+<%@page import="Class.Staff"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -11,6 +12,7 @@
         <link href="styles.css" rel="stylesheet">
     </head>
     <body>
+        <% Staff staff = (Staff) session.getAttribute("staff"); %>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">School Management System</a>
@@ -45,6 +47,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"><i class="bi bi-building"></i> Rooms</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="staffprofile.jsp"><i class="bi bi-person-circle"></i> Profile</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">

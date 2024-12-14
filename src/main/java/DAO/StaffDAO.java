@@ -68,4 +68,53 @@ public class StaffDAO {
         }
         return null;
     }
+    
+    public boolean updateStaffProfile(Staff staff) {
+        String sql = "UPDATE Staff SET name = ?, email = ?, phone = ?, address = ? WHERE staff_id = ?";
+
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, staff.getName());
+            stmt.setString(2, staff.getEmail());
+            stmt.setString(3, staff.getPhone());
+            stmt.setString(4, staff.getAddress());
+            stmt.setString(5, staff.getStaffId());
+
+            int rowsUpdated = stmt.executeUpdate();
+            return rowsUpdated > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+    
+    public Staff getStaffByStaffId(String staffId) {
+        String query = "SELECT * FROM Staff WHERE staff_id = ?";
+
+        try (Connection connection = DBUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, staffId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return new Staff(
+                            resultSet.getString("staff_id"),
+                            resultSet.getString("name"),
+                            resultSet.getString("email"),
+                            resultSet.getString("phone"),
+                            resultSet.getString("address"),
+                            resultSet.getString("joining_date"),
+                            resultSet.getString("qualification")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

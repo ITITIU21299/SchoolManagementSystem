@@ -10,8 +10,10 @@ Class\Fee.class
 Class\Salary.class
 Servlet\Login.class
 Class\Student.class
+Servlet\StaffProfile.class
 Util\DBUtil.class
 com\mycompany\schoolmanagement\JakartaRestConfiguration.class
+StaffChangePassword.class
 Util\PasswordUtil.class
 Servlet\StudentPages.class
 Servlet\SubmitFeedbackServlet.class

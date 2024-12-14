@@ -51,6 +51,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#"><i class="bi bi-building"></i> Rooms</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="bi bi-journal-text"></i> Library</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="staffprofile.jsp"><i class="bi bi-person-circle"></i> Profile</a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">

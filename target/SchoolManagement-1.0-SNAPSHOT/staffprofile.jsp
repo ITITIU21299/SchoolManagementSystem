@@ -48,7 +48,16 @@
                             <a class="nav-link" href="#"><i class="bi bi-book"></i> Exams</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="bi bi-building"></i> Rooms</a>
+                            <a class="nav-link" href="studentexamschedule.jsp"><i class="bi bi-calendar-check"></i> Exam Schedule</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="studentroomschedule.html"><i class="bi bi-calendar3"></i> Room Schedule</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="studentfeedback.jsp"><i class="bi bi-chat-right-text"></i> Feedback</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="staffprofile.jsp"><i class="bi bi-person-circle"></i> Profile</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -88,19 +97,18 @@
         </nav>
 
         <div class="container mt-4">
-            <h1>Student Profile</h1>
+            <h1>Staff Profile</h1>
             <div class="row mt-4">
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body text-center">
                             <img src="https://via.placeholder.com/150" alt="Student Photo" class="rounded-circle mb-3">
-                            <h5 class="card-title">${student.getName()}</h5>
-                            <p class="card-text">Student ID: ${student.getStudentId()}</p>
-                            <p class="card-text">Email: ${student.getEmail()}</p>
-                            <p class="card-text">Date of birth: ${student.getDateOfBirth()}</p>
-                            <p class="card-text">Gender: ${student.getGender()}</p>
-                            <p class="card-text">Class: ${student.getClassId()}</p>
-                            <p class="card-text">Academic year: ${student.getAcademicYear()}</p>
+                            <h5 class="card-title">${staff.getName()}</h5>
+                            <p class="card-text">Staff ID: ${staff.getStaffId()}</p>
+                            <p class="card-text">Email: ${staff.getEmail()}</p>
+                            <p class="card-text">Phone: ${staff.getPhone()}</p>
+                            <p class="card-text">Address: ${staff.getAddress()}</p>
+                            <p class="card-text">Qualification: ${staff.getQualification()}</p>
                             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePhotoModal">Change Photo</button>
                         </div>
                     </div>
@@ -109,54 +117,32 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <h5 class="card-title">Personal Information</h5>
-                            <form action="StudentProfile" method="POST">
+                            <form action="StaffProfile" method="POST">
                                 <input type="hidden" name="username">
                                 <div class="mb-3">
                                     <label for="fullName" class="form-label">Full Name</label>
                                     <input type="text" class="form-control" id="fullName" name="fullName"  required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="dateOfBirth" class="form-label">Date of Birth</label>
-                                    <input type="text" class="form-control" id="dateOfBirth" name="dateOfBirth" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="gender" class="form-label">Gender</label>
-                                    <select class="form-select" id="gender" name="gender">
-                                        <option value="M" ${student.gender == 'M' ? 'selected' : ''}>Male</option>
-                                        <option value="F" ${student.gender == 'F' ? 'selected' : ''}>Female</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
                                     <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone number</label>
+                                    <input type="text" class="form-control" id="phone" name="phone" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="address" name="address" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Update Personal Information</button>
                             </form>
                         </div>
                     </div>
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Academic Information</h5>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Grade Level
-                                    <span class="badge bg-primary rounded-pill">10th Grade</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    GPA
-                                    <span class="badge bg-primary rounded-pill">3.75</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Attendance Rate
-                                    <span class="badge bg-primary rounded-pill">95%</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Account Settings</h5>
-                            <form action="ChangePassWord" method="post">
+                            <form action="StaffChangePassword" method="post">
                                 <div class="mb-3">
                                     <label for="currentPassword" class="form-label">Current Password</label>
                                     <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
@@ -229,23 +215,6 @@
         </footer>
         <script src="JavaScript/theme.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script>
-            function showMessage(message, type) {
-                if (message) {
-                    alert((type === 'success' ? 'Success: ' : 'Error: ') + message);
-                }
-            }
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const successMessage = urlParams.get('success');
-            const errorMessage = urlParams.get('error');
-
-            if (successMessage) {
-                showMessage(successMessage, 'success');
-            } else if (errorMessage) {
-                showMessage(errorMessage, 'error');
-            }
-        </script>
     </body>
 </html>
 

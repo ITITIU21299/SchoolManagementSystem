@@ -40,6 +40,9 @@ public class StaffPages extends HttpServlet {
         List <Salary> salaries = staffDAO.getSalaryByStaffId(staffId);
         session.setAttribute("salaries", salaries);
         response.sendRedirect(request.getContextPath()+"/staffpages.jsp");
+        
+        Staff staff = staffDAO.getStaffByStaffId(staffId);
+        session.setAttribute("staff", staff);
      }
 
     @Override
