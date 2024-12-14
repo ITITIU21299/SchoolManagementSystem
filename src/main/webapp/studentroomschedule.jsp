@@ -143,7 +143,7 @@
                                     
                                     out.println("</tr>");
                                 }            
-                                // Sample
+                                out.println("<tr><td>SAMPLE</td></tr>");
                                 for (int i = (int) 0; i < 3; i++)  {
                                     out.println("<tr>");
                                     for (int j = (int) 0; j < 7; j++)
