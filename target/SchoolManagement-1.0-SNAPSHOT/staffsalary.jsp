@@ -103,7 +103,7 @@
                         </thead>
                         <tbody>
                             <%
-                                List<Salary> salaries  = (List<Salary>) session.getAttribute("salaries");
+                                List<Salary> salaries  = (List<Salary>) request.getAttribute("salaries");
                                 for (Salary salary : salaries) {
                                     out.println("<tr>");                                
                                     out.println("<td>" + salary.getYear() + " - " + salary.getMonth() + "</td>");

@@ -33,18 +33,17 @@ public class StaffPages extends HttpServlet {
         }
 
         StaffDAO staffDAO = new StaffDAO();
-        RoomScheduleDAO roomScheduleDAO = new RoomScheduleDAO();
 
         int totalStudents = staffDAO.getNumberOfStudentsByStaffId(staffId);
-        session.setAttribute("totalStudents", totalStudents);
+        request.setAttribute("totalStudents", totalStudents);
 
-        List<Salary> salaries = staffDAO.getSalaryByStaffId(staffId);
-        session.setAttribute("salaries", salaries);
 
         Staff staff = staffDAO.getStaffByStaffId(staffId);
         session.setAttribute("staff", staff);
-
-        response.sendRedirect(request.getContextPath() + "/staffpages.jsp");
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/staffpages.jsp");
+        dispatcher.forward(request, response);
+        //response.sendRedirect(request.getContextPath() + "/staffpages.jsp");
     }
 
     @Override

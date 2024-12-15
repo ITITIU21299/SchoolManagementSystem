@@ -12,7 +12,6 @@
         <link href="styles.css" rel="stylesheet">
     </head>
     <body>
-        <% Staff staff = (Staff) session.getAttribute("staff"); %>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">School Management System</a>
@@ -29,7 +28,7 @@
                                 <i class="bi bi-people"></i> Staff
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="staffDropdown">
-                                <li><a class="dropdown-item" href="staffsalary.jsp"><i class="bi bi-cash"></i> Salary Information</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/StaffSalary"><i class="bi bi-cash"></i> Salary Information</a></li>
                                 <li><a class="dropdown-item" href="staffschedule.jsp"><i class="bi bi-calendar3"></i> Schedule</a></li>
                             </ul>
                         </li>
@@ -96,7 +95,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Number of student you are teaching</h5>
                             <p class="card-text display-4">
-                                <%= session.getAttribute("totalStudents")%>
+                                <%= request.getAttribute("totalStudents")%>
                             </p>
                         </div>
                     </div>
