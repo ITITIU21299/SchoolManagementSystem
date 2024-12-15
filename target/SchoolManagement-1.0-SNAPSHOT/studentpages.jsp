@@ -44,7 +44,7 @@
                             <a class="nav-link" href="studentexamschedule.jsp"><i class="bi bi-calendar-check"></i> Exam Schedule</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="studentroomschedule.html"><i class="bi bi-calendar3"></i> Room Schedule</a>
+                            <a class="nav-link" href="studentroomschedule.jsp"><i class="bi bi-calendar3"></i> Room Schedule</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="studentfeedback.jsp"><i class="bi bi-chat-right-text"></i> Feedback</a>
