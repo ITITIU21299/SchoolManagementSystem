@@ -48,7 +48,7 @@
                             <a class="nav-link" href="#"><i class="bi bi-building"></i> Rooms</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="staffprofile.jsp"><i class="bi bi-person-circle"></i> Profile</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/StaffProfile"><i class="bi bi-person-circle"></i> Profile</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">

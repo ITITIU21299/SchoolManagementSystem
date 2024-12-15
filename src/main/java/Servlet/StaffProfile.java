@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Servlet;
 
 import Class.Staff;
@@ -17,10 +13,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author huynh
- */
 @WebServlet(name = "StaffProfile", urlPatterns = {"/StaffProfile"})
 public class StaffProfile extends HttpServlet {
 
@@ -29,14 +21,6 @@ public class StaffProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        String username = request.getParameter("username");
-//        if (username != null) {
-//            Staff staff = staffDAO.getStaffIdByUsername(username);
-//            if (staff != null) {
-//                request.setAttribute("staff", staff);
-//            }
-//        }
-
         RequestDispatcher dispatcher = request.getRequestDispatcher("/staffprofile.jsp");
         dispatcher.forward(request, response);
     }
@@ -61,11 +45,6 @@ public class StaffProfile extends HttpServlet {
             request.setAttribute("staff", staff);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/staffprofile.jsp");
             dispatcher.forward(request, response);
-            if (updated) {
-                response.sendRedirect("StaffProfile?username=" + username);
-            } else {
-                response.sendRedirect("StaffProfile?username=" + username + "&error=true");
-            }
         }
 
     }

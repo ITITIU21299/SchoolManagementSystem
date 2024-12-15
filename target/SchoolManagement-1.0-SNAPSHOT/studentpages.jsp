@@ -1,15 +1,9 @@
-<%-- 
-    Document   : studentpages
-    Created on : Dec 11, 2024, 3:47:20 PM
-    Author     : admin
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Class.*" %>
 <%@page import="DAO.*" %>
 <%@page import="java.util.*" %>
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -21,11 +15,8 @@
     </head>
     <body>
         <% Student student = (Student) session.getAttribute("student"); %>
-        <%// StudentDAO studentDAO = (StudentDAO) request.getAttribute("studentDAO"); %>        
         <% List<Exam> exams = (List<Exam>) session.getAttribute("exams"); %>                
         <% float marks = (float) session.getAttribute("marks"); %>
-        <%// session.setAttribute("student", student); %>
-        <%// session.setAttribute("studentDAO", studentDAO);%>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">School Management System</a>
