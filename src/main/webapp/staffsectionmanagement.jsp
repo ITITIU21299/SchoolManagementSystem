@@ -91,7 +91,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Staff Section Management</h5>
                     
-                    <a class="btn btn-danger mt-2 mb-2" href="staffsectionassign.jsp">Manage Section - Click to switch</a>
+                    <a class="btn btn-danger mt-2 mb-2" href="${pageContext.request.contextPath}/StaffAssignRoom">Manage Section - Click to switch</a>
 
                     <table class="table table-striped" id="assignedRooms">
                         <thead>
