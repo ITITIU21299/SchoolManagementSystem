@@ -27,23 +27,25 @@ public class StaffPages extends HttpServlet {
             return;
         }
         String staffId = (String) session.getAttribute("staffId");
-        if (staffId == null){
-            response.sendRedirect(request.getContextPath()+"/index.jsp");
+        if (staffId == null) {
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
             return;
         }
-        
+
         StaffDAO staffDAO = new StaffDAO();
+        RoomScheduleDAO roomScheduleDAO = new RoomScheduleDAO();
 
         int totalStudents = staffDAO.getNumberOfStudentsByStaffId(staffId);
         session.setAttribute("totalStudents", totalStudents);
-        
-        List <Salary> salaries = staffDAO.getSalaryByStaffId(staffId);
+
+        List<Salary> salaries = staffDAO.getSalaryByStaffId(staffId);
         session.setAttribute("salaries", salaries);
-        response.sendRedirect(request.getContextPath()+"/staffpages.jsp");
-        
+
         Staff staff = staffDAO.getStaffByStaffId(staffId);
         session.setAttribute("staff", staff);
-     }
+
+        response.sendRedirect(request.getContextPath() + "/staffpages.jsp");
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

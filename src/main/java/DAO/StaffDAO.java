@@ -10,65 +10,68 @@ import java.util.List;
 import Class.*;
 
 public class StaffDAO {
-    public int getNumberOfStudentsByStaffId(String staffid){
+
+    public int getNumberOfStudentsByStaffId(String staffid) {
         String query = "SELECT COUNT(DISTINCT ss.student_id) AS total_students "
-                       + "FROM StaffSections sf "
-                       + "JOIN StudentsSections ss ON sf.section_id = ss.section_id "
-                       + "WHERE sf.staff_id = ?;";
-        try (Connection connection = DBUtil.getConnection();
-                PreparedStatement ps = connection.prepareStatement(query)){
-            
+                + "FROM StaffSections sf "
+                + "JOIN StudentsSections ss ON sf.section_id = ss.section_id "
+                + "WHERE sf.staff_id = ?;";
+        try (Connection connection = DBUtil.getConnection(); PreparedStatement ps = connection.prepareStatement(query)) {
+
             ps.setString(1, staffid);
             ResultSet resultSet = ps.executeQuery();
-            
-            if (resultSet.next()){
-                System.out.println(resultSet.getInt("total_students"));
+
+            if (resultSet.next()) {
                 return resultSet.getInt("total_students");
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return 0;
     }
-    
-    public String getStaffIdByUsername(String username){
+
+    public String getStaffIdByUsername(String username) {
         String query = "SELECT staff_id FROM Staff WHERE username = ?";
-        try (Connection connection = DBUtil.getConnection();
-                PreparedStatement ps = connection.prepareStatement(query)){
-            
+        try (Connection connection = DBUtil.getConnection(); PreparedStatement ps = connection.prepareStatement(query)) {
+
             ps.setString(1, username);
             ResultSet resultSet = ps.executeQuery();
-            
-            if (resultSet.next()){
+
+            if (resultSet.next()) {
                 return resultSet.getString("staff_id");
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
-    
-    public List<Salary> getSalaryByStaffId(String id){
+
+    public List<Salary> getSalaryByStaffId(String id) {
         List<Salary> salaries = new ArrayList<>();
         String query = "SELECT amount, salary_month, salary_year, payment_date, status FROM StaffSalary WHERE staff_id = ?";
-        
-        try (Connection connection = DBUtil.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)){
-            
+
+        try (Connection connection = DBUtil.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
             preparedStatement.setString(1, id);
-            
-            try (ResultSet rs = preparedStatement.executeQuery()){
-                while (rs.next()){
-                    Salary s = new Salary(rs.getString("amount"), rs.getString("salary_month"), rs.getString("salary_year"), rs.getString("payment_date"), rs.getString("status"));
+
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                while (rs.next()) {
+                    Salary s = new Salary(
+                            rs.getString("amount"),
+                            rs.getString("salary_month"),
+                            rs.getString("salary_year"),
+                            rs.getString("payment_date"),
+                            rs.getString("status"));
                     salaries.add(s);
                 }
                 return salaries;
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
-    
+
     public boolean updateStaffProfile(Staff staff) {
         String sql = "UPDATE Staff SET name = ?, email = ?, phone = ?, address = ? WHERE staff_id = ?";
 
@@ -89,12 +92,11 @@ public class StaffDAO {
         }
 
     }
-    
+
     public Staff getStaffByStaffId(String staffId) {
         String query = "SELECT * FROM Staff WHERE staff_id = ?";
 
-        try (Connection connection = DBUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = DBUtil.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, staffId);
 
@@ -114,7 +116,33 @@ public class StaffDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
+    }
 
+    public List<Section> getSectionByStaffId(String staffId) {
+        List<Section> sections = new ArrayList<>();
+        String query = "SELECT s.section_id, s.section_group, sub.subject_name, sub.subject_year, sub.semester "
+                + "FROM Sections s "
+                + "JOIN StaffSections ss ON s.section_id = ss.section_id "
+                + "JOIN Subjects sub ON s.subject_id = sub.subject_id "
+                + "WHERE ss.staff_id = ?;";
+        try (Connection connection = DBUtil.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, staffId);
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                while (rs.next()) {
+                    Section s = new Section(
+                            rs.getString("section_id"),
+                            rs.getString("subject_name"),
+                            rs.getString("section_group"),
+                            rs.getString("subject_year"),
+                            rs.getString("semester"));
+                    sections.add(s);
+                }
+                return sections;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }
