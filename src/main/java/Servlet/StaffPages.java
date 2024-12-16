@@ -33,6 +33,9 @@ public class StaffPages extends HttpServlet {
 
         int totalStudents = staffDAO.getNumberOfStudentsByStaffId(staff.getStaffId());
         request.setAttribute("totalStudents", totalStudents);
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("staffpages.jsp");
+        dispatcher.forward(request, response);
     }
 
     @Override
