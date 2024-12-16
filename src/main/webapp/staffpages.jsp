@@ -29,7 +29,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="staffDropdown">
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/StaffSalary"><i class="bi bi-cash"></i> Salary Information</a></li>
-                                <li><a class="dropdown-item" href="staffschedule.jsp"><i class="bi bi-calendar3"></i> Schedule</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/StaffSchedule"><i class="bi bi-calendar3"></i> Schedule</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">

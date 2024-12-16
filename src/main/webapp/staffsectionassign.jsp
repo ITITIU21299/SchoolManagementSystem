@@ -12,8 +12,60 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
         <link href="styles.css" rel="stylesheet">
+        <style>
+            .modal-header {
+                background-color: #007bff;
+                color: white;
+            }
+
+            .modal-body {
+                background-color: #f8f9fa;
+                color: black;
+            }
+
+            .modal-footer {
+                background-color: #f8f9fa;
+            }
+
+            .modal-title {
+                color: white;
+            }
+
+            .btn-close {
+                color: white;
+            }
+        </style>
     </head>
     <body style="display: flex; min-height: 100vh; flex-direction: column">
+
+        <div class="modal fade" id="resultsModal" tabindex="-1" aria-labelledby="resultsModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="resultsModalLabel">Assignment Results</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul>
+                            <%
+                                Map<String, String> assignmentResults = (Map<String, String>) request.getAttribute("assignmentResults");
+                                if (assignmentResults != null && !assignmentResults.isEmpty()) {
+                                    for (Map.Entry<String, String> entry : assignmentResults.entrySet()) {
+                            %>
+                            <li><strong><%= entry.getKey() %>:</strong> <%= entry.getValue() %></li>
+                                <%
+                                        }
+                                    }
+                                %>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">School Management System</a>
@@ -90,18 +142,17 @@
             <div class="card mt-4"> 
                 <div class="card-body">
                     <h5 class="card-title">Staff Section Assignment</h5>
-                    
-                   <a href="${pageContext.request.contextPath}/StaffDropRoom" class="btn btn-primary mt-2 mb-2">Assign Section - Click to switch</a>
 
-                    <table class="table table-striped" id="availableRooms">
+                    <a href="${pageContext.request.contextPath}/StaffDropRoom" class="btn btn-primary mt-2 mb-2">Assign Section - Click to switch</a>
+
+                    <table class="table table-striped" id="availableRooms" style="table-layout: fixed;">
                         <thead>
                             <tr>
-                                <th>Room Number</th>
-                                <th>Type</th>
-                                <th>Capacity</th>
-                                <th>Weekday</th>
-                                <th>Time</th>
-                                <th>Action</th>
+                                <th style="width: 10%;">Room Number</th>
+                                <th style="width: 10%;">Type</th>
+                                <th style="width: 10%;">Capacity</th>
+                                <th style="width: 15%;">Time</th>
+                                <th style="width: 55%;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -116,62 +167,99 @@
 
                                 <td><%= room.getCapacity() %></td>
 
-                                <% 
-                                    String dateStr = room.getDate(); 
-                                    String dayOfWeek = "Invalid Day";
-
-                                    if (dateStr != null && !dateStr.isEmpty()) {
-                                        switch (dateStr) {
-                                            case "2":
-                                                dayOfWeek = "Monday";
-                                                break;
-                                            case "3":
-                                                dayOfWeek = "Tuesday";
-                                                break;
-                                            case "4":
-                                                dayOfWeek = "Wednesday";
-                                                break;
-                                            case "5":
-                                                dayOfWeek = "Thursday";
-                                                break;
-                                            case "6":
-                                                dayOfWeek = "Friday";
-                                                break;
-                                            case "7":
-                                                dayOfWeek = "Saturday";
-                                                break;
-                                            case "1":
-                                                dayOfWeek = "Sunday";
-                                                break;
-                                            default:
-                                                dayOfWeek = "Invalid Day";
-                                                break;
-                                        }
-                                    }
-                                %>
-
-                                <td><%= dayOfWeek %></td>
-
                                 <td><%= room.getStartTime() %> - <%= room.getEndTime() %></td>
 
                                 <td>
                                     <form action="StaffAssignRoom" method="post">
                                         <input type="hidden" name="roomScheduleId" value="<%= room.getScheduleId() %>">
 
-                                        <div class="d-inline-block">
-                                            <select class="form-select" name="sectionId">
-                                                <option selected>Choose section to assign</option>
-                                                <% 
-                                                List<Section> sections = (List<Section>) request.getAttribute("sections");
-                                                for (Section section : sections) {
-                                                %>
-                                                <option value="<%= section.getId() %>"><%= section.getName() %> - Group <%= section.getGroup() %></option>
-                                                <% } %>
-                                            </select>
-                                        </div>
-                                            
-                                        <div class="d-inline-block">
-                                            <input style="margin-left: 50px" type="submit" class="btn btn-outline-success" value="Assign">
+                                        <div class="row">
+
+                                            <div class="col-12 col-lg-3">
+                                                <div class="d-inline-block">
+                                                    <select class="form-select" name="sectionId">
+                                                        <option selected>Choose section to assign</option>
+                                                        <% 
+                                                        List<Section> sections = (List<Section>) request.getAttribute("sections");
+                                                        for (Section section : sections) {
+                                                        %>
+                                                        <option value="<%= section.getId() %>"><%= section.getName() %> - Group <%= section.getGroup() %></option>
+                                                        <% } %>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-lg-4">
+                                                <div class="d-inline-block" style="margin-left: 20px;">
+                                                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#weekdaysCollapse_<%= room.getScheduleId() %>" aria-expanded="false" aria-controls="weekdaysCollapse_<%= room.getScheduleId() %>">
+                                                        Select Weekdays
+                                                    </button>
+                                                    <div class="collapse" id="weekdaysCollapse_<%= room.getScheduleId() %>" style="min-width: 300px">
+                                                        <div class="card card-body p-3">
+                                                            <div class="row row-cols-2 g-1">
+                                                                <div class="col d-flex justify-content-center align-items-center">
+                                                                    <input class="btn-check" id="btn-check-monday_<%= room.getScheduleId() %>" autocomplete="off" type="checkbox" name="weekdays" value="2">
+                                                                    <label class="btn btn-outline-primary w-70" for="btn-check-monday_<%= room.getScheduleId() %>">Monday</label>
+                                                                </div>
+                                                                <div class="col d-flex justify-content-center align-items-center">
+                                                                    <input class="btn-check" id="btn-check-tuesday_<%= room.getScheduleId() %>" autocomplete="off" type="checkbox" name="weekdays" value="3">
+                                                                    <label class="btn btn-outline-primary w-70" for="btn-check-tuesday_<%= room.getScheduleId() %>">Tuesday</label>
+                                                                </div>
+                                                                <div class="col d-flex justify-content-center align-items-center">
+                                                                    <input class="btn-check" id="btn-check-wednesday_<%= room.getScheduleId() %>" autocomplete="off" type="checkbox" name="weekdays" value="4">
+                                                                    <label class="btn btn-outline-primary w-70" for="btn-check-wednesday_<%= room.getScheduleId() %>">Wednesday</label>
+                                                                </div>
+                                                                <div class="col d-flex justify-content-center align-items-center">
+                                                                    <input class="btn-check" id="btn-check-thursday_<%= room.getScheduleId() %>" autocomplete="off" type="checkbox" name="weekdays" value="5">
+                                                                    <label class="btn btn-outline-primary w-70" for="btn-check-thursday_<%= room.getScheduleId() %>">Thursday</label>
+                                                                </div>
+                                                                <div class="col d-flex justify-content-center align-items-center">
+                                                                    <input class="btn-check" id="btn-check-friday_<%= room.getScheduleId() %>" autocomplete="off" type="checkbox" name="weekdays" value="6">
+                                                                    <label class="btn btn-outline-primary w-70" for="btn-check-friday_<%= room.getScheduleId() %>">Friday</label>
+                                                                </div>
+                                                                <div class="col d-flex justify-content-center align-items-center">
+                                                                    <input class="btn-check" id="btn-check-saturday_<%= room.getScheduleId() %>" autocomplete="off" type="checkbox" name="weekdays" value="7">
+                                                                    <label class="btn btn-outline-primary w-70" for="btn-check-saturday_<%= room.getScheduleId() %>">Saturday</label>
+                                                                </div>
+                                                                <div class="col d-flex justify-content-center align-items-center">
+                                                                    <input class="btn-check" id="btn-check-sunday_<%= room.getScheduleId() %>" autocomplete="off" type="checkbox" name="weekdays" value="8">
+                                                                    <label class="btn btn-outline-primary w-70" for="btn-check-sunday_<%= room.getScheduleId() %>">Sunday</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-lg-3">
+                                                <div class="d-inline-block">
+                                                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#weeksCollapse_<%= room.getScheduleId() %>" aria-expanded="false" aria-controls="weeksCollapse_<%= room.getScheduleId() %>">
+                                                        Choose Week
+                                                    </button>
+                                                    <div class="collapse" id="weeksCollapse_<%= room.getScheduleId() %>" style="min-width: 200px">
+                                                        <div class="card card-body p-3">
+                                                            <div class="row g-1">
+                                                                <% for (int i = 1; i <= 15; i++) { %>
+                                                                <div class="col d-flex justify-content-center align-items-center">
+                                                                    <input class="btn-check" id="btn-check-<%= i %>_<%= room.getScheduleId() %>" autocomplete="off" type="checkbox" name="weeks" value="<%= i %>">
+                                                                    <label class="btn btn-outline-primary w-70" for="btn-check-<%= i %>_<%= room.getScheduleId() %>"><%= i %></label>
+                                                                </div>
+                                                                <% } %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <ul class="dropdown-menu" id="dropdownWeeks_<%= room.getScheduleId() %>"  aria-labelledby="dropdownWeeks_<%= room.getScheduleId() %>">
+                                                        <% for (int i = 1; i <= 15; i++) { %>
+                                                        <li style="text-align: center;"><input class="btn-check" id="btn-check-<%= i %>_<%= room.getScheduleId() %>" autocomplete="off" type="checkbox" name="weeks" value="<%= i %>"><label style="margin: 5px auto;" class="btn btn-outline-secondary" for="btn-check-<%= i %>_<%= room.getScheduleId() %>"><%= i %></label></li>
+                                                            <% } %>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-lg-2">
+                                                <div class="d-inline-block">
+                                                    <input type="submit" class="btn btn-outline-success" value="Assign">
+                                                </div>
+                                            </div>
                                         </div>
                                     </form>
                                 </td>
@@ -209,29 +297,21 @@
                 </div>
             </div>
         </footer>
-
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
         <script src="JavaScript/theme.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-                        function toggleTables() {
-                            var availableRooms = document.getElementById("availableRooms");
-                            var assignedRooms = document.getElementById("assignedRooms");
-                            var toggleButton = document.getElementById("toggleButton");
-
-                            if (availableRooms.style.display === "none") {
-                                availableRooms.style.display = "table";
-                                assignedRooms.style.display = "none";
-                                toggleButton.textContent = "Assign Section - Click to switch";
-                                toggleButton.className = "btn btn-primary mt-2 mb-2";
-
-                            } else {
-                                availableRooms.style.display = "none";
-                                assignedRooms.style.display = "table";
-                                toggleButton.textContent = "Manage Section - Click to switch";
-                                toggleButton.className = "btn btn-danger mt-2 mb-2";
-
-                            }
-                        }
+            <% 
+                if (assignmentResults != null && !assignmentResults.isEmpty()) { 
+            %>
+            // Trigger the modal if there are results
+            document.addEventListener('DOMContentLoaded', function () {
+                var resultsModal = new bootstrap.Modal(document.getElementById('resultsModal'));
+                resultsModal.show();
+            });
+            <% 
+                } 
+            %>
         </script>
     </body>
 </html>

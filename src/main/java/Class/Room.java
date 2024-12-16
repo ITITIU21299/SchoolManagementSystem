@@ -5,17 +5,15 @@ public class Room {
     private String roomId;
     private String roomNumber;
     private String roomType;
-    private String date;
     private String capacity;
     private String startTime;
     private String endTime;
 
-    public Room(String sId, String roomId, String roomNumber, String roomType, String date, String capacity, String stime, String etime){
+    public Room(String sId, String roomId, String roomNumber, String roomType, String capacity, String stime, String etime){
         this.scheduleId = sId;
         this.roomId = roomId;
         this.roomNumber = roomNumber;
         this.roomType = roomType;
-        this.date = date;
         this.capacity = capacity;
         this.startTime = stime;
         this.endTime = etime;
@@ -35,10 +33,6 @@ public class Room {
     
     public String getType(){
         return roomType;
-    }
-    
-    public String getDate(){
-        return date;
     }
     
     public String getCapacity(){

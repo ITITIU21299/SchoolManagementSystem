@@ -14,7 +14,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
+import java.util.*;
 
 @WebServlet(name = "StaffPages", urlPatterns = {"/StaffPages"})
 public class StaffPages extends HttpServlet {
@@ -30,16 +30,9 @@ public class StaffPages extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         Staff staff = staffDAO.getStaffByStaffId(user.getUsername());
-        session.setAttribute("staff", staff);
 
         int totalStudents = staffDAO.getNumberOfStudentsByStaffId(staff.getStaffId());
         request.setAttribute("totalStudents", totalStudents);
-
-        List<Schedule> schedules = staffDAO.getRoomScheduleByStaffId(staff.getStaffId());
-        session.setAttribute("schedules", schedules);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/staffpages.jsp");
-        dispatcher.forward(request, response);
     }
 
     @Override

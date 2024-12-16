@@ -13,9 +13,18 @@ public class RoomScheduleDAO {
     public List<Room> getAvailableRooms() {
         List<Room> rooms = new ArrayList<>();
         String query = "SELECT rs.roomschedule_id, r.room_id, r.room_number, r.room_type, r.capacity, "
-                + "rs.schedule_date, rs.start_time, rs.end_time FROM Rooms r "
-                + "LEFT JOIN RoomSchedule rs ON r.room_id = rs.room_id "
-                + "WHERE rs.section_id IS NULL";
+                + "rs.start_time, rs.end_time "
+                + "FROM RoomSchedule rs "
+                + "LEFT JOIN ScheduleAssignment sa ON rs.roomschedule_id = sa.roomschedule_id "
+                + "JOIN Rooms r ON rs.room_id = r.room_id "
+                + "WHERE sa.assignment_id IS NULL "
+                + "ORDER BY "
+                + "SUBSTRING_INDEX(rs.roomschedule_id, '_', 2), "
+                + "CASE "
+                + "WHEN rs.roomschedule_id LIKE '%_M%' THEN 1 "
+                + "WHEN rs.roomschedule_id LIKE '%_A%' THEN 2 "
+                + "ELSE 3 "
+                + "END;";
 
         try (Connection connection = DBUtil.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             try (ResultSet rs = preparedStatement.executeQuery()) {
@@ -25,7 +34,6 @@ public class RoomScheduleDAO {
                             rs.getString("room_id"),
                             rs.getString("room_number"),
                             rs.getString("room_type"),
-                            rs.getString("schedule_date"),
                             rs.getString("capacity"),
                             rs.getString("start_time"),
                             rs.getString("end_time"));
@@ -72,23 +80,124 @@ public class RoomScheduleDAO {
         }
         return null;
     }
-    
-    public boolean assignSectionToRoom(String roomScheduleId, String sectionId) {
-        String query = "UPDATE RoomSchedule SET section_id = ? WHERE roomschedule_id = ?";
 
-        try (Connection connection = DBUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+//    public String assignSectionToRoom(String roomScheduleId, String sectionId, String[] weekdays, String[] weeks) {
+//        StringBuilder resultMessage = new StringBuilder();
+//        boolean success = false;
+//
+//        // Check if the room is available for the specified weekdays
+//        String availabilityQuery = "SELECT * FROM RoomSchedule WHERE roomschedule_id = ? AND section_exam_id IS NULL";
+//        try (Connection connection = DBUtil.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(availabilityQuery)) {
+//
+//            preparedStatement.setString(1, roomScheduleId);
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//
+//            if (resultSet.next()) {
+//                // Room is available, proceed to assign section
+//                String updateQuery = "UPDATE RoomSchedule SET section_id = ? WHERE roomschedule_id = ?";
+//                try (PreparedStatement updateStatement = connection.prepareStatement(updateQuery)) {
+//                    updateStatement.setString(1, sectionId);
+//                    updateStatement.setString(2, roomScheduleId);
+//                    int rowsUpdated = updateStatement.executeUpdate();
+//
+//                    if (rowsUpdated > 0) {
+//                        success = true;
+//                        resultMessage.append("Section assigned to room successfully for week(s): ").append(String.join(", ", weeks)).append(". ");
+//                    }
+//                }
+//
+//                // Handle weeks assignment
+//                for (String week : weeks) {
+//                    String weekCheckQuery = "SELECT * FROM RoomSchedule WHERE week = ? AND section_exam_id IS NOT NULL";
+//                    try (PreparedStatement weekCheckStmt = connection.prepareStatement(weekCheckQuery)) {
+//                        weekCheckStmt.setString(1, week);
+//                        ResultSet weekResult = weekCheckStmt.executeQuery();
+//
+//                        if (weekResult.next()) {
+//                            resultMessage.append("Week ").append(week).append(" cannot be assigned because it's already booked. ");
+//                        } else {
+//                            // If no conflicting schedule, assign the room to the week
+//                            String assignWeekQuery = "INSERT INTO RoomSchedule (roomschedule_id, section_id, week) VALUES (?, ?, ?)";
+//                            try (PreparedStatement assignWeekStmt = connection.prepareStatement(assignWeekQuery)) {
+//                                assignWeekStmt.setString(1, roomScheduleId);
+//                                assignWeekStmt.setString(2, sectionId);
+//                                assignWeekStmt.setString(3, week);
+//                                assignWeekStmt.executeUpdate();
+//                            }
+//                        }
+//                    }
+//                }
+//            } else {
+//                // No room available for assignment, so create a new room for the given weeks
+//                String createRoomQuery = "INSERT INTO RoomSchedule (section_id, week) VALUES (?, ?)";
+//                for (String week : weeks) {
+//                    try (PreparedStatement createRoomStmt = connection.prepareStatement(createRoomQuery)) {
+//                        createRoomStmt.setString(1, sectionId);
+//                        createRoomStmt.setString(2, week);
+//                        createRoomStmt.executeUpdate();
+//                        resultMessage.append("New room created and section assigned for week ").append(week).append(". ");
+//                    }
+//                }
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//
+//        if (success) {
+//            return resultMessage.toString();
+//        } else {
+//            return null;
+//        }
+//    }
 
-            preparedStatement.setString(1, sectionId);
-            preparedStatement.setString(2, roomScheduleId);
+    public boolean assignSectionToRoomOrCreate(String roomScheduleId, String sectionId, int weekday, int week) {
+        String checkQuery = "SELECT sa.assignment_id, sa.section_exam_id "
+                + "FROM ScheduleAssignment sa "
+                + "WHERE sa.roomschedule_id = ? AND sa.schedule_date = ? AND sa.week = ?";
+        String insertQuery = "INSERT INTO ScheduleAssignment (assignment_id, roomschedule_id, schedule_date, week, section_exam_id) "
+                + "VALUES (?, ?, ?, ?, ?)";
+        String updateQuery = "UPDATE ScheduleAssignment SET section_exam_id = ? "
+                + "WHERE roomschedule_id = ? AND schedule_date = ? AND week = ?";
 
-            int rowsUpdated = preparedStatement.executeUpdate();
+        try (Connection connection = DBUtil.getConnection(); PreparedStatement checkStatement = connection.prepareStatement(checkQuery)) {
 
-            return rowsUpdated > 0;
+            checkStatement.setString(1, roomScheduleId);
+            checkStatement.setInt(2, weekday);
+            checkStatement.setInt(3, week);
 
+            try (ResultSet resultSet = checkStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    String sectionExamId = resultSet.getString("section_exam_id");
+                    String assignmentId = resultSet.getString("assignment_id");
+                    if (sectionExamId == null && assignmentId != null) {
+                        try (PreparedStatement updateStatement = connection.prepareStatement(updateQuery)) {
+                            updateStatement.setString(1, sectionId);
+                            updateStatement.setString(2, roomScheduleId);
+                            updateStatement.setInt(3, weekday);
+                            updateStatement.setInt(4, week);
+                            return updateStatement.executeUpdate() > 0;
+                        }
+                    } else if (sectionExamId != null && assignmentId != null) {
+                        return false;
+                    }
+                } else {
+                    String assignmentId = roomScheduleId + "_" + weekday + "_" + week;
+                    try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
+                        insertStatement.setString(1, assignmentId);
+                        insertStatement.setString(2, roomScheduleId);
+                        insertStatement.setInt(3, weekday);
+                        insertStatement.setInt(4, week);
+                        insertStatement.setString(5, sectionId);
+                        return insertStatement.executeUpdate() > 0;
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
+        return false;
     }
+
 }

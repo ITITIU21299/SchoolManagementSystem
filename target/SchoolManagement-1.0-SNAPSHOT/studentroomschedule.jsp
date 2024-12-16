@@ -120,25 +120,25 @@
                                     out.println("<tr>");
                                     
                                     if (mon.size() > i) 
-                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + mon.get(i).getSubject_name() + " </span><br> " + "<span style='color: #D0021B;'>" + mon.get(i).getStart_time() + " - " + mon.get(i).getEnd_time() + "</span></div></td>");
+                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + mon.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + mon.get(i).getStart_time() + " - " + mon.get(i).getEnd_time() + "</span></div></td>");
                                     else out.println("<td></td>");
                                     if (tue.size() > i)                                    
-                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + tue.get(i).getSubject_name() + " </span><br> " + "<span style='color: #D0021B;'>" + tue.get(i).getStart_time() + " - " + tue.get(i).getEnd_time() + "</span></div></td>");
+                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + tue.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + tue.get(i).getStart_time() + " - " + tue.get(i).getEnd_time() + "</span></div></td>");
                                     else out.println("<td></td>");
                                     if (wed.size() > i)                                    
-                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + wed.get(i).getSubject_name() + " </span><br> " + "<span style='color: #D0021B;'>" + wed.get(i).getStart_time() + " - " + wed.get(i).getEnd_time() + "</span></div></td>");
+                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + wed.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + wed.get(i).getStart_time() + " - " + wed.get(i).getEnd_time() + "</span></div></td>");
                                     else out.println("<td></td>");
                                     if (thu.size() > i)                                    
-                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + thu.get(i).getSubject_name() + " </span><br> " + "<span style='color: #D0021B;'>" + thu.get(i).getStart_time() + " - " + thu.get(i).getEnd_time() + "</span></div></td>");
+                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + thu.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + thu.get(i).getStart_time() + " - " + thu.get(i).getEnd_time() + "</span></div></td>");
                                     else out.println("<td></td>");                                    
                                     if (fri.size() > i)                                    
-                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + fri.get(i).getSubject_name() + " </span><br> " + "<span style='color: #D0021B;'>" + fri.get(i).getStart_time() + " - " + fri.get(i).getEnd_time() + "</span></div></td>");
+                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + fri.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + fri.get(i).getStart_time() + " - " + fri.get(i).getEnd_time() + "</span></div></td>");
                                     else out.println("<td></td>");                                    
                                     if (sat.size() > i)                                    
-                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + sat.get(i).getSubject_name() + " </span><br> " + "<span style='color: #D0021B;'>" + sat.get(i).getStart_time() + " - " + sat.get(i).getEnd_time() + "</span></div></td>");
+                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + sat.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + sat.get(i).getStart_time() + " - " + sat.get(i).getEnd_time() + "</span></div></td>");
                                     else out.println("<td></td>");
                                     if (sun.size() > i)                                    
-                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + sun.get(i).getSubject_name() + " </span><br> " + "<span style='color: #D0021B;'>" + sun.get(i).getStart_time() + " - " + sun.get(i).getEnd_time() + "</span></div></td>");
+                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + sun.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + sun.get(i).getStart_time() + " - " + sun.get(i).getEnd_time() + "</span></div></td>");
                                     else out.println("<td></td>");
                                     
                                     out.println("</tr>");

@@ -5,6 +5,11 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Class.*" %>
+<%@page import="DAO.*" %>
+<%@page import="java.util.*" %>
+<%@page import="java.util.*" %>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -16,7 +21,7 @@
         <link href="styles.css" rel="stylesheet">
     </head>
     <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">School Management System</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,38 +107,117 @@
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered">
+                                    <!--                                    <thead>
+                                                                            <tr>
+                                                                                <th>Time</th>
+                                                                                <th>
+                                                                                    Monday
+                                                                                    <br>
+                                                                                    <small class="text-muted" id="date-monday"></small>
+                                                                                </th>
+                                                                                <th>
+                                                                                    Tuesday
+                                                                                    <br>
+                                                                                    <small class="text-muted" id="date-tuesday"></small>
+                                                                                </th>
+                                                                                <th>
+                                                                                    Wednesday
+                                                                                    <br>
+                                                                                    <small class="text-muted" id="date-wednesday"></small>
+                                                                                </th>
+                                                                                <th>
+                                                                                    Thursday
+                                                                                    <br>
+                                                                                    <small class="text-muted" id="date-thursday"></small>
+                                                                                </th>
+                                                                                <th>
+                                                                                    Friday
+                                                                                    <br>
+                                                                                    <small class="text-muted" id="date-friday"></small>
+                                                                                </th>
+                                                                            </tr>
+                                                                        </thead>           
+                                                                        </tbody>                             
+                                                                            <tbody id="scheduleBody">
+                                                                        </tbody>-->
                                     <thead>
                                         <tr>
-                                            <th>Time</th>
-                                            <th>
-                                                Monday
-                                                <br>
-                                                <small class="text-muted" id="date-monday"></small>
-                                            </th>
-                                            <th>
-                                                Tuesday
-                                                <br>
-                                                <small class="text-muted" id="date-tuesday"></small>
-                                            </th>
-                                            <th>
-                                                Wednesday
-                                                <br>
-                                                <small class="text-muted" id="date-wednesday"></small>
-                                            </th>
-                                            <th>
-                                                Thursday
-                                                <br>
-                                                <small class="text-muted" id="date-thursday"></small>
-                                            </th>
-                                            <th>
-                                                Friday
-                                                <br>
-                                                <small class="text-muted" id="date-friday"></small>
-                                            </th>
+                                            <th>Monday</th>
+                                            <th>Tuesday</th>
+                                            <th>Wednesday</th>
+                                            <th>Thursday</th>
+                                            <th>Friday</th>
+                                            <th>Saturday</th>
+                                            <th>Sunday</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="scheduleBody">
-                                    </tbody>
+                                    <tbody>
+                                        <%
+                                            List<Schedule> schedules = (List<Schedule>) session.getAttribute("schedules");
+                                            List<Schedule> mon = (List<Schedule>) new ArrayList<Schedule>(); 
+                                            List<Schedule> tue = (List<Schedule>) new ArrayList<Schedule>(); 
+                                            List<Schedule> wed = (List<Schedule>) new ArrayList<Schedule>(); 
+                                            List<Schedule> thu = (List<Schedule>) new ArrayList<Schedule>(); 
+                                            List<Schedule> fri = (List<Schedule>) new ArrayList<Schedule>(); 
+                                            List<Schedule> sat = (List<Schedule>) new ArrayList<Schedule>(); 
+                                            List<Schedule> sun = (List<Schedule>) new ArrayList<Schedule>(); 
+                                            int cnt = (int) 0;
+                                            
+                                            for (Schedule sc : schedules) {
+                                                String day = sc.getSchedule_date();
+                                                switch (day) {
+                                                    case "Monday": mon.add(sc); break;
+                                                    case "Tuesday": tue.add(sc); break;
+                                                    case "Wednesday": wed.add(sc); break;
+                                                    case "Thursday": thu.add(sc); break;
+                                                    case "Friday": fri.add(sc); break;
+                                                    case "Saturday": sat.add(sc); break;
+                                                    case "Sunday": sun.add(sc); break;
+                                                }
+                                                                                            }    
+                                            cnt = Math.max(cnt, mon.size());
+                                            cnt = Math.max(cnt, tue.size());
+                                            cnt = Math.max(cnt, wed.size());
+                                            cnt = Math.max(cnt, thu.size());
+                                            cnt = Math.max(cnt, fri.size());
+                                            cnt = Math.max(cnt, sat.size());
+                                            cnt = Math.max(cnt, sun.size());
+                                            for (int i = (int) 0; i < cnt; i++) {
+                                                out.println("<tr>");
+
+                                                if (mon.size() > i) 
+                                                out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + mon.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + mon.get(i).getStart_time() + " - " + mon.get(i).getEnd_time() + "</span></div></td>");
+                                                else out.println("<td></td>");
+                                                if (tue.size() > i)                                    
+                                                out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + tue.get(i).getSubject_name() + " </span> " + "<span>Room " + tue.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + tue.get(i).getStart_time() + " - " + tue.get(i).getEnd_time() + "</span></div></td>");
+                                                else out.println("<td></td>");
+                                                if (wed.size() > i)                                    
+                                                out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + wed.get(i).getSubject_name() + " </span> " + "<span>Room " + wed.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + wed.get(i).getStart_time() + " - " + wed.get(i).getEnd_time() + "</span></div></td>");
+                                                else out.println("<td></td>");
+                                                if (thu.size() > i)                                    
+                                                out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + thu.get(i).getSubject_name() + " </span> " + "<span>Room " + thu.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + thu.get(i).getStart_time() + " - " + thu.get(i).getEnd_time() + "</span></div></td>");
+                                                else out.println("<td></td>");                                    
+                                                if (fri.size() > i)                                    
+                                                out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + fri.get(i).getSubject_name() + " </span> " + "<span>Room " + fri.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + fri.get(i).getStart_time() + " - " + fri.get(i).getEnd_time() + "</span></div></td>");
+                                                else out.println("<td></td>");                                    
+                                                if (sat.size() > i)                                    
+                                                out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + sat.get(i).getSubject_name() + " </span> " + "<span>Room " + sat.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + sat.get(i).getStart_time() + " - " + sat.get(i).getEnd_time() + "</span></div></td>");
+                                                else out.println("<td></td>");
+                                                if (sun.size() > i)                                    
+                                                out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + sun.get(i).getSubject_name() + " </span> " + "<span>Room " + sun.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + sun.get(i).getStart_time() + " - " + sun.get(i).getEnd_time() + "</span></div></td>");
+                                                else out.println("<td></td>");
+
+                                                out.println("</tr>");
+                                            }            
+                                            out.println("<tr><td>SAMPLE</td></tr>");
+                                            for (int i = (int) 0; i < 3; i++)  {
+                                                out.println("<tr>");
+                                                for (int j = (int) 0; j < 7; j++)
+                                                    out.println("<td><div class = 'card'> " + j + " </div></td>");
+                                                out.println("</tr>");
+                                            }
+                                        %>
+
                                 </table>
                             </div>
                         </div>
@@ -186,7 +270,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 mt-2 mb-2">
-                         <h3 class="mb-1 mt-2">School Management System</h3>
+                        <h3 class="mb-1 mt-2">School Management System</h3>
                     </div>
                     <div class="col-md-4 mb-2">
                         <h6 class="mb-1 mt-2">Quick Links</h6>
