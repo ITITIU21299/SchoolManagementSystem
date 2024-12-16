@@ -35,6 +35,9 @@ public class StaffPages extends HttpServlet {
         int totalStudents = staffDAO.getNumberOfStudentsByStaffId(staff.getStaffId());
         request.setAttribute("totalStudents", totalStudents);
 
+        List<Schedule> schedules = staffDAO.getRoomScheduleByStaffId(staff.getStaffId());
+        session.setAttribute("schedules", schedules);
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("/staffpages.jsp");
         dispatcher.forward(request, response);
     }

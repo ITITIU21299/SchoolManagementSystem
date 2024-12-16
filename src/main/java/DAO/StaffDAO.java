@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import Class.*;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class StaffDAO {
 
@@ -139,6 +141,40 @@ public class StaffDAO {
                     sections.add(s);
                 }
                 return sections;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Schedule> getRoomScheduleByStaffId(String id) {
+        List<Schedule> schedules = new ArrayList<>();
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime start, end;
+        String query = "SELECT subject_name, room_number, schedule_date, start_time, end_time \n"
+                + "FROM StaffSections ss \n"
+                + "JOIN RoomSchedule rs, Rooms r, ScheduleAssignment sa, Sections se, Subjects su \n"
+                + "WHERE ss.section_id = sa.section_exam_id \n"
+                + "AND sa.roomschedule_id = rs.roomschedule_id \n"
+                + "AND rs.room_id = r.room_id \n"
+                + "AND ss.section_id = se.section_id \n"
+                + "AND se.subject_id = su.subject_id \n"
+                + "AND staff_id = ?;";
+
+        try (Connection connection = DBUtil.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, id);
+
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                while (rs.next()) {
+                    start = rs.getTime("start_time").toLocalTime();
+                    end = rs.getTime("end_time").toLocalTime();
+
+                    Schedule schedule = new Schedule(rs.getString("room_number"), rs.getString("subject_name"), rs.getString("schedule_date"), start.format(timeFormatter), end.format(timeFormatter));
+                    schedules.add(schedule);
+                }
+                return schedules;
             }
         } catch (SQLException e) {
             e.printStackTrace();
