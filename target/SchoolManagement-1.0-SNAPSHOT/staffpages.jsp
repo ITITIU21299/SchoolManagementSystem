@@ -1,7 +1,7 @@
-<%@page import="Class.Staff"%>
+<%@page import="Class.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">

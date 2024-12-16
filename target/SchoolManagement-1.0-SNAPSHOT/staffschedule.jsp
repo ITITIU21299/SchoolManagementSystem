@@ -1,9 +1,3 @@
-<%-- 
-    Document   : staffschedule
-    Created on : Dec 11, 2024, 10:30:18 PM
-    Author     : nguye
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Class.*" %>
 <%@page import="DAO.*" %>
@@ -37,8 +31,8 @@
                                 <i class="bi bi-people"></i> Staff
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="staffDropdown">
-                                <li><a class="dropdown-item" href="staffsalary.jsp"><i class="bi bi-cash"></i> Salary Information</a></li>
-                                <li><a class="dropdown-item" href="staffschedule.jsp"><i class="bi bi-calendar3"></i> Schedule</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/StaffSalary"><i class="bi bi-cash"></i> Salary Information</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/StaffSchedule"><i class="bi bi-calendar3"></i> Schedule</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -47,7 +41,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="studentDropdown">
                                 <li><a class="dropdown-item" href="#"><i class="bi bi-calendar2-check-fill"></i> Manage Attendance</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-card-checklist"></i> Assign Sections</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/StaffAssignRoom"><i class="bi bi-card-checklist"></i> Assign Sections</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -55,6 +49,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"><i class="bi bi-building"></i> Rooms</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/StaffProfile"><i class="bi bi-person-circle"></i> Profile</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -107,39 +104,6 @@
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered">
-                                    <!--                                    <thead>
-                                                                            <tr>
-                                                                                <th>Time</th>
-                                                                                <th>
-                                                                                    Monday
-                                                                                    <br>
-                                                                                    <small class="text-muted" id="date-monday"></small>
-                                                                                </th>
-                                                                                <th>
-                                                                                    Tuesday
-                                                                                    <br>
-                                                                                    <small class="text-muted" id="date-tuesday"></small>
-                                                                                </th>
-                                                                                <th>
-                                                                                    Wednesday
-                                                                                    <br>
-                                                                                    <small class="text-muted" id="date-wednesday"></small>
-                                                                                </th>
-                                                                                <th>
-                                                                                    Thursday
-                                                                                    <br>
-                                                                                    <small class="text-muted" id="date-thursday"></small>
-                                                                                </th>
-                                                                                <th>
-                                                                                    Friday
-                                                                                    <br>
-                                                                                    <small class="text-muted" id="date-friday"></small>
-                                                                                </th>
-                                                                            </tr>
-                                                                        </thead>           
-                                                                        </tbody>                             
-                                                                            <tbody id="scheduleBody">
-                                                                        </tbody>-->
                                     <thead>
                                         <tr>
                                             <th>Monday</th>
@@ -153,7 +117,7 @@
                                     </thead>
                                     <tbody>
                                         <%
-                                            List<Schedule> schedules = (List<Schedule>) session.getAttribute("schedules");
+                                            List<Schedule> schedules = (List<Schedule>) request.getAttribute("schedules");
                                             List<Schedule> mon = (List<Schedule>) new ArrayList<Schedule>(); 
                                             List<Schedule> tue = (List<Schedule>) new ArrayList<Schedule>(); 
                                             List<Schedule> wed = (List<Schedule>) new ArrayList<Schedule>(); 
@@ -209,63 +173,15 @@
 
                                                 out.println("</tr>");
                                             }            
-                                            out.println("<tr><td>SAMPLE</td></tr>");
-                                            for (int i = (int) 0; i < 3; i++)  {
-                                                out.println("<tr>");
-                                                for (int j = (int) 0; j < 7; j++)
-                                                    out.println("<td><div class = 'card'> " + j + " </div></td>");
-                                                out.println("</tr>");
-                                            }
                                         %>
-
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row mt-4">
-                <div class="col-md-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Upcoming Events</h5>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Parent-Teacher Meeting
-                                    <span class="badge bg-primary rounded-pill">June 15</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Science Fair
-                                    <span class="badge bg-primary rounded-pill">June 20</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Sports Day
-                                    <span class="badge bg-primary rounded-pill">June 25</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Schedule Changes</h5>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    <strong>June 18:</strong> Math class moved to Room 201
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>June 22:</strong> Early dismissal at 2:00 PM
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>June 29:</strong> Staff development day - No classes
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
+                                        
         <footer class="footer bg-primary text-white py-2 mt-auto fixed-bottom">
             <div class="container">
                 <div class="row">
@@ -291,9 +207,10 @@
                     <p class="mb-0">&copy;2024 School Management System. All rights reserved.</p>
                 </div>
             </div>
-        </footer>
+        </footer>                        
+        <script src="JavaScript/theme.js"></script>
+        <script src="schedule.js"</script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="schedule.js"></script>
     </body>
 </html>
 

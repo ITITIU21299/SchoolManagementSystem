@@ -21,15 +21,19 @@ public class StaffSchedule extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
+            return;
+        }
         User user = (User) session.getAttribute("user");
 
         StaffDAO staffDAO = new StaffDAO();
         Staff staff = staffDAO.getStaffByStaffId(user.getUsername());
-        
+
         List<Schedule> schedules = staffDAO.getRoomScheduleByStaffId(staff.getStaffId());
         request.setAttribute("schedules", schedules);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/staffpages.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/staffschedule.jsp");
         dispatcher.forward(request, response);
     }
 
