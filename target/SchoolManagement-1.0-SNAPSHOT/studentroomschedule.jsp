@@ -42,6 +42,9 @@
                             <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-calendar3"></i> Room Schedule</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="studentattendance.jsp"><i class="bi bi-calendar-check"></i> Attendance</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="studentfeedback.jsp"><i class="bi bi-chat-right-text"></i> Feedback</a>
                         </li>
                         <li class="nav-item">

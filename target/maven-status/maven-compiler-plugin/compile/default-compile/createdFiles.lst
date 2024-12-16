@@ -1,7 +1,9 @@
 Servlet\StudentExamSchedule.class
+Servlet\StudentAttendance.class
 Servlet\StudentProfile.class
 Class\AssignedRoom.class
 Class\Section.class
+DAO\AttendanceDAO.class
 Class\Student.class
 Servlet\StaffProfile.class
 Util\PasswordUtil.class

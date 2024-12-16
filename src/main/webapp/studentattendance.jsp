@@ -8,15 +8,15 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>School Management System - Student Dashboard</title>
+        <title>School Management System - Student Attendance</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
         <link href="styles.css" rel="stylesheet">
     </head>
     <body>
         <% Student student = (Student) request.getAttribute("student"); %>
-        <% List<Exam> exams = (List<Exam>) request.getAttribute("exams"); %>                
-        <% float marks = (float) request.getAttribute("marks"); %>
+        <% Map<String, List<Attendance>> attendanceMap = (Map<String, List<Attendance>>) request.getAttribute("attendanceMap"); %>
+
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">School Management System</a>
@@ -26,7 +26,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/StudentPages"><i class="bi bi-house-door"></i> Dashboard</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/AttendanceServlet"><i class="bi bi-house-door"></i> Dashboard</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="studentfee.jsp"><i class="bi bi-cash-coin"></i> Fee Information</a>
@@ -38,7 +38,7 @@
                             <a class="nav-link" href="studentroomschedule.jsp"><i class="bi bi-calendar3"></i> Room Schedule</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/StudentAttendance"><i class="bi bi-calendar-check"></i> Attendance</a>
+                            <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-calendar-check"></i> Attendance</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="studentfeedback.jsp"><i class="bi bi-chat-right-text"></i> Feedback</a>
@@ -49,10 +49,10 @@
                             <a class="nav-link dropdown-toggle" href="#" id="staffDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-gear"></i> Setting
                             </a>
-                            <ul class="dropdown-menu p-2 " aria-labelledby="staffDropdown">
+                            <ul class="dropdown-menu p-2" aria-labelledby="staffDropdown">
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" role="switch" id="darkMode">
-                                    <label class="form-check-label" for="flexSwitchCheckDefault ">Dark Mode</label>
+                                    <label class="form-check-label" for="darkMode">Dark Mode</label>
                                 </div>
                                 <li class="nav-item">
                                     <a class="nav-link" href="studentprofile.jsp"><i class="bi bi-person-circle"></i> Profile</a>
@@ -68,20 +68,12 @@
         </nav>
 
         <div class="container mt-4">
-            <h1>Welcome, ${student.getName()} </h1>
+            <h1>Attendance Record for ${student.getName()}</h1>
             <div class="row mt-4">
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Current GPA</h5>
-                            <p class="card-text display-4"><%= (float) marks / 25 %></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Attendance Rate</h5>
+                            <h5 class="card-title">Overall Attendance Rate</h5>
                             <p class="card-text display-4">95%</p>
                         </div>
                     </div>
@@ -89,41 +81,72 @@
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Upcoming Exams</h5>
-                            <p class="card-text display-4"></p>
+                            <h5 class="card-title">Present Days</h5>
+                            <p class="card-text display-4">57</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Absent Days</h5>
+                            <p class="card-text display-4">3</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row mt-4">
-                <div class="col-md-6 mb-4">
+                <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Recent Announcements</h5>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Annual Sports Day on 15th July</li>
-                                <li class="list-group-item">Parent-Teacher Meeting next Friday</li>
-                                <li class="list-group-item">New Library Books Available</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Upcoming Events</h5>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Mid-term Exams: 20th-25th August</li>
-                                <li class="list-group-item">Science Fair: 5th September</li>
-                                <li class="list-group-item">Career Counseling Session: 10th September</li>
-                            </ul>
+                            <h5 class="card-title">Attendance Details</h5>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Subject</th>
+                                            <th>Present</th>
+                                            <th>Absent</th>
+                                            <th>Attendance Rate</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tbody>
+                                        <% for (Map.Entry<String, List<Attendance>> entry : attendanceMap.entrySet()) { %>
+                                        <% String subject = entry.getKey(); %>
+                                        <% List<Attendance> attendanceList = entry.getValue(); %>
+
+                                        <% int presentCount = 0, absentCount = 0, totalSessions = 0; %>
+                                        <% for (Attendance record : attendanceList) { %>
+                                        <% totalSessions++; %>
+                                        <% if ("on".equals(record.getStatus())) {
+                    presentCount++;
+                } %>
+                                        <% if ("off".equals(record.getStatus())) {
+                    absentCount++;
+                } %>
+                                        <% } %>
+                                        <% double subjectAttendanceRate = (totalSessions > 0) ? (presentCount * 100.0 / totalSessions) : 0;%>
+
+                                        <tr>
+                                            <td><%= subject%></td>
+                                            <td><%= presentCount%></td>
+                                            <td><%= absentCount%></td>
+                                            <td><%= String.format("%.2f", subjectAttendanceRate)%> %</td>
+                                        </tr>
+                                        <% }%>
+                                    </tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <footer class="bg-primary text-white py-2 mt-auto fixed-bottom">
+        <footer class="bg-primary text-white py-2 mt-5 fixed-bottom">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 mb-2">

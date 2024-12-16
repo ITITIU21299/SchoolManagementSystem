@@ -38,6 +38,9 @@
                             <a class="nav-link" href="studentroomschedule.jsp"><i class="bi bi-calendar3"></i> Room Schedule</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/StudentAttendance"><i class="bi bi-calendar-check"></i> Attendance</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="studentfeedback.jsp"><i class="bi bi-chat-right-text"></i> Feedback</a>
                         </li>
                     </ul>
@@ -87,7 +90,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Upcoming Exams</h5>
-                            <p class="card-text display-4"><%= exams.size() %></p>
+                            <p class="card-text display-4"></p>
                         </div>
                     </div>
                 </div>
