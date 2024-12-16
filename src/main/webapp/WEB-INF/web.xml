@@ -7,6 +7,10 @@
         <servlet-name>StaffSalary</servlet-name>
         <url-pattern>/StaffSalary</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentExamSchedule</servlet-name>
+        <url-pattern>/StudentExamSchedule</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -19,6 +23,10 @@
     <servlet>
         <servlet-name>StaffSalary</servlet-name>
         <servlet-class>Servlet.StaffSalary</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StudentExamSchedule</servlet-name>
+        <servlet-class>Servlet.StudentExamSchedule</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>StaffPages</servlet-name>

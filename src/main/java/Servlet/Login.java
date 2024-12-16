@@ -35,18 +35,10 @@ public class Login extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
                 if (user.getRole().equals("staff")) {
-                    StaffDAO staffDAO = new StaffDAO();
-                    String staffId = staffDAO.getStaffIdByUsername(username);
-                    session.setAttribute("staffId", staffId);
-
                     response.sendRedirect(request.getContextPath() + "/StaffPages");
                     return;
                 }
                 if (user.getRole().equals("student")) {
-                    StudentDAO studentDAO = new StudentDAO();
-                    Student student = studentDAO.getStudentByUsername(username);
-                    session.setAttribute("username", username);
-
                     response.sendRedirect(request.getContextPath() + "/StudentPages");
                     return;
                 }

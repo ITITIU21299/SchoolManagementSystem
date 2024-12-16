@@ -16,17 +16,11 @@ import DAO.*;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
-@WebServlet(name = "StudentPages", urlPatterns = {"/StudentPages"})
-public class StudentPages extends HttpServlet {
+public class StudentExamSchedule extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
-            return;
-        }
-
         User user = (User) session.getAttribute("user");
 
         StudentDAO studentDAO = new StudentDAO();
@@ -36,16 +30,7 @@ public class StudentPages extends HttpServlet {
         List<Exam> exams = studentDAO.getExamsByStudentId(student.getStudentId());
         request.setAttribute("exams", exams);
 
-        float marks = studentDAO.getMarksByStudentId(student.getStudentId());
-        request.setAttribute("marks", marks);
-
-        List<Schedule> schedules = studentDAO.getRoomScheduleByStudentId(student.getStudentId());
-        session.setAttribute("schedules", schedules);
-
-        List<Fee> fees = studentDAO.getFeesByStudentId(student.getStudentId());
-        session.setAttribute("fees", fees);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("studentpages.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("studentexamschedule.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -60,4 +45,5 @@ public class StudentPages extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+
 }
