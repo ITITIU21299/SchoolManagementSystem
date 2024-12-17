@@ -6,18 +6,20 @@ public class AssignedRoom {
     private String roomNumber;
     private String roomType;
     private String date;
+    private String week;
     private String capacity;
     private String startTime;
     private String endTime;
     private String group;
     private String subjectName;
 
-    public AssignedRoom(String sId, String roomId, String roomNumber, String roomType, String date, String capacity, String stime, String etime, String group, String sname){
+    public AssignedRoom(String sId, String roomId, String roomNumber, String roomType, String date, String week, String capacity, String stime, String etime, String group, String sname){
         this.scheduleId = sId;
         this.roomId = roomId;
         this.roomNumber = roomNumber;
         this.roomType = roomType;
         this.date = date;
+        this.week = week;
         this.capacity = capacity;
         this.startTime = stime;
         this.endTime = etime;
@@ -42,6 +44,10 @@ public class AssignedRoom {
     
     public String getDate(){
         return date;
+    }
+    
+    public String getWeek(){
+        return week;
     }
     
     public String getCapacity(){

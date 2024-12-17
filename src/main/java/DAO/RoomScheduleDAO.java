@@ -16,8 +16,12 @@ public class RoomScheduleDAO {
                 + "rs.start_time, rs.end_time "
                 + "FROM RoomSchedule rs "
                 + "LEFT JOIN ScheduleAssignment sa ON rs.roomschedule_id = sa.roomschedule_id "
+                + "AND sa.schedule_date BETWEEN 2 AND 8 "
+                + "AND sa.week BETWEEN 1 AND 15 "
                 + "JOIN Rooms r ON rs.room_id = r.room_id "
-                + "WHERE sa.assignment_id IS NULL "
+                //+ "WHERE sa.assignment_id IS NULL "
+                + "GROUP BY rs.roomschedule_id, r.room_id, r.room_number, r.room_type, r.capacity, rs.start_time, rs.end_time "
+                + "HAVING COUNT(sa.assignment_id) < 15 * 7 "
                 + "ORDER BY "
                 + "SUBSTRING_INDEX(rs.roomschedule_id, '_', 2), "
                 + "CASE "
@@ -49,13 +53,23 @@ public class RoomScheduleDAO {
 
     public List<AssignedRoom> getRoomByStaffId(String staffId) {
         List<AssignedRoom> rooms = new ArrayList<>();
-        String query = "SELECT rs.roomschedule_id, r.room_id, r.room_number, r.room_type, r.capacity, "
-                + "rs.schedule_date, rs.start_time, rs.end_time, s.section_group, sub.subject_name FROM Rooms r "
+        String query = "SELECT sa.roomschedule_id, r.room_id, r.room_number, r.room_type, r.capacity, "
+                + "sa.schedule_date, sa.week, rs.start_time, rs.end_time, s.section_group, sub.subject_name FROM Rooms r "
                 + "LEFT JOIN RoomSchedule rs ON r.room_id = rs.room_id "
-                + "LEFT JOIN Sections s ON s.section_id = rs.section_id "
+                + "LEFT JOIN ScheduleAssignment sa ON sa.roomschedule_id = rs.roomschedule_id "
+                + "LEFT JOIN Sections s ON s.section_id = sa.section_exam_id "
                 + "LEFT JOIN Subjects sub ON sub.subject_id = s.subject_id "
-                + "LEFT JOIN StaffSections ss ON rs.section_id = ss.section_id "
-                + "WHERE ss.staff_id = ?";
+                + "LEFT JOIN StaffSections ss ON sa.section_exam_id = ss.section_id "
+                + "WHERE ss.staff_id = ? "
+                + "ORDER BY "
+                + "SUBSTRING_INDEX(rs.roomschedule_id, '_', 2), "
+                + "CASE "
+                + "WHEN rs.roomschedule_id LIKE '%_M%' THEN 1 "
+                + "WHEN rs.roomschedule_id LIKE '%_A%' THEN 2 "
+                + "ELSE 3 "
+                + "END, "
+                + "sa.week ASC, "
+                + "sa.schedule_date ASC";
         try (Connection connection = DBUtil.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, staffId);
             try (ResultSet rs = preparedStatement.executeQuery()) {
@@ -66,6 +80,7 @@ public class RoomScheduleDAO {
                             rs.getString("room_number"),
                             rs.getString("room_type"),
                             rs.getString("schedule_date"),
+                            rs.getString("week"),
                             rs.getString("capacity"),
                             rs.getString("start_time"),
                             rs.getString("end_time"),
@@ -150,7 +165,6 @@ public class RoomScheduleDAO {
 //            return null;
 //        }
 //    }
-
     public boolean assignSectionToRoomOrCreate(String roomScheduleId, String sectionId, int weekday, int week) {
         String checkQuery = "SELECT sa.assignment_id, sa.section_exam_id "
                 + "FROM ScheduleAssignment sa "
@@ -200,4 +214,13 @@ public class RoomScheduleDAO {
         return false;
     }
 
+    public void dropAssignedRoom(String scheduleId) {
+        String query = "UPDATE ScheduleAssignment SET section_exam_id = NULL WHERE roomschedule_id = ?";
+        try (Connection connection = DBUtil.getConnection(); PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setString(1, scheduleId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
