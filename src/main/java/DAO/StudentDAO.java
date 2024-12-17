@@ -198,4 +198,29 @@ public class StudentDAO {
         }
         return null;
     }
+
+    public List<Student> getStudentsBySectionId(String sectionId) throws SQLException {
+        List<Student> students = new ArrayList<>();
+        String query = "SELECT s.student_id, s.name "
+                + "FROM StudentsSections ss "
+                + "JOIN Students s ON ss.student_id = s.student_id "
+                + "WHERE ss.section_id = ?"
+                + "ORDER BY s.student_id";
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, sectionId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Student student = new Student();
+                    student.setStudentId(rs.getString("student_id"));
+                    student.setName(rs.getString("name"));
+                    students.add(student);
+                }
+                return students;
+            } 
+
+        }catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return null;
+    }
 }

@@ -1,5 +1,6 @@
 Servlet\StudentExamSchedule.class
 Servlet\StudentAttendance.class
+Servlet\StaffAttendance.class
 Servlet\StudentProfile.class
 Class\AssignedRoom.class
 Class\Section.class
@@ -14,6 +15,7 @@ Servlet\SubmitFeedbackServlet.class
 Servlet\StaffSchedule.class
 DAO\RoomScheduleDAO.class
 DAO\UserDAO.class
+Servlet\UpdateAttendance.class
 Servlet\StaffDropRoom.class
 DAO\StaffDAO.class
 Class\Room.class
@@ -31,6 +33,7 @@ Util\DBUtil.class
 Servlet\StaffSalary.class
 com\mycompany\schoolmanagement\JakartaRestConfiguration.class
 StaffChangePassword.class
+Servlet\StaffCheckAttendance.class
 Servlet\StaffPages.class
 Class\User.class
 com\mycompany\schoolmanagement\resources\JakartaEE10Resource.class
