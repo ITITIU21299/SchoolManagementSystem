@@ -74,7 +74,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Overall Attendance Rate</h5>
-                            <p class="card-text display-4">95%</p>
+                            <p class="card-text display-4">${String.format("%.0f", attendanceRate)}%</p>
                         </div>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Present Days</h5>
-                            <p class="card-text display-4">57</p>
+                            <p class="card-text display-4">${presentDays}</p>
                         </div>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Absent Days</h5>
-                            <p class="card-text display-4">3</p>
+                            <p class="card-text display-4">${absentDays}</p>
                         </div>
                     </div>
                 </div>
