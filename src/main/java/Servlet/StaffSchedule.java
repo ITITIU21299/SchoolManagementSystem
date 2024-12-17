@@ -14,6 +14,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jakarta.servlet.http.HttpSession;
+import static java.lang.System.out;
 import java.util.*;
 
 public class StaffSchedule extends HttpServlet {
@@ -33,6 +34,12 @@ public class StaffSchedule extends HttpServlet {
         List<Schedule> schedules = staffDAO.getRoomScheduleByStaffId(staff.getStaffId());
         request.setAttribute("schedules", schedules);
 
+        String week = "";
+        if (request.getParameter("week") != null) {
+            week = request.getParameter("week");   
+        }
+        if (week != "") request.setAttribute("week", week);
+        
         RequestDispatcher dispatcher = request.getRequestDispatcher("/staffschedule.jsp");
         dispatcher.forward(request, response);
     }
