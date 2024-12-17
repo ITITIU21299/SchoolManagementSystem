@@ -148,7 +148,7 @@
                     <table class="table table-striped" id="availableRooms" style="table-layout: fixed;">
                         <thead>
                             <tr>
-                                <th style="width: 10%;">Room Number</th>
+                                <th style="width: 10%;">Room</th>
                                 <th style="width: 10%;">Type</th>
                                 <th style="width: 10%;">Capacity</th>
                                 <th style="width: 15%;">Time</th>
@@ -194,7 +194,7 @@
                                                     <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#weekdaysCollapse_<%= room.getScheduleId() %>" aria-expanded="false" aria-controls="weekdaysCollapse_<%= room.getScheduleId() %>">
                                                         Select Weekdays
                                                     </button>
-                                                    <div class="collapse" id="weekdaysCollapse_<%= room.getScheduleId() %>" style="min-width: 300px">
+                                                    <div class="collapse" id="weekdaysCollapse_<%= room.getScheduleId() %>" style="min-width: 250px; position: relative; right: 50px">
                                                         <div class="card card-body p-3">
                                                             <div class="row row-cols-2 g-1">
                                                                 <div class="col d-flex justify-content-center align-items-center">

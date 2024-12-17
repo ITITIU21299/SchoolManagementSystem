@@ -7,6 +7,10 @@
         <servlet-name>StaffSchedule</servlet-name>
         <servlet-class>Servlet.StaffSchedule</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffDropAllRooms</servlet-name>
+        <servlet-class>Servlet.StaffDropAllRooms</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StaffSalary</servlet-name>
         <url-pattern>/StaffSalary</url-pattern>
@@ -18,6 +22,10 @@
     <servlet-mapping>
         <servlet-name>StaffSchedule</servlet-name>
         <url-pattern>/StaffSchedule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffDropAllRooms</servlet-name>
+        <url-pattern>/StaffDropAllRooms</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

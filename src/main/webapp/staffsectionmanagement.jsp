@@ -90,16 +90,31 @@
             <div class="card mt-4"> 
                 <div class="card-body">
                     <h5 class="card-title">Staff Section Management</h5>
-                    
+
                     <a class="btn btn-danger mt-2 mb-2" href="${pageContext.request.contextPath}/StaffAssignRoom">Manage Section - Click to switch</a>
 
+                    <button type="button" class="btn btn-danger mt-2 mb-2" onclick="confirmDropAll()">Drop All</button>
+
+                    <form id="dropAllForm" action="StaffDropAllRooms" method="post" style="display: none;">
+                        <% 
+                            List<AssignedRoom> dropRooms = (List<AssignedRoom>) request.getAttribute("assignedRooms");
+                            if (dropRooms != null) {
+                                for (AssignedRoom aroom : dropRooms) { 
+                        %>
+                        <input type="hidden" name="scheduleIds" value="<%= aroom.getScheduleId() %>">
+                        <% 
+                                } 
+                            } 
+                        %>
+                    </form>
                     <table class="table table-striped" id="assignedRooms">
                         <thead>
                             <tr>
-                                <th>Room Number</th>
+                                <th style="width: 10%">Room</th>
                                 <th>Type</th>
                                 <th>Capacity</th>
                                 <th>Weekday</th>
+                                <th>Week No.</th>
                                 <th>Time</th>
                                 <th>Section</th>
                                 <th>Action</th>
@@ -141,7 +156,7 @@
                                             case "7":
                                                 dayOfWeek = "Saturday";
                                                 break;
-                                            case "1":
+                                            case "8":
                                                 dayOfWeek = "Sunday";
                                                 break;
                                             default:
@@ -152,6 +167,8 @@
                                 %>
 
                                 <td><%= dayOfWeek %></td>
+
+                                <td><%= aroom.getWeek() %></td>
 
                                 <td><%= aroom.getStartTime() %> - <%= aroom.getEndTime() %></td>
 
@@ -201,23 +218,9 @@
         <script src="JavaScript/theme.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-                        function toggleTables() {
-                            var availableRooms = document.getElementById("availableRooms");
-                            var assignedRooms = document.getElementById("assignedRooms");
-                            var toggleButton = document.getElementById("toggleButton");
-
-                            if (availableRooms.style.display === "none") {
-                                availableRooms.style.display = "table";
-                                assignedRooms.style.display = "none";
-                                toggleButton.textContent = "Assign Section - Click to switch";
-                                toggleButton.className = "btn btn-primary mt-2 mb-2";
-
-                            } else {
-                                availableRooms.style.display = "none";
-                                assignedRooms.style.display = "table";
-                                toggleButton.textContent = "Manage Section - Click to switch";
-                                toggleButton.className = "btn btn-danger mt-2 mb-2";
-
+                        function confirmDropAll() {
+                            if (confirm("Are you sure you want to drop all assigned rooms for your schedule? This action cannot be undone.")) {
+                                document.getElementById('dropAllForm').submit();
                             }
                         }
         </script>

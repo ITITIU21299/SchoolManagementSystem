@@ -3,6 +3,7 @@ Servlet\StudentAttendance.class
 Servlet\StudentProfile.class
 Class\AssignedRoom.class
 Class\Section.class
+Servlet\StaffDropAllRooms.class
 DAO\AttendanceDAO.class
 Class\Student.class
 Servlet\StaffProfile.class

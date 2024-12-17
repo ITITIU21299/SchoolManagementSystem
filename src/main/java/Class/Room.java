@@ -6,6 +6,8 @@ public class Room {
     private String roomNumber;
     private String roomType;
     private String capacity;
+    private String date;
+    private String week;
     private String startTime;
     private String endTime;
 

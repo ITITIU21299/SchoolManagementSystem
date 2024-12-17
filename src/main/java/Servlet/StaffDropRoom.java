@@ -26,9 +26,13 @@ public class StaffDropRoom extends HttpServlet {
             throws ServletException, IOException {
         RoomScheduleDAO roomScheduleDAO = new RoomScheduleDAO();
         HttpSession session = request.getSession(false);
-        Staff staff = (Staff) session.getAttribute("staff");
+        User user = (User) session.getAttribute("user");
+        
+        StaffDAO staffDAO = new StaffDAO();
+        Staff staff = staffDAO.getStaffByStaffId(user.getUsername());
 
         List<AssignedRoom> assignedRooms = roomScheduleDAO.getRoomByStaffId(staff.getStaffId());
+
         request.setAttribute("assignedRooms", assignedRooms);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/staffsectionmanagement.jsp");
