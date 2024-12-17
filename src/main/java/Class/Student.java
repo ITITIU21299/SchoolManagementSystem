@@ -10,14 +10,14 @@ package Class;
  */
 public class Student {
 
-    private static String studentId;
-    private static String name;
-    private static String email;
-    private static String dateOfBirth;
-    private static String gender;
-    private static String classId;
-    private static String academicYear;
-    private static String username;
+    private String studentId;
+    private String name;
+    private String email;
+    private String dateOfBirth;
+    private String gender;
+    private String classId;
+    private String academicYear;
+    private String username;
 
     public Student() {
 

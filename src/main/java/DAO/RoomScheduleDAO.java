@@ -2,6 +2,7 @@ package DAO;
 
 import Class.*;
 import Util.DBUtil;
+import static java.lang.Integer.parseInt;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -212,6 +213,26 @@ public class RoomScheduleDAO {
             return false;
         }
         return false;
+    }
+    
+    public String getAssignmentId(String date, String week, String sectionId) throws SQLException {
+        String query = "SELECT assignment_id FROM ScheduleAssignment WHERE schedule_date = ? AND week = ? AND section_exam_id = ?";
+        String assignmentId = "";
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, parseInt(date));
+            stmt.setInt(2, parseInt(week));
+            stmt.setString(3, sectionId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    assignmentId = rs.getString("assignment_id");
+                }
+                return assignmentId;
+            } 
+
+        }catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return null;
     }
 
     public void dropAssignedRoom(String scheduleId) {
