@@ -2,7 +2,6 @@
 <%@page import="Class.*" %>
 <%@page import="DAO.*" %>
 <%@page import="java.util.*" %>
-<%@page import="java.util.*" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -130,13 +129,13 @@
                                             for (Schedule sc : schedules) {
                                                 String day = sc.getSchedule_date();
                                                 switch (day) {
-                                                    case "Monday": mon.add(sc); break;
-                                                    case "Tuesday": tue.add(sc); break;
-                                                    case "Wednesday": wed.add(sc); break;
-                                                    case "Thursday": thu.add(sc); break;
-                                                    case "Friday": fri.add(sc); break;
-                                                    case "Saturday": sat.add(sc); break;
-                                                    case "Sunday": sun.add(sc); break;
+                                                    case "2": mon.add(sc); break;
+                                                    case "3": tue.add(sc); break;
+                                                    case "4": wed.add(sc); break;
+                                                    case "5": thu.add(sc); break;
+                                                    case "6": fri.add(sc); break;
+                                                    case "7": sat.add(sc); break;
+                                                    case "8": sun.add(sc); break;
                                                 }
                                                                                             }    
                                             cnt = Math.max(cnt, mon.size());

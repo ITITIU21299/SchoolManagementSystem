@@ -18,7 +18,6 @@ public class Schedule {
     private String schedule_date;
     private String start_time;
     private String end_time;
-    String[] weekDay = {null, "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
     public Schedule() {
     }
@@ -48,7 +47,7 @@ public class Schedule {
     }
 
     public String getSchedule_date() {
-        return weekDay[Integer.parseInt(schedule_date)];
+        return schedule_date;
     }
 
     public void setSchedule_date(String schedule_date) {
