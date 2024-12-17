@@ -16,16 +16,18 @@ public class Schedule {
     private String room_id;
     private String subject_name;
     private String schedule_date;
+    private String week;
     private String start_time;
     private String end_time;
 
     public Schedule() {
     }
 
-    public Schedule(String room_id, String subject_name, String schedule_date, String start_time, String end_time) {
+    public Schedule(String room_id, String subject_name, String schedule_date, String week, String start_time, String end_time) {
         this.room_id = room_id;
         this.subject_name = subject_name;
         this.schedule_date = schedule_date;
+        this.week = week;
         this.start_time = start_time;
         this.end_time = end_time;
     }
@@ -52,6 +54,14 @@ public class Schedule {
 
     public void setSchedule_date(String schedule_date) {
         this.schedule_date = schedule_date;
+    }
+
+    public String getWeek() {
+        return week;
+    }
+
+    public void setWeek(String week) {
+        this.week = week;
     }
 
     public String getStart_time() {

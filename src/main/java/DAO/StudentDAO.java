@@ -168,7 +168,7 @@ public class StudentDAO {
         List<Schedule> schedules = new ArrayList<>();
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime start, end;
-        String query = "SELECT subject_name, room_number, schedule_date, start_time, end_time \n"
+        String query = "SELECT subject_name, room_number, schedule_date, start_time, end_time, week \n"
                 + "FROM StudentsSections ss \n"
                 + "JOIN RoomSchedule rs, Rooms r, ScheduleAssignment sa, Sections se, Subjects su \n"
                 + "WHERE ss.section_id = sa.section_exam_id \n"
@@ -176,7 +176,8 @@ public class StudentDAO {
                 + "AND rs.room_id = r.room_id \n"
                 + "AND ss.section_id = se.section_id \n"
                 + "AND se.subject_id = su.subject_id \n"
-                + "AND student_id = ?;";
+                + "AND student_id = ? \n"
+                + "ORDER BY week, start_time;";
         
         try (Connection connection = DBUtil.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             System.out.println(id);
@@ -187,7 +188,7 @@ public class StudentDAO {
                     start = rs.getTime("start_time").toLocalTime();
                     end = rs.getTime("end_time").toLocalTime();
 
-                    Schedule schedule = new Schedule(rs.getString("room_number"), rs.getString("subject_name"), rs.getString("schedule_date"), start.format(timeFormatter), end.format(timeFormatter));
+                    Schedule schedule = new Schedule(rs.getString("room_number"), rs.getString("subject_name"), rs.getString("schedule_date"), rs.getString("week"), start.format(timeFormatter), end.format(timeFormatter));
                     schedules.add(schedule);
                 }
                 return schedules;
