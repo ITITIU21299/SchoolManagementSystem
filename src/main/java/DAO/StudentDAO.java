@@ -258,5 +258,30 @@ public class StudentDAO {
         }
     }
 
-
+    public List<Section> getSectionByStudentId(String staffId) {
+        List<Section> sections = new ArrayList<>();
+        String query = "SELECT s.section_id, s.section_group, sub.subject_name, sub.subject_year, sub.semester "
+                + "FROM Sections s "
+                + "JOIN StudentsSections ss ON s.section_id = ss.section_id "
+                + "JOIN Subjects sub ON s.subject_id = sub.subject_id "
+                + "WHERE ss.student_id = ?;";
+        try (Connection connection = DBUtil.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, staffId);
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                while (rs.next()) {
+                    Section s = new Section(
+                            rs.getString("section_id"),
+                            rs.getString("subject_name"),
+                            rs.getString("section_group"),
+                            rs.getString("subject_year"),
+                            rs.getString("semester"));
+                    sections.add(s);
+                }
+                return sections;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

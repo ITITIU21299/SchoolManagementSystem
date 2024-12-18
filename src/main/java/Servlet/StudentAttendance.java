@@ -46,16 +46,18 @@ public class StudentAttendance extends HttpServlet {
         Map<String, List<Attendance>> attendanceMap = attendanceDAO.getAttendanceByStudentId(student.getStudentId());
 
         int totalSessions = 0;
-        int presentDays = 0;
+        double presentDays = 0;
         int absentDays = 0;
 
         for (Map.Entry<String, List<Attendance>> entry : attendanceMap.entrySet()) {
             for (Attendance record : entry.getValue()) {
                 totalSessions++;
-                if ("on".equals(record.getStatus())) {
+                if ("present".equals(record.getStatus())) {
                     presentDays++;
-                } else if ("off".equals(record.getStatus())) {
+                } else if ("absent".equals(record.getStatus())) {
                     absentDays++;
+                } else if ("late".equals(record.getStatus())) {
+                    presentDays += 0.5;
                 }
             }
         }

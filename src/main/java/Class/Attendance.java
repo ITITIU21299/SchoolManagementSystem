@@ -9,23 +9,16 @@ package Class;
  * @author huynh
  */
 public class Attendance {
-    private String status;
-    private int sessionNumber;
-    private String studentId;
     private String sectionId;
+    private String studentId;
+    private String assignmentId;
+    private String status;
 
-    public Attendance(int sessionNumber, String sectionId, String status) {
-        this.sessionNumber = sessionNumber;
+    public Attendance(String assignmentId, String studentId, String sectionId, String status) {
+        this.assignmentId = assignmentId;
+        this.studentId = studentId;
         this.sectionId = sectionId;
         this.status = status;
-    }
-
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
     }
 
     public String getSectionId() {
@@ -36,18 +29,22 @@ public class Attendance {
         this.sectionId = sectionId;
     }
 
-    public Attendance(){
-        
+    public String getStudentId() {
+        return studentId;
     }
 
-    public int getSessionNumber() {
-        return sessionNumber;
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
-    public void setSessionNumber(int sessionNumber) {
-        this.sessionNumber = sessionNumber;
+    public String getAssignmentId() {
+        return assignmentId;
     }
-    
+
+    public void setAssignmentId(String assignmentId) {
+        this.assignmentId = assignmentId;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -55,6 +52,7 @@ public class Attendance {
     public void setStatus(String status) {
         this.status = status;
     }
+    
     
     
 }

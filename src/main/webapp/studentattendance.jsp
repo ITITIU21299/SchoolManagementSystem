@@ -116,15 +116,18 @@
                                         <% String subject = entry.getKey(); %>
                                         <% List<Attendance> attendanceList = entry.getValue(); %>
 
-                                        <% int presentCount = 0, absentCount = 0, totalSessions = 0; %>
+                                        <% double presentCount = 0, absentCount = 0, totalSessions = 0; %>
                                         <% for (Attendance record : attendanceList) { %>
                                         <% totalSessions++; %>
-                                        <% if ("on".equals(record.getStatus())) {
-                    presentCount++;
-                } %>
-                                        <% if ("off".equals(record.getStatus())) {
-                    absentCount++;
-                } %>
+                                        <% if ("present".equals(record.getStatus())) {
+                                                presentCount++;
+                                            } %>
+                                        <% if ("absent".equals(record.getStatus())) {
+                                                absentCount++;
+                                            } %> 
+                                        <% if ("late".equals(record.getStatus())) {
+                                                presentCount += 0.5;
+                                            } %>
                                         <% } %>
                                         <% double subjectAttendanceRate = (totalSessions > 0) ? (presentCount * 100.0 / totalSessions) : 0;%>
 

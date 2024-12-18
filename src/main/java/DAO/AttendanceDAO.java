@@ -25,20 +25,30 @@ public class AttendanceDAO {
 
     public Map<String, List<Attendance>> getAttendanceByStudentId(String studentId) {
         Map<String, List<Attendance>> attendanceMap = new HashMap<>();
-        String sql = "SELECT section_id, session_number, status FROM Attendance WHERE student_id = ?";
+        String query = "SELECT a.status, sa.assignment_id, sa.section_exam_id, s.section_group, s.subject_id, sub.subject_name "
+                + "FROM Attendance a "
+                + "JOIN ScheduleAssignment sa ON a.assignment_id = sa.assignment_id "
+                + "JOIN Sections s ON sa.section_exam_id = s.section_id "
+                + "JOIN Subjects sub ON s.subject_id = sub.subject_id "
+                + "WHERE a.student_id = ?";
 
-        try (Connection connection = DBUtil.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, studentId);
-            ResultSet rs = stmt.executeQuery();
+        try (Connection connection = DBUtil.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, studentId);
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                while (rs.next()) {
+                    String sectionName = rs.getString("subject_name") + " - " + rs.getString("section_group");
+                    String status = rs.getString("status");
+                    String assignmentId = rs.getString("assignment_id");
 
-            while (rs.next()) {
-                String sectionId = rs.getString("section_id");
-                int sessionNumber = rs.getInt("session_number");
-                String status = rs.getString("status");
+                    Attendance attendance = new Attendance(
+                            assignmentId,
+                            studentId,
+                            rs.getString("section_exam_id"),
+                            status
+                    );
 
-                Attendance attendance = new Attendance(sessionNumber, sectionId, status);
-
-                attendanceMap.computeIfAbsent(sectionId, k -> new ArrayList<>()).add(attendance);
+                    attendanceMap.computeIfAbsent(sectionName, k -> new ArrayList<>()).add(attendance);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
