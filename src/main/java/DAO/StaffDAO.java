@@ -136,7 +136,7 @@ public class StaffDAO {
         List<Schedule> schedules = new ArrayList<>();
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime start, end;
-        String query = "SELECT subject_name, room_number, schedule_date, start_time, end_time, week \n"
+        String query = "SELECT subject_name, room_number, schedule_date, start_time, end_time, week, semester, subject_year \n"
                 + "FROM StaffSections ss \n"
                 + "JOIN RoomSchedule rs, Rooms r, ScheduleAssignment sa, Sections se, Subjects su \n"
                 + "WHERE ss.section_id = sa.section_exam_id \n"
@@ -156,7 +156,7 @@ public class StaffDAO {
                     start = rs.getTime("start_time").toLocalTime();
                     end = rs.getTime("end_time").toLocalTime();
 
-                    Schedule schedule = new Schedule(rs.getString("room_number"), rs.getString("subject_name"), rs.getString("schedule_date"), rs.getString("week"), start.format(timeFormatter), end.format(timeFormatter));
+                    Schedule schedule = new Schedule(rs.getString("room_number"), rs.getString("subject_name"), rs.getString("schedule_date"), rs.getString("week"), start.format(timeFormatter), end.format(timeFormatter), rs.getString("semester"), rs.getString("subject_year"));
                     schedules.add(schedule);
                     System.out.println(schedule.getWeek());
                 }

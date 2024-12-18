@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
 package Servlet;
 
 import Class.*;
@@ -17,7 +21,11 @@ import jakarta.servlet.http.HttpSession;
 import static java.lang.System.out;
 import java.util.*;
 
-public class StaffSchedule extends HttpServlet {
+/**
+ *
+ * @author admin
+ */
+public class StudentSchedule extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -28,16 +36,16 @@ public class StaffSchedule extends HttpServlet {
         }
         User user = (User) session.getAttribute("user");
 
-        StaffDAO staffDAO = new StaffDAO();
-        Staff staff = staffDAO.getStaffByUsername(user.getUsername());
+        StudentDAO studentDAO = new StudentDAO();
+        Student student = studentDAO.getStudentByUsername(user.getUsername());
 
-        List<Schedule> schedules = staffDAO.getRoomScheduleByStaffId(staff.getStaffId());
+        List<Schedule> schedules = studentDAO.getRoomScheduleByStudentId(student.getStudentId());
         request.setAttribute("schedules", schedules);
 
         String week = "1";
         String current_week = request.getParameter("current week");
         String current_se = request.getParameter("current se");
-        String current_ye = request.getParameter("current ye");        
+        String current_ye = request.getParameter("current ye");
         String action = "";
 
         String semester_year = "";
@@ -71,11 +79,11 @@ public class StaffSchedule extends HttpServlet {
                 out.println("NEXT WEEK: " + week);
             }
             request.setAttribute("se", current_se);
-            request.setAttribute("ye", current_ye);       
+            request.setAttribute("ye", current_ye);
             out.println(current_se);
             out.println(current_ye);
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/staffschedule.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/studentroomschedule.jsp");
         dispatcher.forward(request, response);
     }
 

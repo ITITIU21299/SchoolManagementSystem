@@ -41,7 +41,9 @@ public class StudentPages extends HttpServlet {
 
         List<Schedule> schedules = studentDAO.getRoomScheduleByStudentId(student.getStudentId());
         session.setAttribute("schedules", schedules);
-
+        for (Schedule sc: schedules)
+            System.out.println(sc.getRoom_id());
+        
         List<Fee> fees = studentDAO.getFeesByStudentId(student.getStudentId());
         session.setAttribute("fees", fees);
 

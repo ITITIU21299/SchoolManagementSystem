@@ -8,7 +8,8 @@
 <%@page import="Class.*" %>
 <%@page import="DAO.*" %>
 <%@page import="java.util.*" %>
-<%@page import="java.util.*" %>
+<%@page import="java.time.LocalDate" %>
+<%@page import="java.time.DayOfWeek" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,6 +77,80 @@
             <div class="card mt-4">
                 <div class="card-body">
                     <h5 class="card-title">Your Class Schedule</h5>
+                    <form method="post" action="StudentSchedule">
+                        <% 
+                        String week = (String) request.getAttribute("week");
+                        String se = (String) request.getAttribute("se");        
+                        String ye = (String) request.getAttribute("ye");
+                        String[] years = (String[]) new String[2]; 
+                                 
+                        LocalDate currentDate = (LocalDate) LocalDate.now();
+                        int iyear = (int) currentDate.getYear();
+                        int imonth = (int) currentDate.getMonthValue(); // 1 = January, 12 = December
+                        int isemester = (int) imonth / 7;
+                        if (isemester == 0) isemester = 2;
+                        else isemester = 1;
+                        String prevSe = (String) "";
+                        String prevYe = (String) "";
+                        String nextSe = (String) "";
+                        String nextYe = (String) "";
+                        String year = (String) "";
+                        String month = (String) "";
+                        String semester = (String) "";
+                                
+                        if (isemester == 1) {
+                            semester = "1";
+                            year = String.valueOf(iyear) + "-" + String.valueOf(iyear+1);
+                            prevSe = "2";
+                            prevYe = String.valueOf(iyear-1) + "-" + String.valueOf(iyear);
+                            nextSe = "2";
+                            nextYe = String.valueOf(iyear) + "-" + String.valueOf(iyear+1);
+                        } else {
+                            semester = "2";
+                            year = String.valueOf(iyear-1) + "-" + String.valueOf(iyear);
+                            prevSe = "1";
+                            prevYe = String.valueOf(iyear-1) + "-" + String.valueOf(iyear);
+                            nextSe = "1";
+                            nextYe = String.valueOf(iyear) + "-" + String.valueOf(iyear+1);
+                        }                    
+
+                        if (week == null)
+                            week = "1";
+                        if (se == null)
+                            se = semester;
+                        if (ye == null)
+                            if (se.equals("1")) ye = String.valueOf(iyear) + "-" + String.valueOf(iyear+1);
+                            else ye = String.valueOf(iyear) + "-" + String.valueOf(iyear+1);
+                        years = ye.split("-");
+                                
+                        %>
+                        Go to: <input type="text" name="week" size="20" placeholder="week">                              
+                        <Select name="semester year"> 
+                            <option value="<%=prevSe%> <%=prevYe%>"><%=prevSe%> - <%=prevYe%></option>
+                            <option selected="selected" value="<%=semester%> <%=year%>"><%=semester%> - <%=year%></option>
+                            <option value="<%=nextSe%> <%=nextYe%>"><%=nextSe%> - <%=nextYe%></option>                                    
+                        </select>
+
+                        <input type="submit" name="action" value="Go" class="btn btn-primary">   
+                        <input type="hidden" name="current week" value="<%=week%>">
+                        <input type="hidden" name="current se" value="<%=se%>">
+                        <input type="hidden" name="current ye" value="<%=ye%>">
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <input type="submit" name="action" value="Previous week" id="prevWeek" class="btn btn-primary"><!--<i class="bi bi-chevron-left"></i>-->
+                            <h6 id="currentWeek" class="mb-0">Week <%=week%>: 
+                                <%
+                                    LocalDate start_date = (LocalDate) LocalDate.of(2020, 1, 1);
+                                    if (se.equals("2"))
+                                        start_date = LocalDate.of(Integer.parseInt(years[Integer.parseInt(se)-1]), 2, 1);
+                                    else start_date = LocalDate.of(Integer.parseInt(years[Integer.parseInt(se)-1]), 8, 1);
+                                    LocalDate firstMonday = start_date.with(java.time.temporal.TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
+                                    out.print(firstMonday.plusWeeks(Integer.parseInt(week)));
+
+                                %><!--<span id="weekStart"></span>--></h6>
+                            <input type="submit" name="action" value="Next week" id="nextWeek" class="btn btn-primary"><!--<i class="bi bi-chevron-right"></i>-->
+                        </div>
+                    </form>                       
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -101,15 +176,21 @@
                                 int cnt = (int) 0;
                                 
                                 for (Schedule sc : schedules) {
+                                    if (!sc.getSemester().equals(se))
+                                        continue;
+                                    //if (!sc.getSubject_year().equals(ye))
+                                    //    continue;
+                                    if (!sc.getWeek().equals(week))
+                                        continue;                                
                                     String day = sc.getSchedule_date();
                                     switch (day) {
-                                        case "Monday": mon.add(sc); break;
-                                        case "Tuesday": tue.add(sc); break;
-                                        case "Wednesday": wed.add(sc); break;
-                                        case "Thursday": thu.add(sc); break;
-                                        case "Friday": fri.add(sc); break;
-                                        case "Saturday": sat.add(sc); break;
-                                        case "Sunday": sun.add(sc); break;
+                                        case "2": mon.add(sc); break;
+                                        case "3": tue.add(sc); break;
+                                        case "4": wed.add(sc); break;
+                                        case "5": thu.add(sc); break;
+                                        case "6": fri.add(sc); break;
+                                        case "7": sat.add(sc); break;
+                                        case "1": sun.add(sc); break;
                                     }
                                 }    
                                 cnt = Math.max(cnt, mon.size());
@@ -146,15 +227,8 @@
                                     
                                     out.println("</tr>");
                                 }            
-                                out.println("<tr><td>SAMPLE</td></tr>");
-                                for (int i = (int) 0; i < 3; i++)  {
-                                    out.println("<tr>");
-                                    for (int j = (int) 0; j < 7; j++)
-                                        out.println("<td><div class = 'card'> " + j + " </div></td>");
-                                    out.println("</tr>");
-                                }
                             %>
- 
+
                             </tr>
                         </tbody>
                     </table>
