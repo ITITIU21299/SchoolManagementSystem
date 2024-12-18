@@ -42,12 +42,12 @@ public class StudentExamSchedule extends HttpServlet {
         String action = "";
 
         String semester_year = "";
-
+        
         if (request.getParameter("action") != null) {
             action = request.getParameter("action");
         }
-        if (action.equals("Go")) {
-            if (!request.getParameter("week").equals("")) {
+        if ("Go".equals(action)) {
+            if (request.getParameter("week") != null && !request.getParameter("week").isEmpty()) {
                 week = request.getParameter("week");
                 request.setAttribute("week", week);
             } else {
@@ -71,8 +71,6 @@ public class StudentExamSchedule extends HttpServlet {
             }
             request.setAttribute("se", current_se);
             request.setAttribute("ye", current_ye);
-            out.println(current_se);
-            out.println(current_ye);
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher("studentexamschedule.jsp");
         dispatcher.forward(request, response);

@@ -21,7 +21,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
         <link href="styles.css" rel="stylesheet">
     </head>
-    <body class="body">
+    <body style="display: flex; min-height: 100vh; flex-direction: column">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">School Management System</a>
@@ -34,13 +34,13 @@
                             <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/StudentPages"><i class="bi bi-house-door"></i> Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="studentfee.jsp"><i class="bi bi-cash-coin"></i> Fee Information</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/StudentFee"><i class="bi bi-cash-coin"></i> Fee Information</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="studentexamschedule.jsp"><i class="bi bi-calendar-check"></i> Exam Schedule</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/StudentExamSchedule"><i class="bi bi-calendar-check"></i> Exam Schedule</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/StudentSchedule"><i class="bi bi-calendar3"></i> Room Schedule</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/StudentSchedule"><i class="bi bi-calendar3"></i> Room Schedule</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/StudentAttendance"><i class="bi bi-calendar-check"></i> Attendance</a>
@@ -85,7 +85,7 @@
             </div>
         </nav>
 
-        <div class="container mt-4">
+        <div style="flex: 1" class="container mt-4">
             <h1>Room Schedule</h1>
             <div class="card mt-4">
                 <div class="card-body">

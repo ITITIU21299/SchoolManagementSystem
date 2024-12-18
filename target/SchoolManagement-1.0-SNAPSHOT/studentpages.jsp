@@ -13,7 +13,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
         <link href="styles.css" rel="stylesheet">
     </head>
-    <body>
+    <body style="display: flex; min-height: 100vh; flex-direction: column">
         <% Student student = (Student) request.getAttribute("student"); %>
         <% List<Exam> exams = (List<Exam>) request.getAttribute("exams"); %>                
         <% float marks = (float) request.getAttribute("marks");%>
@@ -80,7 +80,7 @@
             </div>
         </nav>
 
-        <div class="container mt-4">
+        <div style="flex: 1" class="container mt-4">
             <h1>Welcome, ${student.getName()} </h1>
             <div class="row mt-4">
                 <div class="col-md-4 mb-4">

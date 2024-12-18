@@ -23,9 +23,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
         <link href="styles.css" rel="stylesheet">
     </head>
-    <body>
-        <% Student student = (Student) session.getAttribute("student"); %>
-        <% StudentDAO studentDAO = (StudentDAO) session.getAttribute("studentDAO"); %>
+    <body style="display: flex; min-height: 100vh; flex-direction: column">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">School Management System</a>
@@ -35,13 +33,13 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/StudentPages"><i class="bi bi-house-door"></i> Dashboard</a>
+                            <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/StudentPages"><i class="bi bi-house-door"></i> Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="studentfee.jsp"><i class="bi bi-cash-coin"></i> Fee Information</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/StudentFee"><i class="bi bi-cash-coin"></i> Fee Information</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-calendar-check"></i> Exam Schedule</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/StudentExamSchedule"><i class="bi bi-calendar-check"></i> Exam Schedule</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/StudentSchedule"><i class="bi bi-calendar3"></i> Room Schedule</a>
@@ -58,22 +56,38 @@
                             <a class="nav-link dropdown-toggle" href="#" id="staffDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-gear"></i> Setting
                             </a>
-                            <ul class="dropdown-menu p-2 " aria-labelledby="staffDropdown">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="darkMode">
-                                    <label class="form-check-label" for="flexSwitchCheckDefault ">Dark Mode</label>
-                                </div>
+                            <ul class="dropdown-menu p-1" aria-labelledby="staffDropdown">
+                                <table style="width: 100%; border-spacing: 5px;">
+                                    <tr>
+                                        <td style="width: 30px; text-align: center;">
+                                            <div class="form-check form-switch" style="margin-left: 7px">
+                                                <input class="form-check-input" type="checkbox" role="switch" id="darkMode">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label class="form-check-label" for="darkMode">Dark Mode</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 30px; text-align: center;">
+                                            <i class="bi bi-person-circle" style="font-size: 1.4rem;"></i>
+                                        </td>
+                                        <td>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/StudentProfile">Profile</a>
+                                        </td>
+                                    </tr>
+                                </table>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.jsp"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/Logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <div class="container mt-4">
+        <div style="flex: 1" class="container mt-4">
             <h1>Exam Schedule for ${student.getName()}</h1>
             <div class="card mt-4">
                 <div class="card-body">
@@ -87,7 +101,7 @@
 
                             LocalDate currentDate = (LocalDate) LocalDate.now();
                             int iyear = (int) currentDate.getYear();
-                            int imonth = (int) currentDate.getMonthValue(); // 1 = January, 12 = December
+                            int imonth = (int) currentDate.getMonthValue();
                             int isemester = (int) imonth / 7;
                             if (isemester == 0) {
                                 isemester = 2;
@@ -132,22 +146,20 @@
                                 }
                             }
                             years = ye.split("-");
-                            //out.println("Week: " + week + "Semester: " + se + "Year: " + ye);
                         %>
-                        Go to: <!--<input type="text" name="week" size="20" placeholder="week>-->
-                        <Select name="semester year"> 
+                        <p class="d-inline" style="font-weight: bold; color: #007bff">Go to: </p>
+                        <select style="width: 15%" class="form-select d-inline" name="semester year"> 
                             <option value="<%=prevSe%> <%=prevYe%>"><%=prevSe%> - <%=prevYe%></option>
                             <option selected="selected" value="<%=semester%> <%=year%>"><%=semester%> - <%=year%></option>
                             <option value="<%=nextSe%> <%=nextYe%>"><%=nextSe%> - <%=nextYe%></option>                                    
                         </select>
 
-                        <input type="submit" name="action" value="Go" class="btn btn-primary">   
+                        <input type="submit" name="action" value="Go" class="btn btn-primary d-inline">   
                         <input type="hidden" name="current week" value="<%=week%>">
                         <input type="hidden" name="current se" value="<%=se%>">
                         <input type="hidden" name="current ye" value="<%=ye%>">
 
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <!--<input type="submit" name="action" value="Previous week" id="prevWeek" class="btn btn-primary"><!--<i class="bi bi-chevron-left"></i>-->
                             <h6 id="currentWeek" class="mb-0">
                                 <%
                                     LocalDate start_date = (LocalDate) LocalDate.of(2020, 1, 1);
@@ -162,11 +174,10 @@
                                     LocalDate start_fin = (LocalDate) firstMonday.plusWeeks(14);
                                     LocalDate end_fin = (LocalDate) start_fin.plusDays(5);
                                 %> 
-                                <!--<span id="weekStart"></span>--></h6>
-                            <!--<input type="submit" name="action" value="Next week" id="nextWeek" class="btn btn-primary"><!--<i class="bi bi-chevron-right"></i>-->
+                            </h6>
                         </div>
                     </form>       
-                    Mid term:
+                    <p style="font-weight: bold; color: tomato">Midterm</p>
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -196,7 +207,7 @@
                             %>
                         </tbody>
                     </table>
-                    Final:
+                    <p style="font-weight: bold; color: tomato">Final</p>
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -207,22 +218,23 @@
                             </tr>
                         </thead>            
                         <tbody>                                                
-                        <%
-                        if (exams != null) {
-                            for (Exam exam : exams) {
-                            if (exam.getWeek().equals("15") && exam.getSemester().equals(se) && exam.getSubject_year().equals(ye)) {}
-                        %>
-                        <tr>
-                            <td><%= exam.getSubject() != null ? exam.getSubject() : "N/A"%></td>
-                            <td><%= start_fin.plusDays(Integer.parseInt(exam.getDate())-2)%></td>
-                            <td><%= exam.getStartTime() != null ? exam.getStartTime() : "N/A"%> - 
-                                <%= exam.getEndTime() != null ? exam.getEndTime() : "N/A"%></td>
-                            <td><%= exam.getRoomNumber() != null ? exam.getRoomNumber() : "N/A"%></td>
-                        </tr>
-                        <%
+                            <%
+                            if (exams != null) {
+                                for (Exam exam : exams) {
+                                System.out.printf(exam.getWeek());
+                                if (exam.getWeek().equals("15") && exam.getSemester().equals(se) && exam.getSubject_year().equals(ye)) {}
+                            %>
+                            <tr>
+                                <td><%= exam.getSubject() != null ? exam.getSubject() : "N/A"%></td>
+                                <td><%= start_fin.plusDays(Integer.parseInt(exam.getDate())-2)%></td>
+                                <td><%= exam.getStartTime() != null ? exam.getStartTime() : "N/A"%> - 
+                                    <%= exam.getEndTime() != null ? exam.getEndTime() : "N/A"%></td>
+                                <td><%= exam.getRoomNumber() != null ? exam.getRoomNumber() : "N/A"%></td>
+                            </tr>
+                            <%
+                                    }
                                 }
-                            }
-                        %>
+                            %>
                         </tbody>
                     </table>
                 </div>

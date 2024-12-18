@@ -62,10 +62,8 @@ public class StudentDAO {
 
             try (ResultSet rs = preparedStatement.executeQuery()) {
                 while (rs.next()) {
-                    System.out.println("AAAAAAAAAA");
                     Exam e = new Exam(rs.getString("subject_name"), rs.getString("schedule_date"), rs.getString("week"), rs.getString("start_time"), rs.getString("end_time"), rs.getString("room_number"), rs.getString("semester"), rs.getString("subject_year"));
                     exams.add(e);
-                    // System.out.println("Exam room: " + e.getRoomNumber());
                 }
                 return exams;
             }
