@@ -49,8 +49,13 @@
         <servlet-class>Servlet.Logout</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< Updated upstream
         <servlet-name>StudentSchedule</servlet-name>
         <servlet-class>Servlet.StudentSchedule</servlet-class>
+=======
+        <servlet-name>ChangePassword</servlet-name>
+        <servlet-class>Servlet.ChangePassword</servlet-class>
+>>>>>>> Stashed changes
     </servlet>
     <servlet-mapping>
         <servlet-name>StaffSalary</servlet-name>
@@ -101,8 +106,13 @@
         <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< Updated upstream
         <servlet-name>StudentSchedule</servlet-name>
         <url-pattern>/StudentSchedule</url-pattern>
+=======
+        <servlet-name>ChangePassword</servlet-name>
+        <url-pattern>/ChangePassword</url-pattern>
+>>>>>>> Stashed changes
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

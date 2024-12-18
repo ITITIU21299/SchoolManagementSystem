@@ -87,14 +87,12 @@
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body text-center">
-                            <img src="https://via.placeholder.com/150" alt="Student Photo" class="rounded-circle mb-3">
                             <h5 class="card-title">${staff.getName()}</h5>
                             <p class="card-text">Staff ID: ${staff.getStaffId()}</p>
                             <p class="card-text">Email: ${staff.getEmail()}</p>
                             <p class="card-text">Phone: ${staff.getPhone()}</p>
                             <p class="card-text">Address: ${staff.getAddress()}</p>
                             <p class="card-text">Qualification: ${staff.getQualification()}</p>
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePhotoModal">Change Photo</button>
                         </div>
                     </div>
                 </div>
@@ -102,23 +100,23 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <h5 class="card-title">Personal Information</h5>
-                            <form action="StaffProfile" method="POST">
-                                <input type="hidden" name="username">
+                            <form action="StaffProfile" method="post" onsubmit="return validateForm()">
+                                <input type="hidden" name="username" value="${username}">
                                 <div class="mb-3">
                                     <label for="fullName" class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" id="fullName" name="fullName"  required>
+                                    <input type="text" class="form-control" id="fullName" name="fullName">
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" required>
+                                    <input type="email" class="form-control" id="email" name="email">
                                 </div>
                                 <div class="mb-3">
                                     <label for="phone" class="form-label">Phone number</label>
-                                    <input type="text" class="form-control" id="phone" name="phone" required>
+                                    <input type="text" class="form-control" id="phone" name="phone">
                                 </div>
                                 <div class="mb-3">
                                     <label for="address" class="form-label">Address</label>
-                                    <input type="text" class="form-control" id="address" name="address" required>
+                                    <input type="text" class="form-control" id="address" name="address">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Update Personal Information</button>
                             </form>
@@ -127,7 +125,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Account Settings</h5>
-                            <form action="StaffChangePassword" method="post">
+                            <form action="ChangePassWord" method="post">
                                 <div class="mb-3">
                                     <label for="currentPassword" class="form-label">Current Password</label>
                                     <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
@@ -135,37 +133,16 @@
                                 <div class="mb-3">
                                     <label for="newPassword" class="form-label">New Password</label>
                                     <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                                    <small id="newPasswordMessage" class="text-danger" style="display: none;">Password must be at least 8 characters long!</small>
                                 </div>
                                 <div class="mb-3">
                                     <label for="confirmPassword" class="form-label">Confirm New Password</label>
                                     <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                                    <small id="confirmPasswordMessage" style="color: red; display: none;">Passwords do not match!</small>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Change Password</button>
+                                <button type="submit" class="btn btn-primary" id="submitBtn">Change Password</button>
                             </form>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="changePhotoModal" tabindex="-1" aria-labelledby="changePhotoModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="changePhotoModalLabel">Change Profile Photo</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="mb-3">
-                                <label for="profilePhoto" class="form-label">Select a new profile photo</label>
-                                <input type="file" class="form-control" id="profilePhoto" accept="image/*" required>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Upload Photo</button>
                     </div>
                 </div>
             </div>
@@ -200,6 +177,118 @@
         </footer>
         <script src="JavaScript/theme.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+        <div class="modal fade" id="validationErrorModal" tabindex="-1" aria-labelledby="validationErrorModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="color: white;">
+                    <div class="modal-header" style="background-color: red">
+                        <h5 class="modal-title" id="validationErrorModalLabel">Missing Information</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="font-weight: bold; font-size: 18px; color: red;">
+                        Please fill in at least one field.
+                    </div>
+                    <div class="modal-footer" style="background-color: red">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+                                function validateForm() {
+                                    const fullName = document.getElementById("fullName").value.trim();
+                                    const email = document.getElementById("email").value.trim();
+                                    const phone = document.getElementById("phone").value.trim();
+                                    const address = document.getElementById("address").value.trim();
+
+                                    if (!fullName && !email && !phone && !address) {
+                                        var myModal = new bootstrap.Modal(document.getElementById('validationErrorModal'));
+                                        myModal.show();
+                                        return false;
+                                    }
+                                    return true;
+                                }
+        </script>
+
+        <script>
+            const newPassword = document.getElementById('newPassword');
+            const confirmPassword = document.getElementById('confirmPassword');
+            const confirmPasswordMessage = document.getElementById('confirmPasswordMessage');
+            const newPasswordMessage = document.getElementById('newPasswordMessage');
+            const submitBtn = document.getElementById('submitBtn');
+
+            function checkPasswordMatch() {
+                const newPasswordValue = newPassword.value;
+                const confirmPasswordValue = confirmPassword.value;
+
+                // Check if the new password meets the 8-character requirement
+                if (newPasswordValue.length < 8) {
+                    newPasswordMessage.style.display = 'block';
+                    submitBtn.disabled = true;
+                } else {
+                    newPasswordMessage.style.display = 'none';
+                }
+
+                // Check if new password matches confirm password
+                if (newPasswordValue === confirmPasswordValue) {
+                    confirmPasswordMessage.style.display = 'none';
+                } else {
+                    confirmPasswordMessage.style.display = 'block';
+                    submitBtn.disabled = true;
+                }
+
+                // Enable the button only if all conditions are satisfied
+                if (newPasswordValue.length >= 8 && newPasswordValue === confirmPasswordValue) {
+                    submitBtn.disabled = false;
+                }
+            }
+
+            newPassword.addEventListener('input', checkPasswordMatch);
+            confirmPassword.addEventListener('input', checkPasswordMatch);
+        </script>
+
+        <% String result = (String) request.getAttribute("result"); %>
+        <% if (result != null) { %>
+        <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <% if (result.contains("successfully")) {%>
+                    <div class="modal-header" style="background-color: green">
+                        <h5 class="modal-title" id="resultModalLabel" style="font-weight: bold; color: black">Notification</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="color: green">
+                        <strong><%= result %></strong>
+                    </div>
+                    <div class="modal-footer" style="background-color: green">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                    <%}%>
+
+                    <% if (result.contains("incorrect")) {%>
+                    <div class="modal-header" style="background-color: red">
+                        <h5 class="modal-title" id="resultModalLabel" style="font-weight: bold; color: black">Error</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="color: red">
+                        <strong><%= result %></strong>
+                    </div>
+                    <div class="modal-footer" style="background-color: red">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                    <%}%>
+                </div>
+            </div>
+        </div>
+        <script>
+            window.addEventListener('DOMContentLoaded', () => {
+                const resultModal = new bootstrap.Modal(document.getElementById('resultModal'));
+                resultModal.show();
+            });
+        </script>
+        <% } %>
     </body>
 </html>
 

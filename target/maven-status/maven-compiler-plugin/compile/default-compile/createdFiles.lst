@@ -22,7 +22,6 @@ DAO\StaffDAO.class
 Class\Room.class
 Servlet\SubmitFeedbackServlet$1.class
 DAO\StudentDAO.class
-Servlet\ChangePassWord.class
 Class\Staff.class
 Util\HashAllPassword.class
 Servlet\Logout.class
@@ -36,6 +35,7 @@ Servlet\StaffSalary.class
 com\mycompany\schoolmanagement\JakartaRestConfiguration.class
 StaffChangePassword.class
 Servlet\StaffCheckAttendance.class
+Servlet\ChangePassword.class
 Servlet\StaffPages.class
 Class\User.class
 com\mycompany\schoolmanagement\resources\JakartaEE10Resource.class

@@ -167,5 +167,49 @@ public class StaffDAO {
         }
         return null;
     }
-    
+
+    public void updateStaffNameByUsername(String username, String fullName) {
+        String query = "UPDATE Staff SET name = ? WHERE username = ?";
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, fullName);
+            stmt.setString(2, username);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateStaffEmailByUsername(String username, String email) {
+        String query = "UPDATE Staff SET email = ? WHERE username = ?";
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, email);
+            stmt.setString(2, username);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateStaffPhoneByUsername(String username, String phone) {
+        String query = "UPDATE Staff SET phone = ? WHERE username = ?";
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, phone);
+            stmt.setString(2, username);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateStaffAddressByUsername(String username, String address) {
+        String query = "UPDATE Staff SET address = ? WHERE username = ?";
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, address);
+            stmt.setString(2, username);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

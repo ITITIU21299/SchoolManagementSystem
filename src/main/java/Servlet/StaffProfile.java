@@ -30,6 +30,14 @@ public class StaffProfile extends HttpServlet {
         Staff staff = staffDAO.getStaffByUsername(user.getUsername());
         request.setAttribute("staff", staff);
 
+        String username = user.getUsername();
+        request.setAttribute("username", username);
+
+        String result = request.getParameter("result");
+        if (result != null) {
+            request.setAttribute("result", result);
+        }
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("/staffprofile.jsp");
         dispatcher.forward(request, response);
     }
@@ -44,24 +52,29 @@ public class StaffProfile extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("username");
-        String name = request.getParameter("fullName");
+        String fullName = request.getParameter("fullName");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
-        
-        if (username != null) {
-            Staff staff = new Staff();
-            staff.setName(name);
-            staff.setEmail(email);
-            staff.setPhone(phone);
-            staff.setAddress(address);
-            
-            StaffDAO staffDAO = new StaffDAO();
-            boolean updated = staffDAO.updateStaffProfile(staff);
-            request.setAttribute("staff", staff);
-            response.sendRedirect(request.getContextPath() + "/StaffProfile");
+        StaffDAO staffDAO = new StaffDAO();
+
+        if (fullName != null && !fullName.trim().isEmpty()) {
+            staffDAO.updateStaffNameByUsername(username, fullName.trim());
         }
 
+        if (email != null && !email.trim().isEmpty()) {
+            staffDAO.updateStaffEmailByUsername(username, email.trim());
+        }
+
+        if (phone != null && !phone.trim().isEmpty()) {
+            staffDAO.updateStaffPhoneByUsername(username, phone.trim());
+        }
+
+        if (address != null && !address.trim().isEmpty()) {
+            staffDAO.updateStaffAddressByUsername(username, address.trim());
+        }
+
+        response.sendRedirect(request.getContextPath() + "/StaffProfile");
     }
 
 }
