@@ -91,18 +91,8 @@
                 <div class="card-body">
                     <form action="SubmitFeedback" method="post">
                         <div class="mb-3">
-                            <label for="studentId" class="form-label">Student ID</label>
-                            <input type="text" class="form-control" id="studentId" name="studentId">
-                            <div class="form-text">Optional: Leave blank for anonymous feedback</div>
-                        </div>
-                        <div class="mb-3">
                             <label for="studentName" class="form-label">Student Name</label>
                             <input type="text" class="form-control" id="studentName" name="studentName">
-                            <div class="form-text">Optional: Leave blank for anonymous feedback</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="studentEmail" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="studentEmail" name="studentEmail">
                             <div class="form-text">Optional: Leave blank for anonymous feedback</div>
                         </div>
                         <div class="mb-3">
