@@ -35,11 +35,30 @@ public class StaffSchedule extends HttpServlet {
         request.setAttribute("schedules", schedules);
 
         String week = "";
-        if (request.getParameter("week") != null) {
-            week = request.getParameter("week");   
+        String current_week = request.getParameter("current week");        
+        String action = "";
+        if (request.getParameter("action")!=null) 
+            action = request.getParameter("action");
+        if (action.equals("Get week")) {
+            if (request.getParameter("week") != null) {
+                week = request.getParameter("week");
+                request.setAttribute("week", week);
+            } else {
+                request.setAttribute("week", current_week);
+            }
+        } else {
+            if (action.equals("Previous week")) {
+                int tmp = Integer.parseInt(current_week);
+                week = String.valueOf(tmp - 1);
+                request.setAttribute("week", week);                
+                out.println("PREV WEEK: " + week);                
+            } else if (action.equals("Next week")) {
+                int tmp = Integer.parseInt(current_week);
+                week = String.valueOf(tmp + 1);
+                request.setAttribute("week", week);
+                out.println("NEXT WEEK: " + week);
+            }
         }
-        if (week != "") request.setAttribute("week", week);
-        
         RequestDispatcher dispatcher = request.getRequestDispatcher("/staffschedule.jsp");
         dispatcher.forward(request, response);
     }

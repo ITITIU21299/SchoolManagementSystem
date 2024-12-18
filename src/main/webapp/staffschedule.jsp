@@ -97,18 +97,18 @@
                         <div class="card-body">
                             <h5 class="card-title">Time Table</h5>
                             <form method="post" action="StaffSchedule">
-                                Week: <input type="text" name="week"> <input type="submit" class="btn btn-primary">
-                                <input type="hidden" value="" id="output" name="hidden_week">
-                                <% String week = (String) request.getParameter("week"); %>
-                            </form>
-                            <% if (week != null)
-                                out.println("<h5 class='card-title'>Week: " + week + "</h5>");
-                            %>
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <button id="prevWeek" class="btn btn-primary"><i class="bi bi-chevron-left"></i> Previous Week</button>
-                                <h6 id="currentWeek" class="mb-0">Week of <span id="weekStart"></span></h6>
-                                <button id="nextWeek" class="btn btn-primary">Next Week <i class="bi bi-chevron-right"></i></button>
-                            </div>
+                                Go to week: <input type="text" name="week" size="20"> <input type="submit" name="action" value="Get week" class="btn btn-primary">
+                                <% String week = (String) request.getAttribute("week"); %>
+                                <% if (week == null)
+                                    week = "1";
+                                %>
+                                <input type="hidden" name="current week" value="<%=week%>">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <input type="submit" name="action" value="Preveous week" id="prevWeek" class="btn btn-primary"><!--<i class="bi bi-chevron-left"></i>-->
+                                    <h6 id="currentWeek" class="mb-0">Week <%=week%>: <!--<span id="weekStart"></span>--></h6>
+                                    <input type="submit" name="action" value="Next week" id="nextWeek" class="btn btn-primary"><!--<i class="bi bi-chevron-right"></i>-->
+                                </div>
+                            </form>                                                                                        
                             <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead>
@@ -123,66 +123,66 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <%
-                                    List<Schedule> schedules = (List<Schedule>) request.getAttribute("schedules");
-                                    List<Schedule> mon = (List<Schedule>) new ArrayList<Schedule>(); 
-                                    List<Schedule> tue = (List<Schedule>) new ArrayList<Schedule>(); 
-                                    List<Schedule> wed = (List<Schedule>) new ArrayList<Schedule>(); 
-                                    List<Schedule> thu = (List<Schedule>) new ArrayList<Schedule>(); 
-                                    List<Schedule> fri = (List<Schedule>) new ArrayList<Schedule>(); 
-                                    List<Schedule> sat = (List<Schedule>) new ArrayList<Schedule>(); 
-                                    List<Schedule> sun = (List<Schedule>) new ArrayList<Schedule>(); 
-                                    int cnt = (int) 0;
+                                        <%
+                                        List<Schedule> schedules = (List<Schedule>) request.getAttribute("schedules");
+                                        List<Schedule> mon = (List<Schedule>) new ArrayList<Schedule>(); 
+                                        List<Schedule> tue = (List<Schedule>) new ArrayList<Schedule>(); 
+                                        List<Schedule> wed = (List<Schedule>) new ArrayList<Schedule>(); 
+                                        List<Schedule> thu = (List<Schedule>) new ArrayList<Schedule>(); 
+                                        List<Schedule> fri = (List<Schedule>) new ArrayList<Schedule>(); 
+                                        List<Schedule> sat = (List<Schedule>) new ArrayList<Schedule>(); 
+                                        List<Schedule> sun = (List<Schedule>) new ArrayList<Schedule>(); 
+                                        int cnt = (int) 0;
                                             
-                                    for (Schedule sc : schedules) {
-                                        if (!sc.getWeek().equals(week))
-                                            continue;
-                                        String day = sc.getSchedule_date();
-                                        switch (day) {
-                                            case "2": mon.add(sc); break;
-                                            case "3": tue.add(sc); break;
-                                            case "4": wed.add(sc); break;
-                                            case "5": thu.add(sc); break;
-                                            case "6": fri.add(sc); break;
-                                            case "7": sat.add(sc); break;
-                                            case "8": sun.add(sc); break;
-                                        }
-                                                                                    }    
-                                    cnt = Math.max(cnt, mon.size());
-                                    cnt = Math.max(cnt, tue.size());
-                                    cnt = Math.max(cnt, wed.size());
-                                    cnt = Math.max(cnt, thu.size());
-                                    cnt = Math.max(cnt, fri.size());
-                                    cnt = Math.max(cnt, sat.size());
-                                    cnt = Math.max(cnt, sun.size());
-                                    for (int i = (int) 0; i < cnt; i++) {
-                                        out.println("<tr>");
+                                        for (Schedule sc : schedules) {
+                                            if (!sc.getWeek().equals(week))
+                                                continue;
+                                            String day = sc.getSchedule_date();
+                                            switch (day) {
+                                                case "2": mon.add(sc); break;
+                                                case "3": tue.add(sc); break;
+                                                case "4": wed.add(sc); break;
+                                                case "5": thu.add(sc); break;
+                                                case "6": fri.add(sc); break;
+                                                case "7": sat.add(sc); break;
+                                                case "8": sun.add(sc); break;
+                                            }
+                                                                                        }    
+                                        cnt = Math.max(cnt, mon.size());
+                                        cnt = Math.max(cnt, tue.size());
+                                        cnt = Math.max(cnt, wed.size());
+                                        cnt = Math.max(cnt, thu.size());
+                                        cnt = Math.max(cnt, fri.size());
+                                        cnt = Math.max(cnt, sat.size());
+                                        cnt = Math.max(cnt, sun.size());
+                                        for (int i = (int) 0; i < cnt; i++) {
+                                            out.println("<tr>");
 
-                                        if (mon.size() > i) 
-                                        out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + mon.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + mon.get(i).getStart_time() + " - " + mon.get(i).getEnd_time() + "</span></div></td>");
-                                        else out.println("<td></td>");
-                                        if (tue.size() > i)                                    
-                                        out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + tue.get(i).getSubject_name() + " </span> " + "<span>Room " + tue.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + tue.get(i).getStart_time() + " - " + tue.get(i).getEnd_time() + "</span></div></td>");
-                                        else out.println("<td></td>");
-                                        if (wed.size() > i)                                    
-                                        out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + wed.get(i).getSubject_name() + " </span> " + "<span>Room " + wed.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + wed.get(i).getStart_time() + " - " + wed.get(i).getEnd_time() + "</span></div></td>");
-                                        else out.println("<td></td>");
-                                        if (thu.size() > i)                                    
-                                        out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + thu.get(i).getSubject_name() + " </span> " + "<span>Room " + thu.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + thu.get(i).getStart_time() + " - " + thu.get(i).getEnd_time() + "</span></div></td>");
-                                        else out.println("<td></td>");                                    
-                                        if (fri.size() > i)                                    
-                                        out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + fri.get(i).getSubject_name() + " </span> " + "<span>Room " + fri.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + fri.get(i).getStart_time() + " - " + fri.get(i).getEnd_time() + "</span></div></td>");
-                                        else out.println("<td></td>");                                    
-                                        if (sat.size() > i)                                    
-                                        out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + sat.get(i).getSubject_name() + " </span> " + "<span>Room " + sat.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + sat.get(i).getStart_time() + " - " + sat.get(i).getEnd_time() + "</span></div></td>");
-                                        else out.println("<td></td>");
-                                        if (sun.size() > i)                                    
-                                        out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + sun.get(i).getSubject_name() + " </span> " + "<span>Room " + sun.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + sun.get(i).getStart_time() + " - " + sun.get(i).getEnd_time() + "</span></div></td>");
-                                        else out.println("<td></td>");
+                                            if (mon.size() > i) 
+                                            out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + mon.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + mon.get(i).getStart_time() + " - " + mon.get(i).getEnd_time() + "</span></div></td>");
+                                            else out.println("<td></td>");
+                                            if (tue.size() > i)                                    
+                                            out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + tue.get(i).getSubject_name() + " </span> " + "<span>Room " + tue.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + tue.get(i).getStart_time() + " - " + tue.get(i).getEnd_time() + "</span></div></td>");
+                                            else out.println("<td></td>");
+                                            if (wed.size() > i)                                    
+                                            out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + wed.get(i).getSubject_name() + " </span> " + "<span>Room " + wed.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + wed.get(i).getStart_time() + " - " + wed.get(i).getEnd_time() + "</span></div></td>");
+                                            else out.println("<td></td>");
+                                            if (thu.size() > i)                                    
+                                            out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + thu.get(i).getSubject_name() + " </span> " + "<span>Room " + thu.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + thu.get(i).getStart_time() + " - " + thu.get(i).getEnd_time() + "</span></div></td>");
+                                            else out.println("<td></td>");                                    
+                                            if (fri.size() > i)                                    
+                                            out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + fri.get(i).getSubject_name() + " </span> " + "<span>Room " + fri.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + fri.get(i).getStart_time() + " - " + fri.get(i).getEnd_time() + "</span></div></td>");
+                                            else out.println("<td></td>");                                    
+                                            if (sat.size() > i)                                    
+                                            out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + sat.get(i).getSubject_name() + " </span> " + "<span>Room " + sat.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + sat.get(i).getStart_time() + " - " + sat.get(i).getEnd_time() + "</span></div></td>");
+                                            else out.println("<td></td>");
+                                            if (sun.size() > i)                                    
+                                            out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + sun.get(i).getSubject_name() + " </span> " + "<span>Room " + sun.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + sun.get(i).getStart_time() + " - " + sun.get(i).getEnd_time() + "</span></div></td>");
+                                            else out.println("<td></td>");
 
-                                        out.println("</tr>");
-                                    }            
-                                    %>
+                                            out.println("</tr>");
+                                        }            
+                                        %>
                                 </table>
                             </div>
                         </div>
