@@ -81,7 +81,7 @@
         <div style="flex: 1" class="container mt-4">
             <h1>Welcome ${staffName}</h1>
             <div class="row mt-4">
-                <div class="col-md-4 mb-4">
+                <div class="col-md-6 mb-4">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Number of student you are teaching</h5>
@@ -91,19 +91,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Total Staff</h5>
-                            <p class="card-text display-4">56</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
+                <div class="col-md-6 mb-4">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Total Classes</h5>
-                            <p class="card-text display-4">32</p>
+                            <p class="card-text display-4">${totalClasses}</p>
                         </div>
                     </div>
                 </div>

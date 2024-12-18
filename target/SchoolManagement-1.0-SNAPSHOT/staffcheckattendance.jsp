@@ -101,7 +101,7 @@
                             <td><%=student.getStudentId()%></td>
                             <td><%=student.getName()%></td>
                             <td>
-                                <select name="status">
+                                <select class="form-select" name="status">
                                     <option value="<%=student.getStudentId()+"_absent"%>">Choose attendance status</option>
                                     <option value="<%=student.getStudentId()+"_present"%>">Present</option>
                                     <option value="<%=student.getStudentId()+"_late"%>">Late</option>

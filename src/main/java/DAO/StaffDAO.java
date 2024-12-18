@@ -212,4 +212,21 @@ public class StaffDAO {
         }
     }
 
+    public int getNumberOfClassByStaffId(String staffId) {
+        int count = 0;
+        String query = "SELECT COUNT(staff_section_id) FROM StaffSections WHERE staff_id = ?";
+
+        try (Connection connection = DBUtil.getConnection(); PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, staffId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    count = resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 }
