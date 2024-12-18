@@ -16,6 +16,7 @@ Servlet\SubmitFeedbackServlet.class
 Servlet\StaffSchedule.class
 DAO\RoomScheduleDAO.class
 DAO\UserDAO.class
+Servlet\StudentSchedule.class
 Servlet\UpdateAttendance.class
 Servlet\StaffDropRoom.class
 DAO\StaffDAO.class

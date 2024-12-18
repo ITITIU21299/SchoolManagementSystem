@@ -21,9 +21,10 @@ D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Servlet\StaffPages.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Util\HashAllPassword.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Class\Attendance.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\DAO\RoomScheduleDAO.java
-D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Servlet\ChangePassWord.java
+D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Servlet\ChangePassword.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Servlet\StudentPages.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Class\AssignedRoom.java
+D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Servlet\StudentSchedule.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Servlet\UpdateAttendance.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Servlet\StaffAssignRoom.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Servlet\StaffCheckAttendance.java
