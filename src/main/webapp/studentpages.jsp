@@ -35,7 +35,7 @@
                             <a class="nav-link" href="studentexamschedule.jsp"><i class="bi bi-calendar-check"></i> Exam Schedule</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="studentroomschedule.jsp"><i class="bi bi-calendar3"></i> Room Schedule</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/StudentSchedule"><i class="bi bi-calendar3"></i> Room Schedule</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/StudentAttendance"><i class="bi bi-calendar-check"></i> Attendance</a>
