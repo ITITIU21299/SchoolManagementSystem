@@ -9,7 +9,6 @@ import java.util.List;
 
 public class RoomScheduleDAO {
 
-    private Connection connection;
 
     public List<Room> getAvailableRooms() {
         List<Room> rooms = new ArrayList<>();
@@ -20,9 +19,9 @@ public class RoomScheduleDAO {
                 + "AND sa.schedule_date BETWEEN 2 AND 8 "
                 + "AND sa.week BETWEEN 1 AND 15 "
                 + "JOIN Rooms r ON rs.room_id = r.room_id "
-                //+ "WHERE sa.assignment_id IS NULL "
                 + "GROUP BY rs.roomschedule_id, r.room_id, r.room_number, r.room_type, r.capacity, rs.start_time, rs.end_time "
-                + "HAVING COUNT(sa.assignment_id) < 15 * 7 "
+                + "HAVING COUNT(*) < 15 * 7 "
+                + "OR COUNT(CASE WHEN sa.section_exam_id IS NULL THEN 1 END) >0 "
                 + "ORDER BY "
                 + "SUBSTRING_INDEX(rs.roomschedule_id, '_', 2), "
                 + "CASE "
