@@ -34,30 +34,46 @@ public class StaffSchedule extends HttpServlet {
         List<Schedule> schedules = staffDAO.getRoomScheduleByStaffId(staff.getStaffId());
         request.setAttribute("schedules", schedules);
 
-        String week = "";
-        String current_week = request.getParameter("current week");        
+        String week = "1";
+        String current_week = request.getParameter("current week");
+        String current_se = request.getParameter("current se");
+        String current_ye = request.getParameter("current ye");        
         String action = "";
-        if (request.getParameter("action")!=null) 
+
+        String semester_year = "";
+
+        if (request.getParameter("action") != null) {
             action = request.getParameter("action");
-        if (action.equals("Get week")) {
-            if (request.getParameter("week") != null) {
+        }
+        if (action.equals("Go")) {
+            if (!request.getParameter("week").equals("")) {
                 week = request.getParameter("week");
                 request.setAttribute("week", week);
             } else {
                 request.setAttribute("week", current_week);
             }
+            if (request.getParameter("semester year") != null) {
+                semester_year = request.getParameter("semester year");
+                String[] splited = semester_year.split("\\s+");
+                request.setAttribute("se", splited[0]);
+                request.setAttribute("ye", splited[1]);
+            }
         } else {
             if (action.equals("Previous week")) {
                 int tmp = Integer.parseInt(current_week);
                 week = String.valueOf(tmp - 1);
-                request.setAttribute("week", week);                
-                out.println("PREV WEEK: " + week);                
+                request.setAttribute("week", week);
+                out.println("PREV WEEK: " + week);
             } else if (action.equals("Next week")) {
                 int tmp = Integer.parseInt(current_week);
                 week = String.valueOf(tmp + 1);
                 request.setAttribute("week", week);
                 out.println("NEXT WEEK: " + week);
             }
+            request.setAttribute("se", current_se);
+            request.setAttribute("ye", current_ye);       
+            out.println(current_se);
+            out.println(current_ye);
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher("/staffschedule.jsp");
         dispatcher.forward(request, response);

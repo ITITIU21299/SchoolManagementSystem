@@ -19,17 +19,21 @@ public class Schedule {
     private String week;
     private String start_time;
     private String end_time;
+    private String semester;
+    private String subject_year;
 
     public Schedule() {
     }
 
-    public Schedule(String room_id, String subject_name, String schedule_date, String week, String start_time, String end_time) {
+    public Schedule(String room_id, String subject_name, String schedule_date, String week, String start_time, String end_time, String semester, String subject_year) {
         this.room_id = room_id;
         this.subject_name = subject_name;
         this.schedule_date = schedule_date;
         this.week = week;
         this.start_time = start_time;
         this.end_time = end_time;
+        this.semester = semester;
+        this.subject_year = subject_year;
     }
 
     public String getRoom_id() {
@@ -78,6 +82,22 @@ public class Schedule {
 
     public void setEnd_time(String end_time) {
         this.end_time = end_time;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+
+    public String getSubject_year() {
+        return subject_year;
+    }
+
+    public void setSubject_year(String subject_year) {
+        this.subject_year = subject_year;
     }
 
 }
