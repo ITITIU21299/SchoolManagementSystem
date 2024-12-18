@@ -126,7 +126,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Account Settings</h5>
-                            <form action="ChangePassWord" method="post">
+                            <form action="ChangePassword" method="post">
                                 <div class="mb-3">
                                     <label for="currentPassword" class="form-label">Current Password</label>
                                     <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
@@ -224,7 +224,6 @@
                 const newPasswordValue = newPassword.value;
                 const confirmPasswordValue = confirmPassword.value;
 
-                // Check if the new password meets the 8-character requirement
                 if (newPasswordValue.length < 8) {
                     newPasswordMessage.style.display = 'block';
                     submitBtn.disabled = true;
@@ -232,7 +231,6 @@
                     newPasswordMessage.style.display = 'none';
                 }
 
-                // Check if new password matches confirm password
                 if (newPasswordValue === confirmPasswordValue) {
                     confirmPasswordMessage.style.display = 'none';
                 } else {
@@ -240,7 +238,6 @@
                     submitBtn.disabled = true;
                 }
 
-                // Enable the button only if all conditions are satisfied
                 if (newPasswordValue.length >= 8 && newPasswordValue === confirmPasswordValue) {
                     submitBtn.disabled = false;
                 }

@@ -127,7 +127,7 @@
                 </div>
             </div>
         </div>
-                            
+
         <footer class="footer bg-primary text-white py-2 mt-auto">
             <div class="container">
                 <div class="row">
