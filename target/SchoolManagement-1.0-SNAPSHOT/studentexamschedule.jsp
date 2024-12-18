@@ -42,16 +42,13 @@
                             <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-calendar-check"></i> Exam Schedule</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="studentroomschedule.jsp"><i class="bi bi-calendar3"></i> Room Schedule</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/StudentSchedule"><i class="bi bi-calendar3"></i> Room Schedule</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="studentattendance.jsp"><i class="bi bi-calendar-check"></i> Attendance</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/StudentAttendance"><i class="bi bi-calendar-check"></i> Attendance</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="studentfeedback.jsp"><i class="bi bi-chat-right-text"></i> Feedback</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="studentprofile.jsp"><i class="bi bi-person-circle"></i> Profile</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -61,8 +58,8 @@
                             </a>
                             <ul class="dropdown-menu p-2 " aria-labelledby="staffDropdown">
                                 <div class="form-check form-switch">
-                                  <input class="form-check-input" type="checkbox" role="switch" id="darkMode">
-                                  <label class="form-check-label" for="flexSwitchCheckDefault ">Dark Mode</label>
+                                    <input class="form-check-input" type="checkbox" role="switch" id="darkMode">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault ">Dark Mode</label>
                                 </div>
                             </ul>
                         </li>
@@ -94,13 +91,13 @@
                                 if (exams != null) {
                                     for (Exam exam : exams) {
                             %>
-                                        <tr>
-                                            <td><%= exam.getSubject() != null ? exam.getSubject() : "N/A" %></td>
-                                            <td><%= exam.getDate() != null ? exam.getDate() : "N/A" %></td>
-                                            <td><%= exam.getStartTime() != null ? exam.getStartTime() : "N/A" %> - 
-                                                <%= exam.getEndTime() != null ? exam.getEndTime() : "N/A" %></td>
-                                            <td><%= exam.getRoomNumber() != null ? exam.getRoomNumber() : "N/A" %></td>
-                                        </tr>
+                            <tr>
+                                <td><%= exam.getSubject() != null ? exam.getSubject() : "N/A"%></td>
+                                <td><%= exam.getDate() != null ? exam.getDate() : "N/A"%></td>
+                                <td><%= exam.getStartTime() != null ? exam.getStartTime() : "N/A"%> - 
+                                    <%= exam.getEndTime() != null ? exam.getEndTime() : "N/A"%></td>
+                                <td><%= exam.getRoomNumber() != null ? exam.getRoomNumber() : "N/A"%></td>
+                            </tr>
                             <%
                                     }
                                 }
@@ -140,7 +137,7 @@
                 </div>
             </div>
         </footer>
-                <script src="JavaScript/theme.js"></script>
+        <script src="JavaScript/theme.js"></script>
     </body>
 </html>
 

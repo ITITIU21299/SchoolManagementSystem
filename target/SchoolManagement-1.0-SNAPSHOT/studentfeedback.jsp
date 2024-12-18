@@ -40,10 +40,10 @@
                             <a class="nav-link" href="studentexamschedule.jsp"><i class="bi bi-calendar-check"></i> Exam Schedule</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="studentroomschedule.html"><i class="bi bi-calendar3"></i> Room Schedule</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/StudentSchedule"><i class="bi bi-calendar3"></i> Room Schedule</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="studentattendance.jsp"><i class="bi bi-calendar-check"></i> Attendance</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/StudentAttendance"><i class="bi bi-calendar-check"></i> Attendance</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="studentfeedback.jsp"><i class="bi bi-chat-right-text"></i> Feedback</a>
@@ -133,7 +133,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 mt-2 mb-2">
-                         <h3 class="mb-1 mt-2">School Management System</h3>
+                        <h3 class="mb-1 mt-2">School Management System</h3>
                     </div>
                     <div class="col-md-4 mb-2">
                         <h6 class="mb-1 mt-2">Quick Links</h6>
@@ -155,7 +155,7 @@
                 </div>
             </div>
         </footer>
-                <script src="JavaScript/theme.js"></script>
+        <script src="JavaScript/theme.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="main.js"></script>
     </body>

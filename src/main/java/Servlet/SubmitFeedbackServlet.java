@@ -122,7 +122,7 @@ public class SubmitFeedbackServlet extends HttpServlet {
 
             Transport.send(message);
 
-            response.getWriter().write("<script>alert('Feedback submitted successfully!'); window.location.href='studentfeedback.jsp';</script>");
+            response.getWriter().write("<script>alert('Feedback submitted successfully! Thank you for your feedback'); window.location.href='studentfeedback.jsp';</script>");
 
         } catch (MessagingException e) {
             e.printStackTrace();
