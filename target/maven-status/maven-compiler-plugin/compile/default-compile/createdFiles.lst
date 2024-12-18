@@ -39,4 +39,5 @@ Servlet\StaffCheckAttendance.class
 Servlet\ChangePassword.class
 Servlet\StaffPages.class
 Class\User.class
+Servlet\StudentFee.class
 com\mycompany\schoolmanagement\resources\JakartaEE10Resource.class

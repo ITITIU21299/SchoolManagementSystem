@@ -1,9 +1,3 @@
-<%-- 
-    Document   : studentfeedback
-    Created on : Dec 11, 2024, 11:46:27 PM
-    Author     : nguye
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
