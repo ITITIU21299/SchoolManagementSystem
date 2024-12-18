@@ -221,8 +221,7 @@
                             <%
                             if (exams != null) {
                                 for (Exam exam : exams) {
-                                System.out.printf(exam.getWeek());
-                                if (exam.getWeek().equals("15") && exam.getSemester().equals(se) && exam.getSubject_year().equals(ye)) {}
+                                if (exam.getWeek().equals("15") && exam.getSemester().equals(se) && exam.getSubject_year().equals(ye)) {
                             %>
                             <tr>
                                 <td><%= exam.getSubject() != null ? exam.getSubject() : "N/A"%></td>
@@ -234,6 +233,7 @@
                             <%
                                     }
                                 }
+                            }
                             %>
                         </tbody>
                     </table>
