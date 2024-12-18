@@ -27,7 +27,7 @@ public class StaffAssignRoom extends HttpServlet {
         RoomScheduleDAO roomScheduleDAO = new RoomScheduleDAO();
         StaffDAO staffDAO = new StaffDAO();
         User user = (User) session.getAttribute("user");
-        Staff staff = staffDAO.getStaffByStaffId(user.getUsername());
+        Staff staff = staffDAO.getStaffByUsername(user.getUsername());
 
         List<Room> rooms = roomScheduleDAO.getAvailableRooms();
         request.setAttribute("rooms", rooms);
@@ -52,6 +52,7 @@ public class StaffAssignRoom extends HttpServlet {
         String sectionId = request.getParameter("sectionId");
         String[] weekdays = request.getParameterValues("weekdays");
         String[] weeks = request.getParameterValues("weeks");
+        boolean hasSuccess = false;
 
         if (roomScheduleId != null && !roomScheduleId.isEmpty()
                 && sectionId != null && !sectionId.isEmpty()) {
@@ -63,18 +64,47 @@ public class StaffAssignRoom extends HttpServlet {
                 for (String weekday : weekdays) {
                     boolean isAssigned = roomScheduleDAO.assignSectionToRoomOrCreate(roomScheduleId, sectionId, Integer.parseInt(weekday), Integer.parseInt(week));
                     if (isAssigned) {
-                        assignmentResults.put("Week " + week + ", Day " + weekday, "Success");
+                        hasSuccess = true;
                     } else {
-                        assignmentResults.put("Week " + week + ", Day " + weekday, "Failed (Conflicting schedule)");
+                        String date;
+                        switch (weekday) {
+                            case "2":
+                                date = "Monday";
+                                break;
+                            case "3":
+                                date = "Tuesday";
+                                break;
+                            case "4":
+                                date = "Wednesday";
+                                break;
+                            case "5":
+                                date = "Thursday";
+                                break;
+                            case "6":
+                                date = "Friday";
+                                break;
+                            case "7":
+                                date = "Saturday";
+                                break;
+                            case "8":
+                                date = "Sunday";
+                                break;
+                            default:
+                                date = "Invalid Week Date";
+                        }
+                        assignmentResults.put(date + " Week " + week, "Failed (Conflicting schedule)");
                     }
                 }
+            }
+            if (hasSuccess) {
+                assignmentResults.put("Success", "Room assigned successfully for one or more slots.");
             }
             request.setAttribute("assignmentResults", assignmentResults);
 
             HttpSession session = request.getSession(false);
             StaffDAO staffDAO = new StaffDAO();
             User user = (User) session.getAttribute("user");
-            Staff staff = staffDAO.getStaffByStaffId(user.getUsername());
+            Staff staff = staffDAO.getStaffByUsername(user.getUsername());
 
             List<Room> rooms = roomScheduleDAO.getAvailableRooms();
             request.setAttribute("rooms", rooms);

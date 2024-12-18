@@ -29,10 +29,13 @@ public class StaffPages extends HttpServlet {
         StaffDAO staffDAO = new StaffDAO();
         User user = (User) session.getAttribute("user");
 
-        Staff staff = staffDAO.getStaffByStaffId(user.getUsername());
+        Staff staff = staffDAO.getStaffByUsername(user.getUsername());
 
         int totalStudents = staffDAO.getNumberOfStudentsByStaffId(staff.getStaffId());
         request.setAttribute("totalStudents", totalStudents);
+        
+        String staffName = staff.getName();
+        request.setAttribute("staffName", staffName);
         
         RequestDispatcher dispatcher = request.getRequestDispatcher("staffpages.jsp");
         dispatcher.forward(request, response);

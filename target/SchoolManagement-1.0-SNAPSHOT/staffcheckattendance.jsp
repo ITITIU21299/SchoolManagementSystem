@@ -12,7 +12,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
         <link href="styles.css" rel="stylesheet">
     </head>
-    <body>
+    <body style="display: flex; min-height: 100vh; flex-direction: column">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">School Management System</a>
@@ -34,22 +34,13 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="studentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-mortarboard"></i> Students
+                            <a class="nav-link dropdown-toggle" href="#" id="sectionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-mortarboard"></i> Class
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="studentDropdown">
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/StaffAttendance"><i class="bi bi-calendar2-check-fill"></i> Manage Attendance</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/StaffAssignRoom"><i class="bi bi-card-checklist"></i> Assign Sections</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/StaffAssignRoom"><i class="bi bi-card-checklist"></i> Assign Room</a></li>
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="bi bi-book"></i> Exams</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="bi bi-building"></i> Rooms</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/StaffProfile"><i class="bi bi-person-circle"></i> Profile</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -74,21 +65,21 @@
                                             <i class="bi bi-person-circle" style="font-size: 1.4rem;"></i>
                                         </td>
                                         <td>
-                                            <a class="dropdown-item" href="staffprofile.jsp">Profile</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/StaffProfile">Profile</a>
                                         </td>
                                     </tr>
                                 </table>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.jsp"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/Logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <div style="flex: 1" class="container mt-4">               
+        <div style="flex: 1" class="container mt-4">           
             <div class="card mt-4"> 
                 <div class="card-body">
                     <h5 class="card-title">Check Attendance for week ${week}</h5>
@@ -126,28 +117,6 @@
                 </div>
             </div>
         </div>                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         <footer class="footer bg-primary text-white py-2 mt-auto">
             <div class="container">

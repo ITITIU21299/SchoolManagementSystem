@@ -30,24 +30,18 @@
                                 <i class="bi bi-people"></i> Staff
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="staffDropdown">
-                                <li><a class="dropdown-item" href="staffsalary.jsp"><i class="bi bi-cash"></i> Salary Information</a></li>
-                                <li><a class="dropdown-item" href="staffschedule.jsp"><i class="bi bi-calendar3"></i> Schedule</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/StaffSalary"><i class="bi bi-cash"></i> Salary Information</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/StaffSchedule"><i class="bi bi-calendar3"></i> Schedule</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="studentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-mortarboard"></i> Students
+                            <a class="nav-link dropdown-toggle" href="#" id="sectionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-mortarboard"></i> Class
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="studentDropdown">
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-calendar2-check-fill"></i> Manage Attendance</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-card-checklist"></i> Assign Sections</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/StaffAttendance"><i class="bi bi-calendar2-check-fill"></i> Manage Attendance</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/StaffAssignRoom"><i class="bi bi-card-checklist"></i> Assign Room</a></li>
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="bi bi-book"></i> Exams</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="bi bi-building"></i> Rooms</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -72,21 +66,21 @@
                                             <i class="bi bi-person-circle" style="font-size: 1.4rem;"></i>
                                         </td>
                                         <td>
-                                            <a class="dropdown-item" href="staffprofile.jsp">Profile</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/StaffProfile">Profile</a>
                                         </td>
                                     </tr>
                                 </table>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.jsp"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/Logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <div style="flex: 1" class="container mt-4">               
+        <div style="flex: 1" class="container mt-4">              
             <div class="card mt-4"> 
                 <div class="card-body">
                     <h5 class="card-title">Staff Section Management</h5>

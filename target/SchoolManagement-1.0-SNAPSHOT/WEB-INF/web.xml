@@ -44,6 +44,10 @@
         <servlet-name>UpdateAttendance</servlet-name>
         <servlet-class>Servlet.UpdateAttendance</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>Servlet.Logout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StaffSalary</servlet-name>
         <url-pattern>/StaffSalary</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>UpdateAttendance</servlet-name>
         <url-pattern>/UpdateAttendance</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

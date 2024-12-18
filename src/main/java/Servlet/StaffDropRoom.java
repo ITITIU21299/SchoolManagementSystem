@@ -29,7 +29,7 @@ public class StaffDropRoom extends HttpServlet {
         User user = (User) session.getAttribute("user");
         
         StaffDAO staffDAO = new StaffDAO();
-        Staff staff = staffDAO.getStaffByStaffId(user.getUsername());
+        Staff staff = staffDAO.getStaffByUsername(user.getUsername());
 
         List<AssignedRoom> assignedRooms = roomScheduleDAO.getRoomByStaffId(staff.getStaffId());
 

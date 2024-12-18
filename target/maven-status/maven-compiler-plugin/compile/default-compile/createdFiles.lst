@@ -1,4 +1,5 @@
 Servlet\StudentExamSchedule.class
+Class\Attendance.class
 Servlet\StudentAttendance.class
 Servlet\StaffAttendance.class
 Servlet\StudentProfile.class
@@ -24,6 +25,7 @@ DAO\StudentDAO.class
 Servlet\ChangePassWord.class
 Class\Staff.class
 Util\HashAllPassword.class
+Servlet\Logout.class
 Servlet\StaffAssignRoom.class
 Class\Exam.class
 Class\Fee.class

@@ -23,7 +23,7 @@ public class StaffSalary extends HttpServlet {
         StaffDAO staffDAO = new StaffDAO();
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("user");
-        Staff staff = staffDAO.getStaffByStaffId(user.getUsername());
+        Staff staff = staffDAO.getStaffByUsername(user.getUsername());
         List<Salary> salaries = staffDAO.getSalaryByStaffId(staff.getStaffId());
         request.setAttribute("salaries", salaries);
         

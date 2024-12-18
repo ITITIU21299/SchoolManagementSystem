@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Servlet;
 
 import Class.Section;
@@ -19,30 +15,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
-/**
- *
- * @author huynh
- */
 public class StaffAttendance extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         StaffDAO staffDAO = new StaffDAO();
         User user = (User) session.getAttribute("user");
-        Staff staff = staffDAO.getStaffByStaffId(user.getUsername());
+        Staff staff = staffDAO.getStaffByUsername(user.getUsername());
         List<Section> sections = staffDAO.getSectionByStaffId(staff.getStaffId());
         request.setAttribute("sections", sections);
-        
         
         RequestDispatcher dispatcher = request.getRequestDispatcher("/staffattendance.jsp");
         dispatcher.forward(request, response);

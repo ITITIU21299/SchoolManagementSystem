@@ -13,7 +13,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
         <link href="styles.css" rel="stylesheet">
     </head>
-    <body>
+    <body style="display: flex; min-height: 100vh; flex-direction: column">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">School Management System</a>
@@ -35,22 +35,13 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="studentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-mortarboard"></i> Students
+                            <a class="nav-link dropdown-toggle" href="#" id="sectionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-mortarboard"></i> Class
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="studentDropdown">
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-calendar2-check-fill"></i> Manage Attendance</a></li>
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/StaffAssignRoom"><i class="bi bi-card-checklist"></i> Assign Sections</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/StaffAttendance"><i class="bi bi-calendar2-check-fill"></i> Manage Attendance</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/StaffAssignRoom"><i class="bi bi-card-checklist"></i> Assign Room</a></li>
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="bi bi-book"></i> Exams</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="bi bi-building"></i> Rooms</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/StaffProfile"><i class="bi bi-person-circle"></i> Profile</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -75,32 +66,40 @@
                                             <i class="bi bi-person-circle" style="font-size: 1.4rem;"></i>
                                         </td>
                                         <td>
-                                            <a class="dropdown-item" href="staffprofile.jsp">Profile</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/StaffProfile">Profile</a>
                                         </td>
                                     </tr>
                                 </table>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.jsp"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/Logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <div class="container mt-4">
+        <div style="flex: 1" class="container mt-4">
             <h1>School Schedule</h1>
             <div class="row justify-content-center mt-4">
                 <div class="col-md-9 mb-">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Time Table</h5>
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <button id="prevWeek" class="btn btn-primary"><i class="bi bi-chevron-left"></i> Previous Week</button>
-                                <h6 id="currentWeek" class="mb-0">Week of <span id="weekStart"></span></h6>
-                                <button id="nextWeek" class="btn btn-primary">Next Week <i class="bi bi-chevron-right"></i></button>
-                            </div>
+                            <form method="post" action="StaffSchedule">
+                                Go to week: <input type="text" name="week" size="20"> <input type="submit" name="action" value="Get week" class="btn btn-primary">
+                                <% String week = (String) request.getAttribute("week"); %>
+                                <% if (week == null)
+                                    week = "1";
+                                %>
+                                <input type="hidden" name="current week" value="<%=week%>">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <input type="submit" name="action" value="Preveous week" id="prevWeek" class="btn btn-primary"><!--<i class="bi bi-chevron-left"></i>-->
+                                    <h6 id="currentWeek" class="mb-0">Week <%=week%>: <!--<span id="weekStart"></span>--></h6>
+                                    <input type="submit" name="action" value="Next week" id="nextWeek" class="btn btn-primary"><!--<i class="bi bi-chevron-right"></i>-->
+                                </div>
+                            </form>                                                                                        
                             <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead>
@@ -116,62 +115,64 @@
                                     </thead>
                                     <tbody>
                                         <%
-                                            List<Schedule> schedules = (List<Schedule>) request.getAttribute("schedules");
-                                            List<Schedule> mon = (List<Schedule>) new ArrayList<Schedule>(); 
-                                            List<Schedule> tue = (List<Schedule>) new ArrayList<Schedule>(); 
-                                            List<Schedule> wed = (List<Schedule>) new ArrayList<Schedule>(); 
-                                            List<Schedule> thu = (List<Schedule>) new ArrayList<Schedule>(); 
-                                            List<Schedule> fri = (List<Schedule>) new ArrayList<Schedule>(); 
-                                            List<Schedule> sat = (List<Schedule>) new ArrayList<Schedule>(); 
-                                            List<Schedule> sun = (List<Schedule>) new ArrayList<Schedule>(); 
-                                            int cnt = (int) 0;
+                                        List<Schedule> schedules = (List<Schedule>) request.getAttribute("schedules");
+                                        List<Schedule> mon = (List<Schedule>) new ArrayList<Schedule>(); 
+                                        List<Schedule> tue = (List<Schedule>) new ArrayList<Schedule>(); 
+                                        List<Schedule> wed = (List<Schedule>) new ArrayList<Schedule>(); 
+                                        List<Schedule> thu = (List<Schedule>) new ArrayList<Schedule>(); 
+                                        List<Schedule> fri = (List<Schedule>) new ArrayList<Schedule>(); 
+                                        List<Schedule> sat = (List<Schedule>) new ArrayList<Schedule>(); 
+                                        List<Schedule> sun = (List<Schedule>) new ArrayList<Schedule>(); 
+                                        int cnt = (int) 0;
                                             
-                                            for (Schedule sc : schedules) {
-                                                String day = sc.getSchedule_date();
-                                                switch (day) {
-                                                    case "2": mon.add(sc); break;
-                                                    case "3": tue.add(sc); break;
-                                                    case "4": wed.add(sc); break;
-                                                    case "5": thu.add(sc); break;
-                                                    case "6": fri.add(sc); break;
-                                                    case "7": sat.add(sc); break;
-                                                    case "8": sun.add(sc); break;
-                                                }
-                                                                                            }    
-                                            cnt = Math.max(cnt, mon.size());
-                                            cnt = Math.max(cnt, tue.size());
-                                            cnt = Math.max(cnt, wed.size());
-                                            cnt = Math.max(cnt, thu.size());
-                                            cnt = Math.max(cnt, fri.size());
-                                            cnt = Math.max(cnt, sat.size());
-                                            cnt = Math.max(cnt, sun.size());
-                                            for (int i = (int) 0; i < cnt; i++) {
-                                                out.println("<tr>");
+                                        for (Schedule sc : schedules) {
+                                            if (!sc.getWeek().equals(week))
+                                                continue;
+                                            String day = sc.getSchedule_date();
+                                            switch (day) {
+                                                case "2": mon.add(sc); break;
+                                                case "3": tue.add(sc); break;
+                                                case "4": wed.add(sc); break;
+                                                case "5": thu.add(sc); break;
+                                                case "6": fri.add(sc); break;
+                                                case "7": sat.add(sc); break;
+                                                case "8": sun.add(sc); break;
+                                            }
+                                                                                        }    
+                                        cnt = Math.max(cnt, mon.size());
+                                        cnt = Math.max(cnt, tue.size());
+                                        cnt = Math.max(cnt, wed.size());
+                                        cnt = Math.max(cnt, thu.size());
+                                        cnt = Math.max(cnt, fri.size());
+                                        cnt = Math.max(cnt, sat.size());
+                                        cnt = Math.max(cnt, sun.size());
+                                        for (int i = (int) 0; i < cnt; i++) {
+                                            out.println("<tr>");
 
-                                                if (mon.size() > i) 
-                                                out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + mon.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + mon.get(i).getStart_time() + " - " + mon.get(i).getEnd_time() + "</span></div></td>");
-                                                else out.println("<td></td>");
-                                                if (tue.size() > i)                                    
-                                                out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + tue.get(i).getSubject_name() + " </span> " + "<span>Room " + tue.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + tue.get(i).getStart_time() + " - " + tue.get(i).getEnd_time() + "</span></div></td>");
-                                                else out.println("<td></td>");
-                                                if (wed.size() > i)                                    
-                                                out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + wed.get(i).getSubject_name() + " </span> " + "<span>Room " + wed.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + wed.get(i).getStart_time() + " - " + wed.get(i).getEnd_time() + "</span></div></td>");
-                                                else out.println("<td></td>");
-                                                if (thu.size() > i)                                    
-                                                out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + thu.get(i).getSubject_name() + " </span> " + "<span>Room " + thu.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + thu.get(i).getStart_time() + " - " + thu.get(i).getEnd_time() + "</span></div></td>");
-                                                else out.println("<td></td>");                                    
-                                                if (fri.size() > i)                                    
-                                                out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + fri.get(i).getSubject_name() + " </span> " + "<span>Room " + fri.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + fri.get(i).getStart_time() + " - " + fri.get(i).getEnd_time() + "</span></div></td>");
-                                                else out.println("<td></td>");                                    
-                                                if (sat.size() > i)                                    
-                                                out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + sat.get(i).getSubject_name() + " </span> " + "<span>Room " + sat.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + sat.get(i).getStart_time() + " - " + sat.get(i).getEnd_time() + "</span></div></td>");
-                                                else out.println("<td></td>");
-                                                if (sun.size() > i)                                    
-                                                out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + sun.get(i).getSubject_name() + " </span> " + "<span>Room " + sun.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + sun.get(i).getStart_time() + " - " + sun.get(i).getEnd_time() + "</span></div></td>");
-                                                else out.println("<td></td>");
+                                            if (mon.size() > i) 
+                                            out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + mon.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + mon.get(i).getStart_time() + " - " + mon.get(i).getEnd_time() + "</span></div></td>");
+                                            else out.println("<td></td>");
+                                            if (tue.size() > i)                                    
+                                            out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + tue.get(i).getSubject_name() + " </span> " + "<span>Room " + tue.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + tue.get(i).getStart_time() + " - " + tue.get(i).getEnd_time() + "</span></div></td>");
+                                            else out.println("<td></td>");
+                                            if (wed.size() > i)                                    
+                                            out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + wed.get(i).getSubject_name() + " </span> " + "<span>Room " + wed.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + wed.get(i).getStart_time() + " - " + wed.get(i).getEnd_time() + "</span></div></td>");
+                                            else out.println("<td></td>");
+                                            if (thu.size() > i)                                    
+                                            out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + thu.get(i).getSubject_name() + " </span> " + "<span>Room " + thu.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + thu.get(i).getStart_time() + " - " + thu.get(i).getEnd_time() + "</span></div></td>");
+                                            else out.println("<td></td>");                                    
+                                            if (fri.size() > i)                                    
+                                            out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + fri.get(i).getSubject_name() + " </span> " + "<span>Room " + fri.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + fri.get(i).getStart_time() + " - " + fri.get(i).getEnd_time() + "</span></div></td>");
+                                            else out.println("<td></td>");                                    
+                                            if (sat.size() > i)                                    
+                                            out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + sat.get(i).getSubject_name() + " </span> " + "<span>Room " + sat.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + sat.get(i).getStart_time() + " - " + sat.get(i).getEnd_time() + "</span></div></td>");
+                                            else out.println("<td></td>");
+                                            if (sun.size() > i)                                    
+                                            out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + sun.get(i).getSubject_name() + " </span> " + "<span>Room " + sun.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + sun.get(i).getStart_time() + " - " + sun.get(i).getEnd_time() + "</span></div></td>");
+                                            else out.println("<td></td>");
 
-                                                out.println("</tr>");
-                                            }            
+                                            out.println("</tr>");
+                                        }            
                                         %>
                                 </table>
                             </div>
@@ -180,8 +181,8 @@
                 </div>
             </div>
         </div>
-                                        
-        <footer class="footer bg-primary text-white py-2 mt-auto fixed-bottom">
+
+        <footer class="footer bg-primary text-white py-2 mt-auto">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 mt-2 mb-2">

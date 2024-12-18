@@ -29,7 +29,7 @@ public class StaffSchedule extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         StaffDAO staffDAO = new StaffDAO();
-        Staff staff = staffDAO.getStaffByStaffId(user.getUsername());
+        Staff staff = staffDAO.getStaffByUsername(user.getUsername());
 
         List<Schedule> schedules = staffDAO.getRoomScheduleByStaffId(staff.getStaffId());
         request.setAttribute("schedules", schedules);
