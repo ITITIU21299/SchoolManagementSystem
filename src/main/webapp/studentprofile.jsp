@@ -71,15 +71,28 @@
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body text-center">
-                            <img src="https://via.placeholder.com/150" alt="Student Photo" class="rounded-circle mb-3">
                             <h5 class="card-title">${student.getName()}</h5>
                             <p class="card-text">Student ID: ${student.getStudentId()}</p>
                             <p class="card-text">Email: ${student.getEmail()}</p>
                             <p class="card-text">Date of birth: ${student.getDateOfBirth()}</p>
-                            <p class="card-text">Gender: ${student.getGender()}</p>
+                            <p class="card-text">Gender: <%
+                                Student student = (Student) request.getAttribute("student");
+                                String gender = student.getGender();
+                                String displayGender;
+                                switch (gender) {
+                                    case "M":
+                                        displayGender = "Male";
+                                        break;
+                                    case "F":
+                                        displayGender = "Female";
+                                        break;
+                                    default:
+                                        displayGender = "Unknown";
+                                }
+                                %>
+                                <%= displayGender%></p>
                             <p class="card-text">Class: ${student.getClassId()}</p>
                             <p class="card-text">Academic year: ${student.getAcademicYear()}</p>
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePhotoModal">Change Photo</button>
                         </div>
                     </div>
                 </div>
@@ -87,54 +100,28 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <h5 class="card-title">Personal Information</h5>
-                            <form action="StudentProfile" method="POST">
-                                <input type="hidden" name="username">
+                            <form action="StudentProfile" method="POST" onsubmit="return validateForm()">
+                                <input type="hidden" name="username" value="${username}">
                                 <div class="mb-3">
                                     <label for="fullName" class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" id="fullName" name="fullName"  required>
+                                    <input type="text" class="form-control" id="fullName" name="fullName">
                                 </div>
                                 <div class="mb-3">
                                     <label for="dateOfBirth" class="form-label">Date of Birth</label>
-                                    <input type="text" class="form-control" id="dateOfBirth" name="dateOfBirth" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="gender" class="form-label">Gender</label>
-                                    <select class="form-select" id="gender" name="gender">
-                                        <option value="M" ${student.gender == 'M' ? 'selected' : ''}>Male</option>
-                                        <option value="F" ${student.gender == 'F' ? 'selected' : ''}>Female</option>
-                                    </select>
+                                    <input type="text" class="form-control" id="dateOfBirth" name="dateOfBirth">
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" required>
+                                    <input type="email" class="form-control" id="email" name="email">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Update Personal Information</button>
                             </form>
                         </div>
                     </div>
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Academic Information</h5>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Grade Level
-                                    <span class="badge bg-primary rounded-pill">10th Grade</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    GPA
-                                    <span class="badge bg-primary rounded-pill">3.75</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Attendance Rate
-                                    <span class="badge bg-primary rounded-pill">95%</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Account Settings</h5>
-                            <form action="ChangePassWord" method="post">
+                            <form action="ChangePassword" method="post">
                                 <div class="mb-3">
                                     <label for="currentPassword" class="form-label">Current Password</label>
                                     <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
@@ -142,37 +129,16 @@
                                 <div class="mb-3">
                                     <label for="newPassword" class="form-label">New Password</label>
                                     <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                                    <small id="newPasswordMessage" class="text-danger" style="display: none;">Password must be at least 7 characters long!</small>
                                 </div>
                                 <div class="mb-3">
                                     <label for="confirmPassword" class="form-label">Confirm New Password</label>
                                     <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                                    <small id="confirmPasswordMessage" style="color: red; display: none;">Passwords do not match!</small>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Change Password</button>
                             </form>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="changePhotoModal" tabindex="-1" aria-labelledby="changePhotoModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="changePhotoModalLabel">Change Profile Photo</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="mb-3">
-                                <label for="profilePhoto" class="form-label">Select a new profile photo</label>
-                                <input type="file" class="form-control" id="profilePhoto" accept="image/*" required>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Upload Photo</button>
                     </div>
                 </div>
             </div>
@@ -207,23 +173,114 @@
         </footer>
         <script src="JavaScript/theme.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+        <div class="modal fade" id="validationErrorModal" tabindex="-1" aria-labelledby="validationErrorModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="color: white;">
+                    <div class="modal-header" style="background-color: red">
+                        <h5 class="modal-title" id="validationErrorModalLabel">Missing Information</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="font-weight: bold; font-size: 18px; color: red;">
+                        Please fill in at least one field.
+                    </div>
+                    <div class="modal-footer" style="background-color: red">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script>
-            function showMessage(message, type) {
-                if (message) {
-                    alert((type === 'success' ? 'Success: ' : 'Error: ') + message);
+                                function validateForm() {
+                                    const fullName = document.getElementById("fullName").value.trim();
+                                    const dateOfBirth = document.getElementById("dateOfBirth").value.trim();
+                                    const email = document.getElementById("email").value.trim();
+                                    console.log("AAAAAA");
+
+                                    if (!fullName && !email && !dateOfBirth) {
+                                        var myModal = new bootstrap.Modal(document.getElementById('validationErrorModal'));
+                                        myModal.show();
+                                        return false;
+                                    }
+                                    return true;
+                                }
+        </script>
+
+        <script>
+            const newPassword = document.getElementById('newPassword');
+            const confirmPassword = document.getElementById('confirmPassword');
+            const confirmPasswordMessage = document.getElementById('confirmPasswordMessage');
+            const newPasswordMessage = document.getElementById('newPasswordMessage');
+            const submitBtn = document.getElementById('submitBtn');
+
+            function checkPasswordMatch() {
+                const newPasswordValue = newPassword.value;
+                const confirmPasswordValue = confirmPassword.value;
+
+                if (newPasswordValue.length < 7) {
+                    newPasswordMessage.style.display = 'block';
+                    submitBtn.disabled = true;
+                } else {
+                    newPasswordMessage.style.display = 'none';
+                }
+
+                if (newPasswordValue === confirmPasswordValue) {
+                    confirmPasswordMessage.style.display = 'none';
+                } else {
+                    confirmPasswordMessage.style.display = 'block';
+                    submitBtn.disabled = true;
+                }
+
+                if (newPasswordValue.length >= 7 && newPasswordValue === confirmPasswordValue) {
+                    submitBtn.disabled = false;
                 }
             }
 
-            const urlParams = new URLSearchParams(window.location.search);
-            const successMessage = urlParams.get('success');
-            const errorMessage = urlParams.get('error');
-
-            if (successMessage) {
-                showMessage(successMessage, 'success');
-            } else if (errorMessage) {
-                showMessage(errorMessage, 'error');
-            }
+            newPassword.addEventListener('input', checkPasswordMatch);
+            confirmPassword.addEventListener('input', checkPasswordMatch);
         </script>
+
+        <% String result = (String) request.getAttribute("result"); %>
+        <% if (result != null) { %>
+        <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <% if (result.contains("successfully")) {%>
+                    <div class="modal-header" style="background-color: green">
+                        <h5 class="modal-title" id="resultModalLabel" style="font-weight: bold; color: black">Notification</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="color: green">
+                        <strong><%= result%></strong>
+                    </div>
+                    <div class="modal-footer" style="background-color: green">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                    <%}%>
+
+                    <% if (result.contains("incorrect")) {%>
+                    <div class="modal-header" style="background-color: red">
+                        <h5 class="modal-title" id="resultModalLabel" style="font-weight: bold; color: black">Error</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="color: red">
+                        <strong><%= result%></strong>
+                    </div>
+                    <div class="modal-footer" style="background-color: red">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                    <%}%>
+                </div>
+            </div>
+        </div>
+        <script>
+            window.addEventListener('DOMContentLoaded', () => {
+                const resultModal = new bootstrap.Modal(document.getElementById('resultModal'));
+                resultModal.show();
+            });
+        </script>
+        <% }%>
     </body>
 </html>
 

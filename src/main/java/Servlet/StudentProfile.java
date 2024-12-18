@@ -5,6 +5,7 @@
 package Servlet;
 
 import Class.Student;
+import Class.User;
 import DAO.StudentDAO;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -22,17 +24,21 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "StudentProfile", urlPatterns = {"/StudentProfile"})
 public class StudentProfile extends HttpServlet {
 
-    private StudentDAO studentDAO = new StudentDAO();
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        if (username != null) {
-            Student student = studentDAO.getStudentByUsername(username);
-            if (student != null) {
-                request.setAttribute("student", student);
-            }
+        HttpSession session = request.getSession(false);
+        User user = (User) session.getAttribute("user");
+        StudentDAO studentDAO = new StudentDAO();
+        Student student = studentDAO.getStudentByUsername(user.getUsername());
+        request.setAttribute("student", student);
+
+        String username = user.getUsername();
+        request.setAttribute("username", username);
+        
+        String result = request.getParameter("result");
+        if (result != null) {
+            request.setAttribute("result", result);
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/studentprofile.jsp");
@@ -43,28 +49,24 @@ public class StudentProfile extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("username");
-        String name = request.getParameter("fullName");
+        String fullName = request.getParameter("fullName");
         String dateOfBirth = request.getParameter("dateOfBirth");
-        String gender = request.getParameter("gender");
         String email = request.getParameter("email");
-
-        if (username != null) {
-            Student student = new Student();
-            student.setName(name);
-            student.setDateOfBirth(dateOfBirth);
-            student.setGender(gender);
-            student.setEmail(email);
-
-            boolean updated = studentDAO.updateStudentProfile(student);
-            request.setAttribute("student", student);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/studentprofile.jsp");
-            dispatcher.forward(request, response);
-            if (updated) {
-                response.sendRedirect("StudentProfile?username=" + username);
-            } else {
-                response.sendRedirect("StudentProfile?username=" + username + "&error=true");
-            }
+        StudentDAO studentDAO = new StudentDAO();
+        
+        if (fullName != null && !fullName.trim().isEmpty()) {
+            studentDAO.updateStudentNameByUsername(username, fullName.trim());
         }
+
+        if (email != null && !email.trim().isEmpty()) {
+            studentDAO.updateStudentEmailByUsername(username, email.trim());
+        }
+
+        if (dateOfBirth != null && !dateOfBirth.trim().isEmpty()) {
+            studentDAO.updateStudentDOBByUsername(username, dateOfBirth.trim());
+        }
+
+        response.sendRedirect(request.getContextPath() + "/StudentProfile");
     }
 }
 

@@ -224,4 +224,39 @@ public class StudentDAO {
         }
         return null;
     }
+    
+    public void updateStudentNameByUsername(String username, String fullName) {
+        String query = "UPDATE Students SET name = ? WHERE username = ?";
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, fullName);
+            stmt.setString(2, username);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateStudentEmailByUsername(String username, String email) {
+        String query = "UPDATE Students SET email = ? WHERE username = ?";
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, email);
+            stmt.setString(2, username);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateStudentDOBByUsername(String username, String dob) {
+        String query = "UPDATE Students SET date_of_birth = ? WHERE username = ?";
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, dob);
+            stmt.setString(2, username);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
