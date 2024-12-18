@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Servlet;
 
 import Class.Attendance;
@@ -9,9 +5,7 @@ import Class.Student;
 import Class.User;
 import DAO.AttendanceDAO;
 import DAO.StudentDAO;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -24,10 +18,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author huynh
- */
 @WebServlet(name = "StudentAttendance", urlPatterns = {"/StudentAttendance"})
 public class StudentAttendance extends HttpServlet {
 

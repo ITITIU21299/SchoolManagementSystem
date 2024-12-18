@@ -1,32 +1,22 @@
 package Servlet;
-
 import Class.*;
 import DAO.*;
 import Util.*;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import com.mysql.cj.conf.PropertyKey;
 import jakarta.servlet.http.HttpSession;
-import java.util.HashSet;
-
 @WebServlet(name = "Login", urlPatterns = {"/Login"})
 public class Login extends HttpServlet {
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
         UserDAO userDAO = new UserDAO();
         User user = userDAO.getUserByUsername(username);
         if (user != null) {

@@ -83,7 +83,7 @@
         <div style="flex: 1" class="container mt-4">
             <h1>Welcome, ${student.getName()} </h1>
             <div class="row mt-4">
-                <div class="col-md-4 mb-4">
+                <div class="col-md-6 mb-4">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Current GPA</h5>
@@ -91,23 +91,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
+                <div class="col-md-6 mb-4">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Attendance Rate</h5>
-                            <p class="card-text display-4">95%</p>
+                            <p class="card-text display-4">${String.format("%.0f", attendanceRate)}%</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Upcoming Exams</h5>
-                            <p class="card-text display-4"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="row mt-4">
                 <div class="col-md-6 mb-4">
                     <div class="card">

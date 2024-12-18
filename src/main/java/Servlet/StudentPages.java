@@ -3,18 +3,14 @@ package Servlet;
 import Class.*;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import DAO.*;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
+import java.util.*;
 
 @WebServlet(name = "StudentPages", urlPatterns = {"/StudentPages"})
 public class StudentPages extends HttpServlet {
@@ -41,11 +37,32 @@ public class StudentPages extends HttpServlet {
 
         List<Schedule> schedules = studentDAO.getRoomScheduleByStudentId(student.getStudentId());
         session.setAttribute("schedules", schedules);
-        for (Schedule sc: schedules)
-            System.out.println(sc.getRoom_id());
-        
+
         List<Fee> fees = studentDAO.getFeesByStudentId(student.getStudentId());
         session.setAttribute("fees", fees);
+
+        AttendanceDAO attendanceDAO = new AttendanceDAO();
+        Map<String, List<Attendance>> attendanceMap = attendanceDAO.getAttendanceByStudentId(student.getStudentId());
+
+        int totalSessions = 0;
+        double presentDays = 0;
+        int absentDays = 0;
+
+        for (Map.Entry<String, List<Attendance>> entry : attendanceMap.entrySet()) {
+            for (Attendance record : entry.getValue()) {
+                totalSessions++;
+                if ("present".equals(record.getStatus())) {
+                    presentDays++;
+                } else if ("absent".equals(record.getStatus())) {
+                    absentDays++;
+                } else if ("late".equals(record.getStatus())) {
+                    presentDays += 0.5;
+                }
+            }
+        }
+
+        double attendanceRate = (totalSessions > 0) ? (presentDays * 100.0 / totalSessions) : 0;
+        request.setAttribute("attendanceRate", attendanceRate);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("studentpages.jsp");
         dispatcher.forward(request, response);

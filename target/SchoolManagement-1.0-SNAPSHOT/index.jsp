@@ -38,7 +38,6 @@
                                     <div class="d-grid">
                                         <input type="submit" class="btn btn-primary" value="Login">
                                     </div> 
-
                                     <% String errorMessage = (String) request.getAttribute("errorMessage"); 
                                          if (errorMessage != null) { %>
                                     <p style="color: red;"><%= errorMessage %></p>
