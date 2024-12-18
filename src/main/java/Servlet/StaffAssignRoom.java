@@ -27,7 +27,7 @@ public class StaffAssignRoom extends HttpServlet {
         RoomScheduleDAO roomScheduleDAO = new RoomScheduleDAO();
         StaffDAO staffDAO = new StaffDAO();
         User user = (User) session.getAttribute("user");
-        Staff staff = staffDAO.getStaffByStaffId(user.getUsername());
+        Staff staff = staffDAO.getStaffByUsername(user.getUsername());
 
         List<Room> rooms = roomScheduleDAO.getAvailableRooms();
         request.setAttribute("rooms", rooms);
@@ -104,7 +104,7 @@ public class StaffAssignRoom extends HttpServlet {
             HttpSession session = request.getSession(false);
             StaffDAO staffDAO = new StaffDAO();
             User user = (User) session.getAttribute("user");
-            Staff staff = staffDAO.getStaffByStaffId(user.getUsername());
+            Staff staff = staffDAO.getStaffByUsername(user.getUsername());
 
             List<Room> rooms = roomScheduleDAO.getAvailableRooms();
             request.setAttribute("rooms", rooms);

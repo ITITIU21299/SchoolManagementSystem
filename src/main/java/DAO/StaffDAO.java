@@ -32,22 +32,6 @@ public class StaffDAO {
         return 0;
     }
 
-    public String getStaffIdByUsername(String username) {
-        String query = "SELECT staff_id FROM Staff WHERE username = ?";
-        try (Connection connection = DBUtil.getConnection(); PreparedStatement ps = connection.prepareStatement(query)) {
-
-            ps.setString(1, username);
-            ResultSet resultSet = ps.executeQuery();
-
-            if (resultSet.next()) {
-                return resultSet.getString("staff_id");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public List<Salary> getSalaryByStaffId(String id) {
         List<Salary> salaries = new ArrayList<>();
         String query = "SELECT amount, salary_month, salary_year, payment_date, status FROM StaffSalary WHERE staff_id = ?";
@@ -95,12 +79,12 @@ public class StaffDAO {
 
     }
 
-    public Staff getStaffByStaffId(String staffId) {
-        String query = "SELECT * FROM Staff WHERE staff_id = ?";
+    public Staff getStaffByUsername(String username) {
+        String query = "SELECT * FROM Staff WHERE username = ?";
 
         try (Connection connection = DBUtil.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, staffId);
+            preparedStatement.setString(1, username);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
