@@ -14,6 +14,7 @@ import java.time.LocalTime;
 public class Schedule {
 
     private String room_id;
+    private String section_group;
     private String subject_name;
     private String schedule_date;
     private String week;
@@ -25,8 +26,9 @@ public class Schedule {
     public Schedule() {
     }
 
-    public Schedule(String room_id, String subject_name, String schedule_date, String week, String start_time, String end_time, String semester, String subject_year) {
+    public Schedule(String room_id, String section_group, String subject_name, String schedule_date, String week, String start_time, String end_time, String semester, String subject_year) {
         this.room_id = room_id;
+        this.section_group = section_group;
         this.subject_name = subject_name;
         this.schedule_date = schedule_date;
         this.week = week;
@@ -42,6 +44,14 @@ public class Schedule {
 
     public void setRoom_id(String room_id) {
         this.room_id = room_id;
+    }
+
+    public String getSection_group() {
+        return section_group;
+    }
+
+    public void setSection_group(String section_group) {
+        this.section_group = section_group;
     }
 
     public String getSubject_name() {

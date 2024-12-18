@@ -45,7 +45,7 @@ public class StudentDAO {
 
     public List<Exam> getExamsByStudentId(String id) {
         List<Exam> exams = new ArrayList<>();
-        String query = "SELECT subject_name, schedule_date, start_time, end_time, room_number \n"
+        String query = "SELECT subject_name, schedule_date, start_time, end_time, room_number, week, semester, subject_year \n"
                 + "FROM StudentsSections ss \n"
                 + "JOIN RoomSchedule rs, Rooms r, ScheduleAssignment sa, Exams e, Sections se, Subjects su \n"
                 + "WHERE sa.section_exam_id = e.exam_id \n"
@@ -62,9 +62,10 @@ public class StudentDAO {
 
             try (ResultSet rs = preparedStatement.executeQuery()) {
                 while (rs.next()) {
-                    Exam e = new Exam(rs.getString("subject_name"), rs.getString("schedule_date"), rs.getString("start_time"), rs.getString("end_time"), rs.getString("room_number"));
+                    System.out.println("AAAAAAAAAA");
+                    Exam e = new Exam(rs.getString("subject_name"), rs.getString("schedule_date"), rs.getString("week"), rs.getString("start_time"), rs.getString("end_time"), rs.getString("room_number"), rs.getString("semester"), rs.getString("subject_year"));
                     exams.add(e);
-                    System.out.println(e.getRoomNumber());
+                    // System.out.println("Exam room: " + e.getRoomNumber());
                 }
                 return exams;
             }
@@ -168,7 +169,7 @@ public class StudentDAO {
         List<Schedule> schedules = new ArrayList<>();
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime start, end;
-        String query = "SELECT subject_name, room_number, schedule_date, start_time, end_time, week, semester, subject_year \n"
+        String query = "SELECT subject_name, section_group, room_number, schedule_date, start_time, end_time, week, semester, subject_year \n"
                 + "FROM StudentsSections ss \n"
                 + "JOIN RoomSchedule rs, Rooms r, ScheduleAssignment sa, Sections se, Subjects su \n"
                 + "WHERE sa.section_exam_id = ss.section_id \n"
@@ -188,9 +189,8 @@ public class StudentDAO {
                     start = rs.getTime("start_time").toLocalTime();
                     end = rs.getTime("end_time").toLocalTime();
 
-                    Schedule schedule = new Schedule(rs.getString("room_number"), rs.getString("subject_name"), rs.getString("schedule_date"), rs.getString("week"), start.format(timeFormatter), end.format(timeFormatter), rs.getString("semester"), rs.getString("subject_year"));
+                    Schedule schedule = new Schedule(rs.getString("room_number"), rs.getString("section_group"), rs.getString("subject_name"), rs.getString("schedule_date"), rs.getString("week"), start.format(timeFormatter), end.format(timeFormatter), rs.getString("semester"), rs.getString("subject_year"));
                     schedules.add(schedule);
-                    System.out.println("Room: " + schedule.getRoom_id());
                 }
                 return schedules;
             }

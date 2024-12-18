@@ -71,12 +71,10 @@ public class StudentSchedule extends HttpServlet {
                 int tmp = Integer.parseInt(current_week);
                 week = String.valueOf(tmp - 1);
                 request.setAttribute("week", week);
-                out.println("PREV WEEK: " + week);
             } else if (action.equals("Next week")) {
                 int tmp = Integer.parseInt(current_week);
                 week = String.valueOf(tmp + 1);
                 request.setAttribute("week", week);
-                out.println("NEXT WEEK: " + week);
             }
             request.setAttribute("se", current_se);
             request.setAttribute("ye", current_ye);

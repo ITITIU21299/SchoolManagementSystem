@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import DAO.*;
 import jakarta.servlet.http.HttpSession;
+import static java.lang.System.out;
 import java.util.List;
 
 public class StudentExamSchedule extends HttpServlet {
@@ -21,6 +22,10 @@ public class StudentExamSchedule extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
+            return;
+        }
         User user = (User) session.getAttribute("user");
 
         StudentDAO studentDAO = new StudentDAO();
@@ -30,6 +35,45 @@ public class StudentExamSchedule extends HttpServlet {
         List<Exam> exams = studentDAO.getExamsByStudentId(student.getStudentId());
         request.setAttribute("exams", exams);
 
+        String week = "1";
+        String current_week = request.getParameter("current week");
+        String current_se = request.getParameter("current se");
+        String current_ye = request.getParameter("current ye");
+        String action = "";
+
+        String semester_year = "";
+
+        if (request.getParameter("action") != null) {
+            action = request.getParameter("action");
+        }
+        if (action.equals("Go")) {
+            if (!request.getParameter("week").equals("")) {
+                week = request.getParameter("week");
+                request.setAttribute("week", week);
+            } else {
+                request.setAttribute("week", current_week);
+            }
+            if (request.getParameter("semester year") != null) {
+                semester_year = request.getParameter("semester year");
+                String[] splited = semester_year.split("\\s+");
+                request.setAttribute("se", splited[0]);
+                request.setAttribute("ye", splited[1]);
+            }
+        } else {
+            if (action.equals("Previous week")) {
+                int tmp = Integer.parseInt(current_week);
+                week = String.valueOf(tmp - 1);
+                request.setAttribute("week", week);
+            } else if (action.equals("Next week")) {
+                int tmp = Integer.parseInt(current_week);
+                week = String.valueOf(tmp + 1);
+                request.setAttribute("week", week);
+            }
+            request.setAttribute("se", current_se);
+            request.setAttribute("ye", current_ye);
+            out.println(current_se);
+            out.println(current_ye);
+        }
         RequestDispatcher dispatcher = request.getRequestDispatcher("studentexamschedule.jsp");
         dispatcher.forward(request, response);
     }
