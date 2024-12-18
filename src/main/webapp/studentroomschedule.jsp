@@ -48,24 +48,37 @@
                         <li class="nav-item">
                             <a class="nav-link" href="studentfeedback.jsp"><i class="bi bi-chat-right-text"></i> Feedback</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="studentprofile.jsp"><i class="bi bi-person-circle"></i> Profile</a>
-                        </li>
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="staffDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-gear"></i> Setting
                             </a>
-                            <ul class="dropdown-menu p-2 " aria-labelledby="staffDropdown">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="darkMode">
-                                    <label class="form-check-label" for="flexSwitchCheckDefault ">Dark Mode</label>
-                                </div>
+                            <ul class="dropdown-menu p-1" aria-labelledby="staffDropdown">
+                                <table style="width: 100%; border-spacing: 5px;">
+                                    <tr>
+                                        <td style="width: 30px; text-align: center;">
+                                            <div class="form-check form-switch" style="margin-left: 7px">
+                                                <input class="form-check-input" type="checkbox" role="switch" id="darkMode">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label class="form-check-label" for="darkMode">Dark Mode</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 30px; text-align: center;">
+                                            <i class="bi bi-person-circle" style="font-size: 1.4rem;"></i>
+                                        </td>
+                                        <td>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/StudentProfile">Profile</a>
+                                        </td>
+                                    </tr>
+                                </table>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/Logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -78,51 +91,60 @@
                 <div class="card-body">
                     <h5 class="card-title">Your Class Schedule</h5>
                     <form method="post" action="StudentSchedule">
-                        <% 
-                        String week = (String) request.getAttribute("week");
-                        String se = (String) request.getAttribute("se");        
-                        String ye = (String) request.getAttribute("ye");
-                        String[] years = (String[]) new String[2]; 
-                                 
-                        LocalDate currentDate = (LocalDate) LocalDate.now();
-                        int iyear = (int) currentDate.getYear();
-                        int imonth = (int) currentDate.getMonthValue(); // 1 = January, 12 = December
-                        int isemester = (int) imonth / 7;
-                        if (isemester == 0) isemester = 2;
-                        else isemester = 1;
-                        String prevSe = (String) "";
-                        String prevYe = (String) "";
-                        String nextSe = (String) "";
-                        String nextYe = (String) "";
-                        String year = (String) "";
-                        String month = (String) "";
-                        String semester = (String) "";
-                                
-                        if (isemester == 1) {
-                            semester = "1";
-                            year = String.valueOf(iyear) + "-" + String.valueOf(iyear+1);
-                            prevSe = "2";
-                            prevYe = String.valueOf(iyear-1) + "-" + String.valueOf(iyear);
-                            nextSe = "2";
-                            nextYe = String.valueOf(iyear) + "-" + String.valueOf(iyear+1);
-                        } else {
-                            semester = "2";
-                            year = String.valueOf(iyear-1) + "-" + String.valueOf(iyear);
-                            prevSe = "1";
-                            prevYe = String.valueOf(iyear-1) + "-" + String.valueOf(iyear);
-                            nextSe = "1";
-                            nextYe = String.valueOf(iyear) + "-" + String.valueOf(iyear+1);
-                        }                    
+                        <%
+                            String week = (String) request.getAttribute("week");
+                            String se = (String) request.getAttribute("se");
+                            String ye = (String) request.getAttribute("ye");
+                            String[] years = (String[]) new String[2];
 
-                        if (week == null)
-                            week = "1";
-                        if (se == null)
-                            se = semester;
-                        if (ye == null)
-                            if (se.equals("1")) ye = String.valueOf(iyear) + "-" + String.valueOf(iyear+1);
-                            else ye = String.valueOf(iyear) + "-" + String.valueOf(iyear+1);
-                        years = ye.split("-");
-                                
+                            LocalDate currentDate = (LocalDate) LocalDate.now();
+                            int iyear = (int) currentDate.getYear();
+                            int imonth = (int) currentDate.getMonthValue(); // 1 = January, 12 = December
+                            int isemester = (int) imonth / 7;
+                            if (isemester == 0) {
+                                isemester = 2;
+                            } else {
+                                isemester = 1;
+                            }
+                            String prevSe = (String) "";
+                            String prevYe = (String) "";
+                            String nextSe = (String) "";
+                            String nextYe = (String) "";
+                            String year = (String) "";
+                            String month = (String) "";
+                            String semester = (String) "";
+
+                            if (isemester == 1) {
+                                semester = "1";
+                                year = String.valueOf(iyear) + "-" + String.valueOf(iyear + 1);
+                                prevSe = "2";
+                                prevYe = String.valueOf(iyear - 1) + "-" + String.valueOf(iyear);
+                                nextSe = "2";
+                                nextYe = String.valueOf(iyear) + "-" + String.valueOf(iyear + 1);
+                            } else {
+                                semester = "2";
+                                year = String.valueOf(iyear - 1) + "-" + String.valueOf(iyear);
+                                prevSe = "1";
+                                prevYe = String.valueOf(iyear - 1) + "-" + String.valueOf(iyear);
+                                nextSe = "1";
+                                nextYe = String.valueOf(iyear) + "-" + String.valueOf(iyear + 1);
+                            }
+
+                            if (week == null) {
+                                week = "1";
+                            }
+                            if (se == null) {
+                                se = semester;
+                            }
+                            if (ye == null) {
+                                if (se.equals("1")) {
+                                    ye = String.valueOf(iyear) + "-" + String.valueOf(iyear + 1);
+                                } else {
+                                    ye = String.valueOf(iyear) + "-" + String.valueOf(iyear + 1);
+                                }
+                            }
+                            years = ye.split("-");
+
                         %>
                         Go to: <input type="text" name="week" size="20" placeholder="week">                              
                         <Select name="semester year"> 
@@ -141,9 +163,11 @@
                             <h6 id="currentWeek" class="mb-0">Week <%=week%>: 
                                 <%
                                     LocalDate start_date = (LocalDate) LocalDate.of(2020, 1, 1);
-                                    if (se.equals("2"))
-                                        start_date = LocalDate.of(Integer.parseInt(years[Integer.parseInt(se)-1]), 2, 1);
-                                    else start_date = LocalDate.of(Integer.parseInt(years[Integer.parseInt(se)-1]), 8, 1);
+                                    if (se.equals("2")) {
+                                        start_date = LocalDate.of(Integer.parseInt(years[Integer.parseInt(se) - 1]), 2, 1);
+                                    } else {
+                                        start_date = LocalDate.of(Integer.parseInt(years[Integer.parseInt(se) - 1]), 8, 1);
+                                    }
                                     LocalDate firstMonday = start_date.with(java.time.temporal.TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
                                     out.print(firstMonday.plusWeeks(Integer.parseInt(week)));
 
@@ -164,35 +188,50 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <%
-                                List<Schedule> schedules = (List<Schedule>) session.getAttribute("schedules");
-                                List<Schedule> mon = (List<Schedule>) new ArrayList<Schedule>(); 
-                                List<Schedule> tue = (List<Schedule>) new ArrayList<Schedule>(); 
-                                List<Schedule> wed = (List<Schedule>) new ArrayList<Schedule>(); 
-                                List<Schedule> thu = (List<Schedule>) new ArrayList<Schedule>(); 
-                                List<Schedule> fri = (List<Schedule>) new ArrayList<Schedule>(); 
-                                List<Schedule> sat = (List<Schedule>) new ArrayList<Schedule>(); 
-                                List<Schedule> sun = (List<Schedule>) new ArrayList<Schedule>(); 
+                            <%                                List<Schedule> schedules = (List<Schedule>) session.getAttribute("schedules");
+                                List<Schedule> mon = (List<Schedule>) new ArrayList<Schedule>();
+                                List<Schedule> tue = (List<Schedule>) new ArrayList<Schedule>();
+                                List<Schedule> wed = (List<Schedule>) new ArrayList<Schedule>();
+                                List<Schedule> thu = (List<Schedule>) new ArrayList<Schedule>();
+                                List<Schedule> fri = (List<Schedule>) new ArrayList<Schedule>();
+                                List<Schedule> sat = (List<Schedule>) new ArrayList<Schedule>();
+                                List<Schedule> sun = (List<Schedule>) new ArrayList<Schedule>();
                                 int cnt = (int) 0;
-                                
+
                                 for (Schedule sc : schedules) {
-                                    if (!sc.getSemester().equals(se))
+                                    if (!sc.getSemester().equals(se)) {
                                         continue;
+                                    }
                                     //if (!sc.getSubject_year().equals(ye))
                                     //    continue;
-                                    if (!sc.getWeek().equals(week))
-                                        continue;                                
+                                    if (!sc.getWeek().equals(week)) {
+                                        continue;
+                                    }
                                     String day = sc.getSchedule_date();
                                     switch (day) {
-                                        case "2": mon.add(sc); break;
-                                        case "3": tue.add(sc); break;
-                                        case "4": wed.add(sc); break;
-                                        case "5": thu.add(sc); break;
-                                        case "6": fri.add(sc); break;
-                                        case "7": sat.add(sc); break;
-                                        case "1": sun.add(sc); break;
+                                        case "2":
+                                            mon.add(sc);
+                                            break;
+                                        case "3":
+                                            tue.add(sc);
+                                            break;
+                                        case "4":
+                                            wed.add(sc);
+                                            break;
+                                        case "5":
+                                            thu.add(sc);
+                                            break;
+                                        case "6":
+                                            fri.add(sc);
+                                            break;
+                                        case "7":
+                                            sat.add(sc);
+                                            break;
+                                        case "1":
+                                            sun.add(sc);
+                                            break;
                                     }
-                                }    
+                                }
                                 cnt = Math.max(cnt, mon.size());
                                 cnt = Math.max(cnt, tue.size());
                                 cnt = Math.max(cnt, wed.size());
@@ -202,31 +241,45 @@
                                 cnt = Math.max(cnt, sun.size());
                                 for (int i = (int) 0; i < cnt; i++) {
                                     out.println("<tr>");
-                                    
-                                    if (mon.size() > i) 
-                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + mon.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + mon.get(i).getStart_time() + " - " + mon.get(i).getEnd_time() + "</span></div></td>");
-                                    else out.println("<td></td>");
-                                    if (tue.size() > i)                                    
-                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + tue.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + tue.get(i).getStart_time() + " - " + tue.get(i).getEnd_time() + "</span></div></td>");
-                                    else out.println("<td></td>");
-                                    if (wed.size() > i)                                    
-                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + wed.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + wed.get(i).getStart_time() + " - " + wed.get(i).getEnd_time() + "</span></div></td>");
-                                    else out.println("<td></td>");
-                                    if (thu.size() > i)                                    
-                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + thu.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + thu.get(i).getStart_time() + " - " + thu.get(i).getEnd_time() + "</span></div></td>");
-                                    else out.println("<td></td>");                                    
-                                    if (fri.size() > i)                                    
-                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + fri.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + fri.get(i).getStart_time() + " - " + fri.get(i).getEnd_time() + "</span></div></td>");
-                                    else out.println("<td></td>");                                    
-                                    if (sat.size() > i)                                    
-                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + sat.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + sat.get(i).getStart_time() + " - " + sat.get(i).getEnd_time() + "</span></div></td>");
-                                    else out.println("<td></td>");
-                                    if (sun.size() > i)                                    
-                                    out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + sun.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + sun.get(i).getStart_time() + " - " + sun.get(i).getEnd_time() + "</span></div></td>");
-                                    else out.println("<td></td>");
-                                    
+
+                                    if (mon.size() > i) {
+                                        out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + mon.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + mon.get(i).getStart_time() + " - " + mon.get(i).getEnd_time() + "</span></div></td>");
+                                    } else {
+                                        out.println("<td></td>");
+                                    }
+                                    if (tue.size() > i) {
+                                        out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + tue.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + tue.get(i).getStart_time() + " - " + tue.get(i).getEnd_time() + "</span></div></td>");
+                                    } else {
+                                        out.println("<td></td>");
+                                    }
+                                    if (wed.size() > i) {
+                                        out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + wed.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + wed.get(i).getStart_time() + " - " + wed.get(i).getEnd_time() + "</span></div></td>");
+                                    } else {
+                                        out.println("<td></td>");
+                                    }
+                                    if (thu.size() > i) {
+                                        out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + thu.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + thu.get(i).getStart_time() + " - " + thu.get(i).getEnd_time() + "</span></div></td>");
+                                    } else {
+                                        out.println("<td></td>");
+                                    }
+                                    if (fri.size() > i) {
+                                        out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + fri.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + fri.get(i).getStart_time() + " - " + fri.get(i).getEnd_time() + "</span></div></td>");
+                                    } else {
+                                        out.println("<td></td>");
+                                    }
+                                    if (sat.size() > i) {
+                                        out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + sat.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + sat.get(i).getStart_time() + " - " + sat.get(i).getEnd_time() + "</span></div></td>");
+                                    } else {
+                                        out.println("<td></td>");
+                                    }
+                                    if (sun.size() > i) {
+                                        out.println("<td><div style = 'padding-left: 10px' class = 'card'> " + "<span style='color: #4A90E2; font-weight: bold;'>" + sun.get(i).getSubject_name() + " </span> " + "<span>Room " + mon.get(i).getRoom_id() + "</span>" + "<span style='color: #D0021B;'>" + sun.get(i).getStart_time() + " - " + sun.get(i).getEnd_time() + "</span></div></td>");
+                                    } else {
+                                        out.println("<td></td>");
+                                    }
+
                                     out.println("</tr>");
-                                }            
+                                }
                             %>
 
                             </tr>

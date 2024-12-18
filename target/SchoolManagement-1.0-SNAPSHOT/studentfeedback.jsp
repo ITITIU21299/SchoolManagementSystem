@@ -48,24 +48,37 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="studentfeedback.jsp"><i class="bi bi-chat-right-text"></i> Feedback</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="studentprofile.jsp"><i class="bi bi-person-circle"></i> Profile</a>
-                        </li>
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="staffDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-gear"></i> Setting
                             </a>
-                            <ul class="dropdown-menu p-2 " aria-labelledby="staffDropdown">
-                                <div class="form-check form-switch">
-                                  <input class="form-check-input" type="checkbox" role="switch" id="darkMode">
-                                  <label class="form-check-label" for="flexSwitchCheckDefault ">Dark Mode</label>
-                                </div>
+                            <ul class="dropdown-menu p-1" aria-labelledby="staffDropdown">
+                                <table style="width: 100%; border-spacing: 5px;">
+                                    <tr>
+                                        <td style="width: 30px; text-align: center;">
+                                            <div class="form-check form-switch" style="margin-left: 7px">
+                                                <input class="form-check-input" type="checkbox" role="switch" id="darkMode">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label class="form-check-label" for="darkMode">Dark Mode</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 30px; text-align: center;">
+                                            <i class="bi bi-person-circle" style="font-size: 1.4rem;"></i>
+                                        </td>
+                                        <td>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/StudentProfile">Profile</a>
+                                        </td>
+                                    </tr>
+                                </table>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.jsp"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/Logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
                         </li>
                     </ul>
                 </div>

@@ -115,14 +115,14 @@ public class SubmitFeedbackServlet extends HttpServlet {
                     .append("Student ID: ").append(studentId != null ? studentId : "Anonymous").append("\n")
                     .append("Student Name: ").append(studentName != null ? studentName : "Anonymous").append("\n")
                     .append("Email: ").append(studentEmail != null ? studentEmail : "Not provided").append("\n")
-                    .append("Message:\n")
+                    .append("Feedback Message:\n")
                     .append(feedbackMessage);
 
             message.setText(content.toString());
 
             Transport.send(message);
 
-            response.getWriter().write("<script>alert('Feedback submitted successfully!'); window.location.href='studentfeedback.html';</script>");
+            response.getWriter().write("<script>alert('Feedback submitted successfully!'); window.location.href='studentfeedback.jsp';</script>");
 
         } catch (MessagingException e) {
             e.printStackTrace();
