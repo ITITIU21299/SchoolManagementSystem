@@ -6,8 +6,6 @@ D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Class\Schedule.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Servlet\StudentProfile.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Util\PasswordUtil.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Servlet\Logout.java
-D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\StaffChangePassword.java
-D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Servlet\SubmitFeedbackServlet.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\DAO\StudentDAO.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Class\Salary.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\DAO\AttendanceDAO.java
@@ -32,6 +30,7 @@ D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Servlet\StaffSalary.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Class\Room.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Servlet\StaffSchedule.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Util\DBUtil.java
+D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Servlet\StudentFeedback.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Servlet\StudentFee.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Servlet\StudentExamSchedule.java
 D:\StudyFY\WEBLAB\SchoolManagementSystem\src\main\java\Class\Section.java
