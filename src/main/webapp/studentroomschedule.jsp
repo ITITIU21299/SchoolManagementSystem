@@ -171,7 +171,7 @@
                                     LocalDate firstMonday = start_date.with(java.time.temporal.TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
                                     out.print(firstMonday.plusWeeks(Integer.parseInt(week)));
 
-                                %><!--<span id="weekStart"></span>--></h6>
+                                %></h6>
                             <input type="submit" name="action" value="Next week" id="nextWeek" class="btn btn-primary"><!--<i class="bi bi-chevron-right"></i>-->
                         </div>
                     </form>                       
@@ -202,8 +202,6 @@
                                     if (!sc.getSemester().equals(se)) {
                                         continue;
                                     }
-                                    //if (!sc.getSubject_year().equals(ye))
-                                    //    continue;
                                     if (!sc.getWeek().equals(week)) {
                                         continue;
                                     }
@@ -274,7 +272,7 @@
             </div>
         </div>
 
-        <footer class="footer bg-primary text-white py-2 mt-auto fixed-bottom">
+        <footer class="footer bg-primary text-white py-2 mt-auto">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 mt-2 mb-2">

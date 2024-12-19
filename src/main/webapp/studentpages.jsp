@@ -97,53 +97,53 @@
                         </div>
                     </div>
                 </div>
-            <div class="row mt-4">
-                <div class="col-md-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Recent Announcements</h5>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Annual Sports Day on 15th July</li>
-                                <li class="list-group-item">Parent-Teacher Meeting next Friday</li>
-                                <li class="list-group-item">New Library Books Available</li>
-                            </ul>
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Recent Announcements</h5>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Annual Sports Day on 15th July</li>
+                                    <li class="list-group-item">Parent-Teacher Meeting next Friday</li>
+                                    <li class="list-group-item">New Library Books Available</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Upcoming Events</h5>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Mid-term Exams: 20th-25th August</li>
-                                <li class="list-group-item">Science Fair: 5th September</li>
-                                <li class="list-group-item">Career Counseling Session: 10th September</li>
-                            </ul>
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Upcoming Events</h5>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Mid-term Exams: 20th-25th August</li>
+                                    <li class="list-group-item">Science Fair: 5th September</li>
+                                    <li class="list-group-item">Career Counseling Session: 10th September</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <footer class="bg-primary text-white py-2 mt-auto fixed-bottom">
+        <footer class="footer bg-primary text-white py-2 mt-auto">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4 mb-2">
-                        <h6 class="mb-1">School Management System</h6>
-                        <p class="small mb-0">Empowering education through technology</p>
+                    <div class="col-md-4 mt-2 mb-2">
+                        <h3 class="mb-1 mt-2">School Management System</h3>
                     </div>
                     <div class="col-md-4 mb-2">
-                        <h6 class="mb-1">Quick Links</h6>
+                        <h6 class="mb-1 mt-2">Quick Links</h6>
                         <div class="small">
-                            <a href="#" class="text-white me-2">About</a>
-                            <a href="#" class="text-white me-2">Privacy</a>
-                            <a href="#" class="text-white">Terms</a>
+                            <a href="https://github.com/ITITIU21299/SchoolManagement" target="_blank" class="text-white me-2">About</a>
+                            <a href="privacy.html" target="_blank" class="text-white me-2">Privacy</a>
+                            <a href="terms.html" target="_blank" class="text-white">Terms</a>
                         </div>
                     </div>
                     <div class="col-md-4 mb-2">
                         <h6 class="mb-1">Contact</h6>
-                        <p class="small mb-0">info@schoolmanagementsystem.com</p>
-                        <p class="small mb-0">(123) 456-7890</p>
+                        <p class="small mb-0">schoolmanagementad@gmail.com</p>
+                        <p class="small mb-0">0123456789</p>
                     </div>
                 </div>
                 <hr class="my-2 bg-white opacity-25">
