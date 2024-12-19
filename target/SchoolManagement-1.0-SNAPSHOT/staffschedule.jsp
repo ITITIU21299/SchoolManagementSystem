@@ -136,8 +136,9 @@
                                 years = ye.split("-");
                                 
                                 %>
-                                Go to: <input type="text" name="week" size="20" placeholder="week">                              
-                                <Select name="semester year"> 
+                                <p class="d-inline" style="font-weight: bold; color: #007bff">Go to: </p>
+                                <input style="width: 10%" class="form-control d-inline" type="text" name="week" size="20" placeholder="week">                              
+                                <select style="width: 15%" class="form-select d-inline" name="semester year"> 
                                     <option value="<%=prevSe%> <%=prevYe%>"><%=prevSe%> - <%=prevYe%></option>
                                     <option selected="selected" value="<%=semester%> <%=year%>"><%=semester%> - <%=year%></option>
                                     <option value="<%=nextSe%> <%=nextYe%>"><%=nextSe%> - <%=nextYe%></option>                                    
@@ -147,7 +148,7 @@
                                 <input type="hidden" name="current week" value="<%=week%>">
                                 <input type="hidden" name="current se" value="<%=se%>">
                                 <input type="hidden" name="current ye" value="<%=ye%>">
-                                
+
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <input type="submit" name="action" value="Previous week" id="prevWeek" class="btn btn-primary"><!--<i class="bi bi-chevron-left"></i>-->
                                     <h6 id="currentWeek" class="mb-0">Week <%=week%>: 
