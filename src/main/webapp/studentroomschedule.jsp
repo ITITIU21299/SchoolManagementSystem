@@ -1,9 +1,3 @@
-<%-- 
-    Document   : studentroomschedule.jsp
-    Created on : Dec 14, 2024, 8:36:35 PM
-    Author     : admin
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Class.*" %>
 <%@page import="DAO.*" %>
