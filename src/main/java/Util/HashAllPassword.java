@@ -11,27 +11,21 @@ public class HashAllPassword {
         ResultSet rs = null;
 
         try {
-            // Establish a database connection
             conn = DBUtil.getConnection();
 
-            // Query to select users with plain-text passwords
             String selectQuery = "SELECT username, password FROM Users WHERE password IS NOT NULL";
             selectStmt = conn.prepareStatement(selectQuery);
             rs = selectStmt.executeQuery();
 
-            // Query to update hashed passwords
             String updateQuery = "UPDATE Users SET password = ? WHERE username = ?";
             updateStmt = conn.prepareStatement(updateQuery);
 
-            // Process each user
             while (rs.next()) {
                 String username = rs.getString("username");
                 String plainPassword = rs.getString("password");
 
-                // Hash the password using BCrypt
                 String hashedPassword = BCrypt.withDefaults().hashToString(12, plainPassword.toCharArray());
 
-                // Update the hashed password back to the database
                 updateStmt.setString(1, hashedPassword);
                 updateStmt.setString(2, username);
                 updateStmt.executeUpdate();
@@ -44,7 +38,6 @@ public class HashAllPassword {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            // Close resources
             try {
                 if (rs != null) rs.close();
                 if (selectStmt != null) selectStmt.close();
