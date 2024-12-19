@@ -3,18 +3,12 @@ package Servlet;
 import Class.*;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import DAO.*;
 import jakarta.servlet.http.HttpSession;
-import static java.lang.System.out;
 import java.util.List;
 
 public class StudentExamSchedule extends HttpServlet {
