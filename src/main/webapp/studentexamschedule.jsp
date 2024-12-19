@@ -192,7 +192,8 @@
                                 List<Exam> exams = (List<Exam>) request.getAttribute("exams");
                                 if (exams != null) {
                                     for (Exam exam : exams) {
-                                    if (exam.getWeek().equals("8") && exam.getSemester().equals(se) && exam.getSubject_year().equals(ye)) {}
+                                    if (exam.getWeek().equals("8") && exam.getSemester().equals(se) && exam.getSubject_year().equals(ye)) {
+                                
                             %>
                             <tr>
                                 <td><%= exam.getSubject() != null ? exam.getSubject() : "N/A"%></td>
@@ -202,6 +203,7 @@
                                 <td><%= exam.getRoomNumber() != null ? exam.getRoomNumber() : "N/A"%></td>
                             </tr>
                             <%
+                                    }
                                     }
                                 }
                             %>
