@@ -171,6 +171,10 @@
                                 <td>
                                     <form action="StaffDropRoom" method="post">
                                         <input type="hidden" name="scheduleId" value="<%= aroom.getScheduleId() %>">
+                                        <input type="hidden" name="date" value="<%= aroom.getDate() %>">
+                                        <input type="hidden" name="week" value="<%= aroom.getWeek() %>">
+                                        <input type="hidden" name="start" value="<%= aroom.getStartTime() %>">
+                                        <input type="hidden" name="end" value="<%= aroom.getEndTime() %>">                                        
                                         <input type="submit" value="Drop">
                                     </form>
                                 </td>
