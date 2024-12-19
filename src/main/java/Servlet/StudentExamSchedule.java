@@ -30,11 +30,7 @@ public class StudentExamSchedule extends HttpServlet {
         request.setAttribute("exams", exams);
 
         String week = "1";
-        String current_week = request.getParameter("current week");
-        String current_se = request.getParameter("current se");
-        String current_ye = request.getParameter("current ye");
         String action = "";
-
         String semester_year = "";
         
         if (request.getParameter("action") != null) {
@@ -44,28 +40,15 @@ public class StudentExamSchedule extends HttpServlet {
             if (request.getParameter("week") != null && !request.getParameter("week").isEmpty()) {
                 week = request.getParameter("week");
                 request.setAttribute("week", week);
-            } else {
-                request.setAttribute("week", current_week);
-            }
+            } 
             if (request.getParameter("semester year") != null) {
                 semester_year = request.getParameter("semester year");
                 String[] splited = semester_year.split("\\s+");
                 request.setAttribute("se", splited[0]);
                 request.setAttribute("ye", splited[1]);
             }
-        } else {
-            if (action.equals("Previous week")) {
-                int tmp = Integer.parseInt(current_week);
-                week = String.valueOf(tmp - 1);
-                request.setAttribute("week", week);
-            } else if (action.equals("Next week")) {
-                int tmp = Integer.parseInt(current_week);
-                week = String.valueOf(tmp + 1);
-                request.setAttribute("week", week);
-            }
-            request.setAttribute("se", current_se);
-            request.setAttribute("ye", current_ye);
         }
+        
         RequestDispatcher dispatcher = request.getRequestDispatcher("studentexamschedule.jsp");
         dispatcher.forward(request, response);
     }

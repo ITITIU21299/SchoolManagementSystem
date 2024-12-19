@@ -148,9 +148,6 @@
                         </select>
 
                         <input type="submit" name="action" value="Go" class="btn btn-primary d-inline">   
-                        <input type="hidden" name="current week" value="<%=week%>">
-                        <input type="hidden" name="current se" value="<%=se%>">
-                        <input type="hidden" name="current ye" value="<%=ye%>">
 
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h6 id="currentWeek" class="mb-0">
