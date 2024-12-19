@@ -48,7 +48,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/StudentAttendance"><i class="bi bi-calendar-check"></i> Attendance</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="studentfeedback.jsp"><i class="bi bi-chat-right-text"></i> Feedback</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/StudentFeedback"><i class="bi bi-chat-right-text"></i> Feedback</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -192,7 +192,8 @@
                                 List<Exam> exams = (List<Exam>) request.getAttribute("exams");
                                 if (exams != null) {
                                     for (Exam exam : exams) {
-                                    if (exam.getWeek().equals("8") && exam.getSemester().equals(se) && exam.getSubject_year().equals(ye)) {}
+                                    if (exam.getWeek().equals("8") && exam.getSemester().equals(se) && exam.getSubject_year().equals(ye)) {
+                                
                             %>
                             <tr>
                                 <td><%= exam.getSubject() != null ? exam.getSubject() : "N/A"%></td>
@@ -202,6 +203,7 @@
                                 <td><%= exam.getRoomNumber() != null ? exam.getRoomNumber() : "N/A"%></td>
                             </tr>
                             <%
+                                    }
                                     }
                                 }
                             %>

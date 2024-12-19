@@ -1,3 +1,4 @@
+Servlet\StudentFeedback.class
 Servlet\StudentExamSchedule.class
 Class\Attendance.class
 Servlet\StudentAttendance.class
@@ -19,6 +20,7 @@ DAO\UserDAO.class
 Servlet\StudentSchedule.class
 Servlet\UpdateAttendance.class
 Servlet\StaffDropRoom.class
+Servlet\StudentFeedback$1.class
 DAO\StaffDAO.class
 Class\Room.class
 Servlet\SubmitFeedbackServlet$1.class

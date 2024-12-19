@@ -2,7 +2,6 @@
 <%@page import="Class.*" %>
 <%@page import="DAO.*" %>
 <%@page import="java.util.*" %>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,8 +13,7 @@
         <link href="styles.css" rel="stylesheet">
     </head>
     <body style="display: flex; min-height: 100vh; flex-direction: column">
-        <% Student student = (Student) request.getAttribute("student"); %>
-        <% List<Exam> exams = (List<Exam>) request.getAttribute("exams"); %>                
+        <% Student student = (Student) request.getAttribute("student"); %>          
         <% float marks = (float) request.getAttribute("marks");%>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
@@ -41,7 +39,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/StudentAttendance"><i class="bi bi-calendar-check"></i> Attendance</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="studentfeedback.jsp"><i class="bi bi-chat-right-text"></i> Feedback</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/StudentFeedback"><i class="bi bi-chat-right-text"></i> Feedback</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">

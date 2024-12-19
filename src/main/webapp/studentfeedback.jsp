@@ -40,7 +40,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/StudentAttendance"><i class="bi bi-calendar-check"></i> Attendance</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="studentfeedback.jsp"><i class="bi bi-chat-right-text"></i> Feedback</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/StudentFeedback"><i class="bi bi-chat-right-text"></i> Feedback</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -83,7 +83,8 @@
             <h1>Provide Feedback</h1>
             <div class="card mt-4">
                 <div class="card-body">
-                    <form action="SubmitFeedback" method="post">
+                    <form action="StudentFeedback" method="post">
+                        <input type="hidden" value="${studentId}" name="studentId">
                         <div class="mb-3">
                             <label for="studentName" class="form-label">Student Name</label>
                             <input type="text" class="form-control" id="studentName" name="studentName">
@@ -141,7 +142,30 @@
         </footer>
         <script src="JavaScript/theme.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="main.js"></script>
+
+        <% String resultMessage = (String) request.getAttribute("resultMessage"); %>
+        <% if (resultMessage != null) { %>
+        <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #0056b3">
+                        <h5 class="modal-title" id="resultModalLabel">Feedback Status</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="color: #007bff; font-weight: bold">
+                        <%= resultMessage %>
+                    </div>
+                    <div class="modal-footer" style="background-color: #0056b3">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            const resultModal = new bootstrap.Modal(document.getElementById('resultModal'));
+            resultModal.show();
+        </script>
+        <% } %>
     </body>
 
 </html>

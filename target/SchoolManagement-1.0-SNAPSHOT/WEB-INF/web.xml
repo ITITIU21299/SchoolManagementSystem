@@ -60,6 +60,10 @@
         <servlet-name>StudentFee</servlet-name>
         <servlet-class>Servlet.StudentFee</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StudentFeedback</servlet-name>
+        <servlet-class>Servlet.StudentFeedback</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StaffSalary</servlet-name>
         <url-pattern>/StaffSalary</url-pattern>
@@ -119,6 +123,10 @@
     <servlet-mapping>
         <servlet-name>StudentFee</servlet-name>
         <url-pattern>/StudentFee</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentFeedback</servlet-name>
+        <url-pattern>/StudentFeedback</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
