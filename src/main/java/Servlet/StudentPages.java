@@ -29,17 +29,8 @@ public class StudentPages extends HttpServlet {
         Student student = studentDAO.getStudentByUsername(user.getUsername());
         request.setAttribute("student", student);
 
-        List<Exam> exams = studentDAO.getExamsByStudentId(student.getStudentId());
-        request.setAttribute("exams", exams);
-
         float marks = studentDAO.getMarksByStudentId(student.getStudentId());
         request.setAttribute("marks", marks);
-
-        List<Schedule> schedules = studentDAO.getRoomScheduleByStudentId(student.getStudentId());
-        session.setAttribute("schedules", schedules);
-
-        List<Fee> fees = studentDAO.getFeesByStudentId(student.getStudentId());
-        session.setAttribute("fees", fees);
 
         AttendanceDAO attendanceDAO = new AttendanceDAO();
         Map<String, List<Attendance>> attendanceMap = attendanceDAO.getAttendanceByStudentId(student.getStudentId());
