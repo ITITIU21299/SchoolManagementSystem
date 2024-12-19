@@ -1,9 +1,3 @@
-<%-- 
-    Document   : studentexamschedule
-    Created on : Dec 11, 2024, 3:58:21 PM
-    Author     : admin
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Class.*" %>
 <%@page import="DAO.*" %>
@@ -12,7 +6,6 @@
 <%@page import="java.time.LocalDate" %>
 <%@page import="java.time.DayOfWeek" %>
 
-<!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -245,7 +238,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="main.js"></script>
-        <footer class="bg-primary text-white py-2 mt-auto fixed-bottom">
+        <footer class="bg-primary text-white py-2 mt-auto">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 mb-2">
