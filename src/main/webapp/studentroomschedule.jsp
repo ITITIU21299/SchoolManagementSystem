@@ -188,7 +188,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <%                                List<Schedule> schedules = (List<Schedule>) session.getAttribute("schedules");
+                            <%                                List<Schedule> schedules = (List<Schedule>) request.getAttribute("schedules");
                                 List<Schedule> mon = (List<Schedule>) new ArrayList<Schedule>();
                                 List<Schedule> tue = (List<Schedule>) new ArrayList<Schedule>();
                                 List<Schedule> wed = (List<Schedule>) new ArrayList<Schedule>();
